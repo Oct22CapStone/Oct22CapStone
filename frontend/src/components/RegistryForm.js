@@ -96,35 +96,35 @@ function RegistryForm() {
               <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
               <div className="d-flex flex-row align-items-center mb-4 ">
                 <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput placeholder='Username' value={username} id="username" onChange={changeUsername}  type='text' className='w-100'/>
+                <MDBInput label='Username' value={username} id="username" onChange={changeUsername}  type='text' className='w-100'/>
               </div>
 
               <div className="d-flex flex-row align-items-center mb-4 ">
                 <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput placeholder='Your Name' value={firstName} onChange={changeFirstName} id="name"type='text' className='w-100'/>
+                <MDBInput label='Your Name' value={firstName} onChange={changeFirstName} id="name"type='text' className='w-100'/>
               </div>
               <div className="d-flex flex-row align-items-center mb-4 ">
                 <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput placeholder='Your Lastname' value={lastName} onChange={changeLastName} id="last" type='text' className='w-100'/>
+                <MDBInput label='Your Lastname' value={lastName} onChange={changeLastName} id="last" type='text' className='w-100'/>
               </div>
 
               <div className="d-flex flex-row align-items-center mb-4">
                 <MDBIcon fas icon="envelope me-3" size='lg'/>
-                <MDBInput placeholder='Your Email' onChange={changeEmail} value={email} id="email" type='email'/>
+                <MDBInput label='Your Email' onChange={changeEmail} value={email} id="email" type='email'/>
               </div>
               <div className="d-flex flex-row align-items-center mb-4 ">
                 <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput placeholder='Your Phone' value={phone} onChange={changePhone} id="phone" type='text' className='w-100'/>
+                <MDBInput label='Your Phone' value={phone} onChange={changePhone} id="phone" type='text' className='w-100'/>
               </div>
 
               <div className="d-flex flex-row align-items-center mb-4">
                 <MDBIcon fas icon="lock me-3" size='lg'/>
-                <MDBInput placeholder='Password' value={password} onChange={changePassword} id="password" type='password'/>
+                <MDBInput label='Password' value={password} onChange={changePassword} id="password" type='password'/>
               </div>
 
               <div className="d-flex flex-row align-items-center mb-4">
                 <MDBIcon fas icon="key me-3" size='lg'/>
-                <MDBInput placeholder='Repeat your password' value={passwordRepeat} onChange={changePasswordRepeat} id="passwordRepeat" type='password'/>
+                <MDBInput label='Repeat your password' value={passwordRepeat} onChange={changePasswordRepeat} id="passwordRepeat" type='password'/>
               </div>
 
               <MDBBtn className='mb-4' size='lg' onClick={handleRegister}>Register</MDBBtn>
