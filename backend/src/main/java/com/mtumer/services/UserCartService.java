@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mtumer.connections.UserCart;
+import com.mtumer.entity.UserCart;
 import com.mtumer.repo.UserCartRepo;
 
 @Service

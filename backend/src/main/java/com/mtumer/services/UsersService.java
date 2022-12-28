@@ -10,9 +10,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mtumer.entity.Address;
+import com.mtumer.entity.Users;
 import com.mtumer.repo.UserRepo;
-import com.mtumer.connections.Address;
-import com.mtumer.connections.Users;
 
 @Service
 public class UsersService {

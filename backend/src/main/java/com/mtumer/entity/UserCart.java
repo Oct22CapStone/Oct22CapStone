@@ -1,4 +1,4 @@
-package com.mtumer.connections;
+package com.mtumer.entity;
 
 
 import java.util.List;

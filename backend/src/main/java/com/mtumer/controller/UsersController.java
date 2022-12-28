@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mtumer.entity.Users;
 import com.mtumer.services.UsersService;
-import com.mtumer.connections.Users;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController

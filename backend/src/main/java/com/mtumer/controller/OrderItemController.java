@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mtumer.connections.OrderItem;
+import com.mtumer.entity.OrderItem;
 import com.mtumer.services.OrderItemService;
 
 @RestController

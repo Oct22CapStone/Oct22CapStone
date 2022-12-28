@@ -7,8 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mtumer.connections.Address;
-
+import com.mtumer.entity.Address;
 import com.mtumer.repo.AddressRepo;
 
 

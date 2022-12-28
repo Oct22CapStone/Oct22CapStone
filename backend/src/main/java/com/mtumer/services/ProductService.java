@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mtumer.connections.Product;
+import com.mtumer.entity.Product;
 import com.mtumer.repo.ProductRepo;
 
 @Service

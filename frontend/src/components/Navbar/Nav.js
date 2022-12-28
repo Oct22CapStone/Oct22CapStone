@@ -8,7 +8,9 @@ const Nav = () => {
 
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
 
-	const loggingOut = async () => { await oktaAuth.signOut();};
+	const loggingOut = async () => {
+		oktaAuth.tokenManager.clear();
+	  };
 
 	return (
 		<Section>

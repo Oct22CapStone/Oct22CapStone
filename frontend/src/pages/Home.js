@@ -1,22 +1,87 @@
 import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
 import styled from "styled-components";
-import { Data } from "../data";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import ProductService from "../services/ProductService";
+import Card from "../components/DisplayCard/Card";
+
+
 
 const Home = () => {
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
+
+	const [products, setProducts] = useState(null);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() =>{
+		const fetchData  = async () => {
+			setLoading(true);
+			try {
+				const response = await ProductService.getProduct();
+				setProducts(response.data);
+				console.log(products);
+			} catch(error) {
+				console.log(error);
+			}
+			setLoading(false);
+		};
+		fetchData();
+	}, []);
+
+
 
 	return (
 		<Container>
 			{authState?.isAuthenticated ? (
 				<>
 					<h2>Welcome back, {userInfo?.name}</h2>
+					{!loading && (
+				<article>
+					
+					{products.map(
+						({productId, productQty, productName, productImg, price_per_unit, productDescription}) => (
+						<div key={productId} className="card">
+
+								<Card
+									productImg={productImg}
+									productName={productName}
+									price_per_unit={price_per_unit}
+									productDescription={productDescription}
+								/>
+
+						</div>
+						)
+					)};
+
+					
+				</article>)}
 				</>
 			) : (
-				<p style={{ textAlign: "center", marginTop: "6rem", fontSize: '2rem' }}>
-					Please login to see products
-				</p>
+<>
+				{!loading  && (
+				<article>
+					
+					{products.map(
+						({id, productQty, productName, productImg, price_per_unit,productDescription}) => (
+							
+						<div key={id} className="card">
+			
+								<Card
+									productImg={productImg}
+									productName={productName}
+									price_per_unit={price_per_unit}
+									productDescription={productDescription}
+								/>
+						
+						</div>
+						)
+					)};
+
+					
+				</article>	)}</>
+	
 			)}
 		</Container>
 	);
