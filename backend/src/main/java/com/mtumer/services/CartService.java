@@ -29,25 +29,25 @@ public class CartService {
 	
 	public Cart createCart(Cart cart) {
 		Cart newCart = new Cart();
-		newCart.setProductid(cart.getProductid());
+		newCart.setProductId(cart.getProductId());
 		newCart.setQty(cart.getQty());
-		newCart.setUsercart_id(cart.getUsercart_id());
+		newCart.setUserCartId(cart.getUserCartId());
 		newCart = cartRepo.save(newCart);
 		return newCart;
 		
 	}
 	
 	
-	public Optional<Cart> getCartById(Long cart_id){
-		return cartRepo.findById(cart_id);
+	public Optional<Cart> getCartById(Long cartId){
+		return cartRepo.findById(cartId);
 	}
 	
 	public void update(Cart cart) {
 		cartRepo.saveAndFlush(cart);
 	}
 	
-	public void deleteCart(Long cart_id) {
-		cartRepo.deleteById(cart_id);
+	public void deleteCart(Long cartId) {
+		cartRepo.deleteById(cartId);
 	}
 	
 }

@@ -48,8 +48,8 @@ public class AddressService {
 					
 	}
 	
-	public void deleteAddress(Long address_id) {
-		addressRepo.deleteById(address_id);
+	public void deleteAddress(Long addressId) {
+		addressRepo.deleteById(addressId);
 	}
 	
 }
