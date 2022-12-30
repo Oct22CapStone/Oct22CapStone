@@ -1,44 +1,35 @@
 package com.mtumer.entity;
 
 import lombok.Data;
-
-import java.util.List;
-
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name="address")
+@Table(name = "address")
 @Data
 public class Address {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="address_id")
-	private Long address_id;
-	
-	@Column(name="street")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "address_id")
+	private Long addressId;
+
+	@Column(name = "street")
 	private String street;
-	
-	@Column(name="city")
+
+	@Column(name = "city")
 	private String city;
-	
-	@Column(name="state")
+
+	@Column(name = "state")
 	private String state;
-	
-	@Column(name="country")
+
+	@Column(name = "country")
 	private String country;
-	
-	@Column(name="zip")
+
+	@Column(name = "zip")
 	private String zip;
-	
+
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private Users user;
-	
+
 }
-
-
-
-

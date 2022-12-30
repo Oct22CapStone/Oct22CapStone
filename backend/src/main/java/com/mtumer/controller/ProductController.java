@@ -18,43 +18,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtumer.entity.Product;
 import com.mtumer.services.ProductService;
 
-
 @RestController
 @RequestMapping("/product")
 public class ProductController {
 
 	@Autowired
 	ProductService productService;
-	
-	
+
 	@GetMapping
-	public ResponseEntity<List<Product>> getAllProduct(){
+	public ResponseEntity<List<Product>> getAllProduct() {
 		List<Product> productList = productService.getAllProduct();
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/{productid}")
-	public ResponseEntity<Product> getByID(@PathVariable Long productid) {
-		Optional<Product> product = productService.getProductById(productid);
+	public ResponseEntity<Product> getByID(@PathVariable Long productId) {
+		Optional<Product> product = productService.getProductById(productId);
 		return new ResponseEntity<>(product.get(), HttpStatus.OK);
-		
+
 	}
-	
-	
+
 	@PostMapping("/save_product")
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		Product savedProduct = productService.createProduct(product);
-		return new ResponseEntity<Product>(savedProduct,HttpStatus.OK);
-		}
-	
+		return new ResponseEntity<Product>(savedProduct, HttpStatus.OK);
+	}
+
 	@PutMapping("/update/{productid}")
-	public void updateProduct(@PathVariable("productid") Long productid, @RequestBody Product product) {
-		Product updateProduct = productService.getProductById(productid).get();
-		if(updateProduct != null) {
+	public void updateProduct(@PathVariable("productid") Long productId, @RequestBody Product product) {
+		Product updateProduct = productService.getProductById(productId).get();
+		if (updateProduct != null) {
 			Product newProduct = new Product();
-			newProduct.setProductId(productid);
-			newProduct.setPrice_per_unit(product.getPrice_per_unit());
+			newProduct.setProductId(productId);
+			newProduct.setPricePerUnit(product.getPricePerUnit());
 			newProduct.setProductDescription(product.getProductDescription());
 			newProduct.setProductImg(product.getProductImg());
 			newProduct.setProductName(product.getProductName());
@@ -62,18 +58,14 @@ public class ProductController {
 			productService.update(newProduct);
 		}
 	}
-	
-	
+
 	@DeleteMapping("/delete/{productid}")
-	public void deleteProduct(@PathVariable("productid") Long productid) {
-		Product productRemoved = productService.getProductById(productid).get();
-		
-		if(productRemoved != null) {
-			productService.deleteProduct(productid);
+	public void deleteProduct(@PathVariable("productid") Long productId) {
+		Product productRemoved = productService.getProductById(productId).get();
+
+		if (productRemoved != null) {
+			productService.deleteProduct(productId);
 		}
 	}
-	
-	
-	
-	
+
 }

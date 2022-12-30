@@ -23,34 +23,32 @@ public class AddressController {
 
 	@Autowired
 	AddressService addressService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Address>>getAllAddress() {
+	public ResponseEntity<List<Address>> getAllAddress() {
 		List<Address> adrList = addressService.getAllAddress();
 		return new ResponseEntity<List<Address>>(adrList, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/save_address")
 	public ResponseEntity<Address> createAddress(@RequestBody Address address) {
 		Address savedAddress = addressService.createAddress(address);
-		return new ResponseEntity<Address>(savedAddress,HttpStatus.OK);
+		return new ResponseEntity<Address>(savedAddress, HttpStatus.OK);
 	}
-	
-	@GetMapping("/showaddress/{id}")
-    public ResponseEntity<Address> getById(@PathVariable Long address_id) {
-        Optional<Address> user = addressService.getAddressById(address_id);
-         return new ResponseEntity<>(user.get(), HttpStatus.OK);
 
-    }
-	
+	@GetMapping("/showaddress/{id}")
+	public ResponseEntity<Address> getById(@PathVariable Long addressId) {
+		Optional<Address> user = addressService.getAddressById(addressId);
+		return new ResponseEntity<>(user.get(), HttpStatus.OK);
+
+	}
+
 	@DeleteMapping("/delete/{id}")
-	public void deleteAddress(@PathVariable("id") Long address_id) {
-		Address removedAddress = addressService.getAddressById(address_id).get();
-		if(removedAddress != null) {
-			addressService.deleteAddress(address_id);
+	public void deleteAddress(@PathVariable("id") Long addressId) {
+		Address removedAddress = addressService.getAddressById(addressId).get();
+		if (removedAddress != null) {
+			addressService.deleteAddress(addressId);
 		}
 	}
-	
 
-	
 }

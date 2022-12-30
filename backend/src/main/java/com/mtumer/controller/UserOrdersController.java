@@ -17,46 +17,43 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtumer.entity.UserOrders;
 import com.mtumer.services.UserOrdersService;
 
-
 @RestController
 @RequestMapping("/user_orders")
 public class UserOrdersController {
 
 	@Autowired
 	UserOrdersService userOrdersService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<UserOrders>> getAllUserOrders(){
+	public ResponseEntity<List<UserOrders>> getAllUserOrders() {
 		List<UserOrders> userOrdersList = userOrdersService.getAllUserOrders();
 		return new ResponseEntity<List<UserOrders>>(userOrdersList, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/user_orders/{order_id}")
-	public ResponseEntity<UserOrders> getById(@PathVariable Long order_id) {
-		Optional<UserOrders> userOrders = userOrdersService.getUserOrdersById(order_id);
+	public ResponseEntity<UserOrders> getById(@PathVariable Long orderId) {
+		Optional<UserOrders> userOrders = userOrdersService.getUserOrdersById(orderId);
 		return new ResponseEntity<>(userOrders.get(), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/save_user_orders")
 	public ResponseEntity<UserOrders> createUserOrders(@RequestBody UserOrders userOrders) {
 		UserOrders savedUserOrders = userOrdersService.createUserOrders(userOrders);
 		return new ResponseEntity<UserOrders>(savedUserOrders, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/update/{order_id}")
-	public void updateUserOrders(@PathVariable("order_id") Long order_id, @RequestBody UserOrders userOrders) {
-		UserOrders updateuserOrders = userOrdersService.getUserOrdersById(order_id).get();
-		if(updateuserOrders != null) {
+	public void updateUserOrders(@PathVariable("order_id") Long orderId, @RequestBody UserOrders userOrders) {
+		UserOrders updateuserOrders = userOrdersService.getUserOrdersById(orderId).get();
+		if (updateuserOrders != null) {
 			UserOrders newUserOrder = new UserOrders();
-			newUserOrder.setOrder_id(order_id);
-			newUserOrder.setOrder_date(userOrders.getOrder_date());
-			newUserOrder.setTracking_info(userOrders.getTracking_info());
-			newUserOrder.setTotal_price(userOrders.getTotal_price());
+			newUserOrder.setOrderId(orderId);
+			newUserOrder.setOrderDate(userOrders.getOrderDate());
+			newUserOrder.setTrackingInfo(userOrders.getTrackingInfo());
+			newUserOrder.setTotalPrice(userOrders.getTotalPrice());
 			newUserOrder.setUserOrder(userOrders.getUserOrder());
 			userOrdersService.update(newUserOrder);
 		}
 	}
-	
-	
+
 }

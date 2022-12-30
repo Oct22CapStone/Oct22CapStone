@@ -10,42 +10,40 @@ import org.springframework.stereotype.Service;
 import com.mtumer.entity.UserOrders;
 import com.mtumer.repo.UserOrdersRepo;
 
-
 @Service
 public class UserOrdersService {
-	
+
 	@Autowired
 	UserOrdersRepo userOrdersRepo;
-	
-	public List<UserOrders> getAllUserOrders(){
+
+	public List<UserOrders> getAllUserOrders() {
 		List<UserOrders> userOrdersList = userOrdersRepo.findAll();
-		
-		if(userOrdersList.size() > 0) {
+
+		if (userOrdersList.size() > 0) {
 			return userOrdersList;
 		} else {
 			return new ArrayList<UserOrders>();
 		}
 	}
-	
+
 	public UserOrders createUserOrders(UserOrders userOrders) {
 		UserOrders newUserOrders = new UserOrders();
-		newUserOrders.setOrder_date(userOrders.getOrder_date());
-		newUserOrders.setTotal_price(userOrders.getTotal_price());
-		newUserOrders.setTracking_info(userOrders.getTracking_info());
+		newUserOrders.setOrderDate(userOrders.getOrderDate());
+		newUserOrders.setTotalPrice(userOrders.getTotalPrice());
+		newUserOrders.setTrackingInfo(userOrders.getTrackingInfo());
 		newUserOrders.setUserOrder(userOrders.getUserOrder());
-		newUserOrders.setAddress_id(userOrders.getAddress_id());
+		newUserOrders.setAddressId(userOrders.getAddressId());
 		newUserOrders = userOrdersRepo.save(newUserOrders);
 		return newUserOrders;
 	}
 
-	public Optional<UserOrders> getUserOrdersById(Long order_id) {
+	public Optional<UserOrders> getUserOrdersById(Long orderId) {
 
-		return userOrdersRepo.findById(order_id);
+		return userOrdersRepo.findById(orderId);
 	}
-	
+
 	public void update(UserOrders userOrders) {
 		userOrdersRepo.saveAndFlush(userOrders);
 	}
-	
-	
+
 }
