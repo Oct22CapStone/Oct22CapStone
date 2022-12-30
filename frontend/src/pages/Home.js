@@ -4,7 +4,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
+import UserService from "../services/UserService";
 import Card from "../components/DisplayCard/Card";
+import { Link } from "react-router-dom";
 
 
 
@@ -14,6 +16,7 @@ const Home = () => {
 
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [users, setUsers] = useState(null);
 
 	useEffect(() =>{
 		const fetchData  = async () => {
@@ -39,8 +42,17 @@ const Home = () => {
 					<h2>Welcome back, {userInfo?.name}</h2>
 					{!loading && (
 				<article>
+					<Container>
+						<section>
+							<h2>ADMIN PANEL</h2>
+							<p><Link to="/user">Users</Link></p>
+							<p><Link to="/orders">Orders (empty link)</Link></p>
+						</section>
+					</Container>
+
+				
 					
-					{products.map(
+					{/* {products.map(
 						({productId, productQty, productName, productImg, price_per_unit, productDescription}) => (
 						<div key={productId} className="card">
 
@@ -53,7 +65,7 @@ const Home = () => {
 
 						</div>
 						)
-					)};
+					)}; */}
 
 					
 				</article>)}
