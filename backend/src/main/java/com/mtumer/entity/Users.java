@@ -4,11 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="users")
@@ -19,7 +23,7 @@ public class Users {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@JoinColumn(name="user_id")
 	private Long user_id;
 
 	@Column(name="uuname")
@@ -40,8 +44,8 @@ public class Users {
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="acc_role")
-	private String acc_role;
+	@Column(name="acc_status")
+	private int acc_status;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
@@ -55,6 +59,10 @@ public class Users {
 	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<UserCart>userCart;
 	
-	
+	@JsonIgnore
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name="user_roles", joinColumns=@JoinColumn(name="user_id", referencedColumnName = "user_id"),
+		inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName = "role_id"))
+		private Set<Roles> roles;
 		
 }

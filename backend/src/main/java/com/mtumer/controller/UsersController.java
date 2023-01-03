@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mtumer.entity.Users;
+
+import com.mtumer.repo.RolesRepo;
 import com.mtumer.services.UsersService;
 
 @CrossOrigin(origins="http://localhost:3000")
@@ -27,6 +29,9 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersService;
+	
+	@Autowired
+	RolesRepo rolesRepo;
 	
 	
 	@GetMapping("/show")
@@ -62,7 +67,7 @@ public class UsersController {
 			newUser.setPassword(user.getPassword());
 			newUser.setEmail(user.getEmail());
 			newUser.setUsername(user.getUsername());
-			newUser.setAcc_role(user.getAcc_role());
+			newUser.setAcc_status(user.getAcc_status());
 			usersService.update(newUser);
 		}
 	}
@@ -75,7 +80,13 @@ public class UsersController {
 			usersService.deleteUser(user_id);
 		}
 	}
+	
+	
+
+	
 }
+
+
 
 
 
