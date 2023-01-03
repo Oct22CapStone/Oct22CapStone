@@ -64,7 +64,7 @@ public class AddressControllerTest {
 		address1.setCity("Nashville");
 		address1.setState("TN");
 		address1.setCountry("USA");
-		address1.setZip("45842");
+		address1.setZip("55842");
 
 		Address address2 = new Address();
 		address2.setAddressId(2l);
