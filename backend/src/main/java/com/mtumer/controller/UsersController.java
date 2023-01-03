@@ -1,6 +1,5 @@
 package com.mtumer.controller;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,73 +22,66 @@ import com.mtumer.repo.RolesRepo;
 import com.mtumer.services.RoleService;
 import com.mtumer.services.UsersService;
 
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/userpage")
 public class UsersController {
-	
+
 	@Autowired
 	UsersService usersService;
-	
-	@Autowired
-	RoleService RolesSRepo;
-	
-	
+
 	@GetMapping("/show")
-	public ResponseEntity<List<Users>> getAllUsers(){
+	public ResponseEntity<List<Users>> getAllUsers() {
 		List<Users> list = usersService.getAllUsers();
-		return new ResponseEntity<List<Users>>(list,HttpStatus.OK);
+		return new ResponseEntity<List<Users>>(list, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/show/{id}")
-    public ResponseEntity<Users> getById(@PathVariable Long id) {
-        Optional<Users> user = usersService.getUserById(id);
-         return new ResponseEntity<>(user.get(), HttpStatus.OK);
+	public ResponseEntity<Users> getById(@PathVariable Long id) {
+		Optional<Users> user = usersService.getUserById(id);
+		if (!user.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 
-    }
-		
-
+	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Users> createUsers(@RequestBody Users user) {
 		Users savedUser = usersService.createUser(user);
-		return new ResponseEntity<Users>(savedUser,HttpStatus.OK);
+		return new ResponseEntity<Users>(savedUser, HttpStatus.CREATED);
 	}
-	
-	@PutMapping("/update/{user_id}")
-	public void updateUser(@PathVariable("user_id") Long user_id, @RequestBody Users user) {
-		Users updateUser = usersService.getUserById(user_id).get();
-		if(updateUser != null) {
-			Users newUser = new Users();
-			newUser.setUser_id(user_id);
-			newUser.setFirstName(user.getFirstName());
-			newUser.setLastName(user.getLastName());
-			newUser.setPhone(user.getPhone());
-			newUser.setPassword(user.getPassword());
-			newUser.setEmail(user.getEmail());
-			newUser.setUsername(user.getUsername());
-			newUser.setAcc_status(user.getAcc_status());
-			usersService.update(newUser);
-		}
-	}
-	
-	@DeleteMapping("/delete/{user_id}")
-	public void deleteUser(@PathVariable("user_id") Long user_id) {
-		Users userRemoved = usersService.getUserById(user_id).get();
-		
-		if (userRemoved!=null) {
-			usersService.deleteUser(user_id);
-		}
-	}
-	
-	
 
+	@PutMapping("/update/{user_id}")
+	public ResponseEntity<Users> updateUser(@PathVariable("user_id") Long userId, @RequestBody Users user) {
+		Optional<Users> updateUser = usersService.getUserById(userId);
+		if (!updateUser.isPresent()) {
+			return ResponseEntity.notFound().build();
+
+		}
+		Users newUser = new Users();
+		newUser.setUserId(userId);
+		newUser.setFirstName(user.getFirstName());
+		newUser.setLastName(user.getLastName());
+		newUser.setPhone(user.getPhone());
+		newUser.setPassword(user.getPassword());
+		newUser.setEmail(user.getEmail());
+		newUser.setUsername(user.getUsername());
+		newUser.setAccRole(user.getAccRole());
+		usersService.update(newUser);
+		return new ResponseEntity<>(newUser, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/delete/{user_id}")
+	public ResponseEntity<Users> deleteUser(@PathVariable("user_id") Long userId) {
+		Optional<Users> userRemoved = usersService.getUserById(userId);
+		if (!userRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		usersService.deleteUser(userId);
+		return ResponseEntity.ok().build();
+	}
 	
 }
-
-
-
-
-
-
 

@@ -21,51 +21,55 @@ import com.mtumer.services.CartService;
 @RestController
 @RequestMapping("/cartpage")
 public class CartController {
-	
+
 	@Autowired
 	CartService cartService;
 
-	
 	@GetMapping
-	public ResponseEntity<List<Cart>> getAllCart(){
+	public ResponseEntity<List<Cart>> getAllCart() {
 		List<Cart> cartList = cartService.getAllCart();
-		return new ResponseEntity<List<Cart>>(cartList,HttpStatus.OK);
+		return new ResponseEntity<List<Cart>>(cartList, HttpStatus.OK);
 	}
-	
-	
-	@GetMapping("/{cart_id}")
-	public ResponseEntity<Cart> getById(@PathVariable Long cart_id){
-		Optional<Cart> cart = cartService.getCartById(cart_id);
+
+	@GetMapping("/showcart/{cart_id}")
+	public ResponseEntity<Cart> getById(@PathVariable("cart_id") Long cartId) {
+		Optional<Cart> cart = cartService.getCartById(cartId);
+		if (!cart.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		return new ResponseEntity<>(cart.get(), HttpStatus.OK);
 	}
-	
-	
+
 	@PostMapping("/save_cart")
-	public ResponseEntity<Cart> createCart(@RequestBody Cart cart){
-	Cart savedCart = cartService.createCart(cart);
-	return new ResponseEntity<Cart>(savedCart, HttpStatus.OK);
+	public ResponseEntity<Cart> createCart(@RequestBody Cart cart) {
+		Cart savedCart = cartService.createCart(cart);
+		return new ResponseEntity<Cart>(savedCart, HttpStatus.CREATED);
 	}
-	
-	@PutMapping("/update_cart/(cart_id")
-	public void updateCart(@PathVariable("cart_id") Long cart_id, @RequestBody Cart cart) {
-		Cart updateCart = cartService.getCartById(cart_id).get();
-		if(updateCart != null) {
-			Cart newCart = new Cart();
-			newCart.setCart_id(cart.getCart_id());
-			newCart.setProductid(cart.getProductid());
-			newCart.setQty(cart.getQty());
-			newCart.setUsercart_id(cart.getUsercart_id());
-			cartService.update(newCart);
-			
+
+	@PutMapping("/update/{cart_id}")
+	public ResponseEntity<Cart> updateCart(@PathVariable("cart_id") Long cartId, @RequestBody Cart cart) {
+		Optional<Cart> updateCart = cartService.getCartById(cartId);
+		if (!updateCart.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+
+		Cart newCart = new Cart();
+		newCart.setCartId(cart.getCartId());
+		newCart.setProductId(cart.getProductId());
+		newCart.setQty(cart.getQty());
+		newCart.setUserCartId(cart.getUserCartId());
+		cartService.update(newCart);
+		return new ResponseEntity<>(newCart, HttpStatus.OK);
 	}
-	
-	@DeleteMapping("delete/{cart_id}")
-	public void deleteCart (@PathVariable("cart_id") Long cart_id) {
-		Cart cartRemoved = cartService.getCartById(cart_id).get();
-		if(cartRemoved != null) {
-			cartService.deleteCart(cart_id);
+
+	@DeleteMapping("/delete/{cart_id}")
+	public ResponseEntity<Cart> deleteCart(@PathVariable("cart_id") Long cartId) {
+		Optional<Cart> cartRemoved = cartService.getCartById(cartId);
+		if (!cartRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		cartService.deleteCart(cartId);
+		return ResponseEntity.ok().build();
 	}
-	
+
 }
