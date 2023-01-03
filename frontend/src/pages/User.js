@@ -1,158 +1,86 @@
 import useAuthUser from "../hook/getUser";
-import { useOktaAuth } from "@okta/okta-react";
-import styled from "styled-components";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import UserService from "../services/UserService";
-import React from 'react';
 
 
+const data = [
+    { user_id: 27367, username: "kdjflds", firstName: "Bob", lastName: "Smith", email: "bob@mail.com", password: "la8kjda", phone: "3424756273", acc_role: "customer" },
+    { user_id: 23232, username: "ieuqo", firstName: "Pat", lastName: "Roberts", email: "pat@mail.com", password: "io3iuiyu", phone: "2546354899", acc_role: "admin" },
+    { user_id: 123124, username: "nvsma", firstName: "Phil", lastName: "White", email: "phil@mail.com", password: "q8erwre", phone: "8973542314", acc_role: "customer" },
+    { user_id: 5433, username: "apwej", firstName: "Cameron", lastName: "Johnson", email: "cam@mail.com", password: "c3vxvc", phone: "8374765344", acc_role: "admin" },
+    { user_id: 96986, username: "nruhvue", firstName: "Jo", lastName: "Greene", email: "jo@mail.com", password: "ml7kjklj", phone: "9987676754", acc_role: "customer" }
+  ]
 
-
-
-const userDiv = document.querySelector("div.user") // Find the user div in our html
-let tableHeaders = ["ID", "Username", "First", "Last", "Email", "Phone", "Password", "Role"]
-
-
-const createUserTable = () => {
-    while (userDiv.firstChild)
-        userDiv.removeChild(userDiv.firstChild) // Remove all children from user div (if any)
-
-    let userTable = document.createElement('table') // Create the table itself
-    userTable.className = 'userTable'
-
-    let userTableHead = document.createElement('thead') // Creates the table header group element
-    userTableHead.className = 'userTableHead'
-
-    let userTableHeaderRow = document.createElement('tr') // Creates the row that will contain the headers
-    userTableHeaderRow.className = 'userTableHeaderRow'// Will iterate over all the strings in the tableHeader array and will append the header cells to the table header row
-    
-    tableHeaders.forEach(header => {
-        let userHeader = document.createElement('th') // Creates the current header cell during a specific iteration
-        userHeader.innerText = header
-        userTableHeaderRow.append(userHeader) // Appends the current header cell to the header row
-    })
-
-    userTableHead.append(userTableHeaderRow) // Appends the header row to the table header group element
-
-    userTable.append(userTableHead)
-
-    let userTableBody = document.createElement('tbody') // Creates the table body group element
-    userTableBody.className = "userTable-Body"
-
-    userTable.append(userTableBody) // Appends the table body group element to the table
-
-    userDiv.append(userTable) // Appends the table to the user div
-};
-
-
-const getUsers = () => {
-    fetch('http://localhost:8181/userpage/show') // Fetch for all users. The response is an array of objects that is sorted in decreasing order
-    .then(res => res.json())
-    .then(users => {
-        createUserTable() // Clears user div if it has any children nodes, creates & appends the table
-        // Iterates through all the objects in the scores array and appends each one to the table body
-        for (const user of users) {
-            let userIndex = users.indexOf(user) + 1 // Index of score in score array for global ranking (these are already sorted in the back-end)
-            //appendUsers(user, userIndex) // Creates and appends each row to the table body
-        }
-    }
-    )
+const tableStyle = {
+    border: '1px solid black',
+    borderCollapse: 'collapse',
+    textAlign: 'center',
+    width: '100%'
 }
 
-const User = () => {
-
-    const { authState } = useOktaAuth();
-    const userInfo = useAuthUser();
-    const [loading, setLoading] = useState(true);
-    const [users, setUsers] = useState(null);
-
-    useEffect(() =>{
-		const fetchData  = async () => {
-			setLoading(true);
-			try {
-				const response = await UserService.getUser();
-				setUsers(response.data);
-				console.log(users);
-			} catch(error) {
-				console.log(error);
-			}
-			setLoading(false);
-		};
-		fetchData();
-	}, []);
-    
-
-
-    return (
-        <Container>
-            {authState?.isAuthenticated ? (
-                <>
-                    <h2>User Management</h2>
-                    {!loading && (
-                <article>
-                    <p>how to call the create table function??</p>
-                    {userInfo?.email}
-                </article>)}
-                </>
-            ) : (
-    <>
-                {!loading  && (
-                <article></article>	)}</>
-
-            )}
-        </Container>
-    );
-
-    
+const tdStyle = {
+    border: '1px solid #85C1E9',
+    background: 'white',
+    padding: '5px'
 };
 
-//THIS CODE TAKEN FROM A SCOREBOARD EXAMPLE, NOT YET IMPLEMENTED
-// // // The function below will accept a single user and its index to create the global ranking
-// // const appendUsers = (singleUser, singleUserIndex) => {
-// //     const scoreboardTable = document.querySelector('.userTable') // Find the table we created
-// //     let userTableBodyRow = document.createElement('tr') // Create the current table row
-// //     scoreboardTableBodyRow.className = 'scoreboardTableBodyRow'
-// //     // Lines 72-85 create the 5 column cells that will be appended to the current table row
-// //     let scoreRanking = document.createElement('td')
-// //     scoreRanking.innerText = singleScoreIndex
-// //     let usernameData = document.createElement('td')
-// //     usernameData.innerText = singleScore.user.username
-// //     let scoreData = document.createElement('td')
-// //     scoreData.innerText = singleScore.score
-// //     let timeData = document.createElement('td')
-// //     timeData.innerText = singleScore.time_alive
-// //     let accuracyData = document.createElement('td')
-// //     accuracyData.innerText = singleScore.accuracy
-// //     scoreboardTableBodyRow.append(scoreRanking, usernameData, scoreData, timeData, accuracyData) // Append all 5 cells to the table row
-// //     scoreboardTable.append(scoreboardTableBodyRow) // Append the current row to the scoreboard table body
-// // }
+const thStyle = {
+    border: '1px solid #3498DB',
+    background: '#3498DB',
+    color: 'white',
+    padding: '5px'
+};
+  
+  function User() {
+    const userInfo = useAuthUser();
 
+    return (
+      <div className="App">
+        <h1>Users</h1>
+        <table style={tableStyle}>
+          <thead>
+            <tr>
+              <th style={thStyle}>ID</th>
+              <th style={thStyle}>Username</th>
+              <th style={thStyle}>First</th>
+              <th style={thStyle}>Last</th>
+              <th style={thStyle}>Email</th>
+              <th style={thStyle}>Phone</th>
+              <th style={thStyle}>Password</th>
+              <th style={thStyle}>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              data.map((value, key) => {
+                return (
+                  <tr key={key}>
+                    <td style={tdStyle}>{value?.user_id}</td>
+                    <td style={tdStyle}>{value?.username}</td>
+                    <td style={tdStyle}>{value?.firstName}</td>
+                    <td style={tdStyle}>{value?.lastName}</td>
+                    <td style={tdStyle}>{value?.email}</td>
+                    <td style={tdStyle}>{value?.phone}</td>
+                    <td style={tdStyle}>{value?.password}</td>
+                    <td style={tdStyle}>{value?.acc_role}</td>
+                  </tr>
+                )
+              })
+            }
 
-
-
-
-
-const Container = styled.section`
-	max-width: 90%;
-	margin: 2rem auto;
-	& h2 {
-		font-size: 1.3rem;
-		font-weight: 500;
-		margin-bottom: 1rem;
-	}
-	& ul {
-		width: 50%;
-		list-style: none;
-		display: flex;
-		flex-direction: column;
-		background: #f2f3f5;
-   		padding: 1rem 2rem;
-		& li {
-			margin: 0.7rem 0;
-			font-size: 1rem;
-		}
-	}
-`;
-
-export default User;
+            {/* <tr>
+                <td style={tdStyle}>{userInfo?.user_id}</td>
+                <td style={tdStyle}>{userInfo?.username}</td>
+                <td style={tdStyle}>{userInfo?.firstName}</td>
+                <td style={tdStyle}>{userInfo?.lastName}</td>
+                <td style={tdStyle}>{userInfo?.email}</td>
+                <td style={tdStyle}>{userInfo?.phone}</td>
+                <td style={tdStyle}>{userInfo?.password}</td>
+                <td style={tdStyle}>{userInfo?.acc_role}</td>
+            </tr> */}
+            
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+  
+  export default User;

@@ -46,7 +46,7 @@ const Home = () => {
 						<section>
 							<h2>ADMIN PANEL</h2>
 							<p><Link to="/user">Users</Link></p>
-							<p><Link to="/orders">Orders (empty link)</Link></p>
+							<p><Link to="/order">Orders (empty link)</Link></p>
 						</section>
 					</Container>
 
