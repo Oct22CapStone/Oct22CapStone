@@ -36,7 +36,7 @@ INSERT INTO product ( show_product, product_qty, product_name, productimg, price
 VALUES (1, 10, "Mango", "https://exoticfruitbox.com/wp-content/uploads/2015/10/mango.jpg", 20.00, "Product Description");
 
 INSERT INTO product ( show_product, product_qty, product_name, productimg, price_per_unit, productdesc)
-VALUES (1, 10, "Green Grapes", "image", 20.00, "https://www.meijer.com/content/dam/meijer/product/0000/00/0004/02/0000000004022_2_A1C1_0600.png");
+VALUES (1, 10, "Green Grapes", "https://www.meijer.com/content/dam/meijer/product/0000/00/0004/02/0000000004022_2_A1C1_0600.png", 20.00, "Product Description");
 
 INSERT INTO product ( show_product, product_qty, product_name, productimg, price_per_unit, productdesc)
 VALUES (1, 10, "Purple Grapes", "https://images.heb.com/is/image/HEBGrocery/000375267", 20.00, "Product Description");

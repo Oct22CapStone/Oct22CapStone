@@ -35,7 +35,8 @@ const Home = () => {
 
 	return (
 		<Container>
-			
+			<head></head>
+			<h1>Welcome To Our Shop!</h1>
 			{authState?.isAuthenticated ? (
 				<>
 					<h2>Welcome back, {userInfo?.name}</h2>
@@ -46,14 +47,17 @@ const Home = () => {
 				<article>
 					
 					{products.map(
-						({productId, productQty, productName, productImg, price_per_unit, productDescription}) => (
+						({productId, productQty, showProduct, productName, productImg, pricePerUnit, productDescription}) => (
 						<div key={productId} className="card">
 
 								<Card
 									productImg={productImg}
+									productQty={productQty}
 									productName={productName}
-									price_per_unit={price_per_unit}
+									pricePerUnit={pricePerUnit}
 									productDescription={productDescription}
+									showProduct={showProduct}
+									productId={productId}
 								/>
 
 						</div>
@@ -69,15 +73,18 @@ const Home = () => {
 				<article>
 					
 					{products.map(
-						({id, productQty, productName, productImg, price_per_unit,productDescription}) => (
+						({id, productQty, productName, showProduct, productImg, pricePerUnit,productDescription}) => (
 							
 						<div key={id} className="card">
 			
 								<Card
+									
 									productImg={productImg}
+									productQty={productQty}
 									productName={productName}
-									price_per_unit={price_per_unit}
+									pricePerUnit={pricePerUnit}
 									productDescription={productDescription}
+									showProduct={showProduct}
 								/>
 						
 						</div>
@@ -95,7 +102,17 @@ const Home = () => {
 const Container = styled.section`
 	max-width: 90%;
 	margin: 2rem auto;
-	
+
+	& h1 {
+		display: flex;
+		align-items: right;
+		font-weight: 500;
+		margin-bottom: 2rem;
+		font-size: 1.7rem;
+		background: #e6ffee;
+		padding: 20px 80px;
+	}
+
 	& h2 {
 		font-weight: 500;
 		margin-bottom: 2rem;
