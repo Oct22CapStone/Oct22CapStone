@@ -34,9 +34,10 @@ const Home = () => {
 		//console.log("inside of products: ", products);
 
 	return (
+		
 		<Container>
-			<head></head>
 			<h1>Welcome To Our Shop!</h1>
+			
 			{authState?.isAuthenticated ? (
 				<>
 					<h2>Welcome back, {userInfo?.name}</h2>
