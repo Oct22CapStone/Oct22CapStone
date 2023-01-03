@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -38,6 +40,7 @@ public class UserCartServiceTest {
 	}
 	
 	@Test
+	@DisplayName("Test findAll Success")
 	void testGetAllUserCarts() {
 		List<UserCart> userCarts = new ArrayList<UserCart>();
 		Users user1= new Users();
@@ -61,10 +64,12 @@ public class UserCartServiceTest {
 		
 		//Assert
 		assertEquals(userCartList,userCarts);
+		Assertions.assertEquals(2, userCartList.size(), "findAll should return 2 UserCart entries");
 		verify(repo, times(1)).findAll();
 	}
 	
 	@Test
+	@DisplayName("Test createUserCart and save Success")
 	void testCreateOrSaveUserCart() {
 		Users user1= new Users();
 		user1.setUserId(25L);
@@ -79,10 +84,12 @@ public class UserCartServiceTest {
 
 		// assert
 		assertThat(created.getUserCartId()).isSameAs(userCart1.getUserCartId());
+		Assertions.assertNotNull(created,"The saved user cart should not be null");
 		verify(repo, times(1)).save(userCart1);
 	}
 	
 	@Test
+	@DisplayName("Test findById Success")
 	void testGetUserCartById() {
 		Users user1= new Users();
 		user1.setUserId(25L);
@@ -96,12 +103,26 @@ public class UserCartServiceTest {
 		Optional<UserCart> expected = service.getUserCartById(userCart1.getUserCartId());
 
 		// assert
-		assertThat(expected.get()).isSameAs(userCart1);
+		Assertions.assertTrue(expected.isPresent(),"User cart was not found.");
+		Assertions.assertSame(expected.get(), userCart1, "The user cart returned was not the same as the mock.");
 		verify(repo).findById(userCart1.getUserCartId());
 		
 	}
+	
+	@Test
+	@DisplayName("Test findById Not Found")
+	void testFindByIdNotFound() {
+		when(repo.findById(1l)).thenReturn(Optional.empty());
+		
+		//test
+		Optional<UserCart> expected = service.getUserCartById(1l);
+		
+		//assert
+		Assertions.assertFalse(expected.isPresent(), "User cart shouldn't exist, but was returned anyway.");
+	}
 
 	@Test
+	@DisplayName("Test deleteById Success")
 	void testDeleteUserCart() {
 		Users user1= new Users();
 		user1.setUserId(25L);
@@ -117,6 +138,7 @@ public class UserCartServiceTest {
 	}
 
 	@Test
+	@DisplayName("Test update Success")
 	void testUpdateUserCart() {
 		Users user1= new Users();
 		user1.setUserId(25L);

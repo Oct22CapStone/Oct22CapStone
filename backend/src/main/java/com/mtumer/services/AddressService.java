@@ -43,7 +43,7 @@ public class AddressService {
 		newAddress.setState(address.getState());
 		newAddress.setCountry(address.getCountry());
 		newAddress.setZip(address.getZip());
-		newAddress.setUser(address.getUser());
+		newAddress.setUserId(address.getUserId());
 		newAddress = addressRepo.save(newAddress);
 		return newAddress;
 	}

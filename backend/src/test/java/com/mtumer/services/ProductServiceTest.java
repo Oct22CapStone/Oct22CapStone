@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -36,6 +38,7 @@ public class ProductServiceTest {
 	}
 	
 	@Test
+	@DisplayName("Test findAll Success")
 	void testGetAllProducts() {
 		List<Product> products = new ArrayList<Product>();
 		Product product1 = new Product();
@@ -55,10 +58,12 @@ public class ProductServiceTest {
 		
 		//Assert
 		assertEquals(prodList,products);
+		Assertions.assertEquals(2, prodList.size(), "findAll should return 2 products");
 		verify(repo, times(1)).findAll();
 	}
 	
 	@Test
+	@DisplayName("Test createProduct and save Success")
 	void testCreateOrSaveProduct() {
 		Product product1 = new Product();
 		product1.setProductName("Green T-Shirt");
@@ -71,9 +76,11 @@ public class ProductServiceTest {
 
 		// assert
 		assertThat(created.getProductId()).isSameAs(product1.getProductId());
+		Assertions.assertNotNull(created,"The saved product should not be null");
 		verify(repo, times(1)).save(product1);
 	}
 	@Test
+	@DisplayName("Test findById Success")
 	void testGetProductById() {
 		Product product1 = new Product();
 		product1.setProductName("Green T-Shirt");
@@ -85,12 +92,26 @@ public class ProductServiceTest {
 		Optional<Product> expected = service.getProductById(product1.getProductId());
 
 		// assert
-		assertThat(expected.get()).isSameAs(product1);
+		Assertions.assertTrue(expected.isPresent(),"Product was not found.");
+		Assertions.assertSame(expected.get(), product1, "The product returned was not the same as the mock.");
 		verify(repo).findById(product1.getProductId());
 		
 	}
+	
+	@Test
+	@DisplayName("Test findById Not Found")
+	void testFindByIdNotFound() {
+		when(repo.findById(1l)).thenReturn(Optional.empty());
+		
+		//test
+		Optional<Product> expected = service.getProductById(1l);
+		
+		//assert
+		Assertions.assertFalse(expected.isPresent(), "Product shouldn't exist, but was returned anyway.");
+	}
 
 	@Test
+	@DisplayName("Test deleteById Success")
 	void testDeleteProduct() {
 		Product product1 = new Product();
 		product1.setProductName("Green T-Shirt");
@@ -103,6 +124,7 @@ public class ProductServiceTest {
 	}
 
 	@Test
+	@DisplayName("Test update Success")
 	void testUpdateProduct() {
 		Product product1 = new Product();
 		product1.setProductName("Green T-Shirt");

@@ -27,7 +27,7 @@ public class OrderItem {
 	private int productQty;
 
 	@ManyToOne
-	@JoinColumn(name = "order_id", nullable = false)
+	@JoinColumn(name = "orderId", nullable = false)
 	private UserOrders orderId;
 
 	@OneToOne(cascade = CascadeType.MERGE)

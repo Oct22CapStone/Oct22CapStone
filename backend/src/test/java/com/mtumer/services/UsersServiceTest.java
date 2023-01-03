@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -36,6 +38,7 @@ public class UsersServiceTest {
 	}
 
 	@Test
+	@DisplayName("Test findAll Success")
 	void testGetAllUsers() {
 		List<Users> users = new ArrayList<Users>();
 		Users user1 = new Users();
@@ -64,10 +67,12 @@ public class UsersServiceTest {
 
 		// assert
 		assertEquals(userList, users);
+		Assertions.assertEquals(2, userList.size(), "findAll should return 2 users.");
 		verify(repo, times(1)).findAll();
 	}
 
 	@Test
+	@DisplayName("Test createUser and save Success")
 	void testCreateOrSaveUser() {
 		Users user1 = new Users();
 		user1.setUsername("jsmith");
@@ -84,10 +89,12 @@ public class UsersServiceTest {
 
 		// assert
 		assertThat(created.getUsername()).isSameAs(user1.getUsername());
+		Assertions.assertNotNull(created,"The saved user should not be null");
 		verify(repo, times(1)).save(user1);
 	}
 
 	@Test
+	@DisplayName("Test findById Success")
 	void testGetUserById() {
 		Users user1 = new Users();
 		user1.setUserId(45L);
@@ -104,12 +111,26 @@ public class UsersServiceTest {
 		Optional<Users> expected = service.getUserById(user1.getUserId());
 
 		// assert
-		assertThat(expected.get()).isSameAs(user1);
+		Assertions.assertTrue(expected.isPresent(),"User was not found.");
+		Assertions.assertSame(expected.get(), user1, "The user returned was not the same as the mock.");
 		verify(repo).findById(user1.getUserId());
 		
 	}
+	
+	@Test
+	@DisplayName("Test findById Not Found")
+	void testFindByIdNotFound() {
+		when(repo.findById(1l)).thenReturn(Optional.empty());
+		
+		//test
+		Optional<Users> expected = service.getUserById(1l);
+		
+		//assert
+		Assertions.assertFalse(expected.isPresent(), "User shouldn't exist, but was returned anyway.");
+	}
 
 	@Test
+	@DisplayName("Test deleteById Success")
 	void testDeleteUser() {
 		Users user1 = new Users();
 		user1.setUserId(45L);
@@ -127,6 +148,7 @@ public class UsersServiceTest {
 	}
 
 	@Test
+	@DisplayName("Test update Success")
 	void testUpdateUser() {
 		Users user1 = new Users();
 		user1.setUserId(45L);

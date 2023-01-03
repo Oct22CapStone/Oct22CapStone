@@ -29,11 +29,11 @@ public class Cart {
 	private int qty;
 	
 	@OneToOne(cascade=CascadeType.MERGE)
-	@JoinColumn(name="productid")
+	@JoinColumn(name="productId")
 	private Product productId;
 	
 	
 	@ManyToOne
-	@JoinColumn(name="usercart_id")
+	@JoinColumn(name="userCartId")
 	private UserCart userCartId;
 }

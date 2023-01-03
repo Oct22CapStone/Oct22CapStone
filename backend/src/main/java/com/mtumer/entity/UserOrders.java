@@ -30,8 +30,8 @@ public class UserOrders {
 	private Long orderId;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private Users userOrder;
+	@JoinColumn(name = "userId", nullable = false)
+	private Users userId;
 
 	@Column(name = "order_date")
 	private java.sql.Date orderDate;
@@ -43,11 +43,11 @@ public class UserOrders {
 	private Double totalPrice;
 
 	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "shipping_address")
+	@JoinColumn(name = "addressId")
 	private Address addressId;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "order_id", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<OrderItem> OrderItems;
 
 }

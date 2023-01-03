@@ -31,7 +31,7 @@ public class UserOrdersService {
 		newUserOrders.setOrderDate(userOrders.getOrderDate());
 		newUserOrders.setTotalPrice(userOrders.getTotalPrice());
 		newUserOrders.setTrackingInfo(userOrders.getTrackingInfo());
-		newUserOrders.setUserOrder(userOrders.getUserOrder());
+		newUserOrders.setUserId(userOrders.getUserId());
 		newUserOrders.setAddressId(userOrders.getAddressId());
 		newUserOrders = userOrdersRepo.save(newUserOrders);
 		return newUserOrders;

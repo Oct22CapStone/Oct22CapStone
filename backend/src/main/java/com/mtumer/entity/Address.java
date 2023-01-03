@@ -3,6 +3,8 @@ package com.mtumer.entity;
 import lombok.Data;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "address")
 @Data
@@ -29,7 +31,7 @@ public class Address {
 	private String zip;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private Users user;
+	@JoinColumn(name = "userId", nullable = false)
+	private Users userId;
 
 }

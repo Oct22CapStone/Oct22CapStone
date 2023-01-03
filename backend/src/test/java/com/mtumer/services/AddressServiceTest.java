@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -37,6 +39,7 @@ public class AddressServiceTest {
 	}
 	
 	@Test
+	@DisplayName("Test findAll Success")
 	void testGetAllAddresses() {
 		List<Address> addresses = new ArrayList<Address>();
 		Address address1 = new Address();
@@ -55,7 +58,6 @@ public class AddressServiceTest {
 
 		addresses.add(address1);
 		addresses.add(address2);
-
 		when(repo.findAll()).thenReturn(addresses);
 
 		// test
@@ -63,10 +65,12 @@ public class AddressServiceTest {
 
 		// assert
 		assertEquals(addrList, addresses);
+		Assertions.assertEquals(2, addrList.size(), "findAll should return 2 addresses");
 		verify(repo, times(1)).findAll();
 	}
 	
 	@Test
+	@DisplayName("Test createAddress and save Success")
 	void testCreateOrSaveAddress() {
 		Address address1 = new Address();
 		address1.setStreet("12 Main Street");
@@ -82,10 +86,12 @@ public class AddressServiceTest {
 
 		// assert
 		assertThat(created.getAddressId()).isSameAs(address1.getAddressId());
+		Assertions.assertNotNull(created,"The saved address should not be null");
 		verify(repo, times(1)).save(address1);
 	}
 
 	@Test
+	@DisplayName("Test findById Success")
 	void testGetAddressById() {
 		Address address1 = new Address();
 		address1.setStreet("12 Main Street");
@@ -100,12 +106,26 @@ public class AddressServiceTest {
 		Optional<Address> expected = service.getAddressById(address1.getAddressId());
 
 		// assert
-		assertThat(expected.get()).isSameAs(address1);
+		Assertions.assertTrue(expected.isPresent(),"Address was not found.");
+		Assertions.assertSame(expected.get(), address1, "The address returned was not the same as the mock.");
 		verify(repo).findById(address1.getAddressId());
 		
 	}
+	
+	@Test
+	@DisplayName("Test findById Not Found")
+	void testFindByIdNotFound() {
+		when(repo.findById(1l)).thenReturn(Optional.empty());
+		
+		//test
+		Optional<Address> expected = service.getAddressById(1l);
+		
+		//assert
+		Assertions.assertFalse(expected.isPresent(), "Address shouldn't exist, but was returned anyway.");
+	}
 
 	@Test
+	@DisplayName("Test deleteById Success")
 	void testDeleteAddress() {
 		Address address1 = new Address();
 		address1.setStreet("12 Main Street");
@@ -121,6 +141,7 @@ public class AddressServiceTest {
 	}
 
 	@Test
+	@DisplayName("Test update Success")
 	void testUpdateAddress() {
 		Address address1 = new Address();
 		address1.setStreet("12 Main Street");

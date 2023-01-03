@@ -15,15 +15,15 @@ public class UserCart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "usercart_id")
+	@Column(name = "userCart_id")
 	private Long userCartId;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "userId")
 	private Users userId;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "usercart_id", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userCartId", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<Cart> cart;
 
 }

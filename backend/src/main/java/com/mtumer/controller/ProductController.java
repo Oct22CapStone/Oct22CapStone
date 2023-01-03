@@ -31,41 +31,47 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
 
-	@GetMapping("/{productid}")
-	public ResponseEntity<Product> getByID(@PathVariable Long productId) {
+	@GetMapping("/{id}")
+	public ResponseEntity<Product> getById(@PathVariable("id") Long productId) {
 		Optional<Product> product = productService.getProductById(productId);
+		if (!product.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		return new ResponseEntity<>(product.get(), HttpStatus.OK);
-
 	}
 
 	@PostMapping("/save_product")
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		Product savedProduct = productService.createProduct(product);
-		return new ResponseEntity<Product>(savedProduct, HttpStatus.OK);
+		return new ResponseEntity<Product>(savedProduct, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update/{productid}")
-	public void updateProduct(@PathVariable("productid") Long productId, @RequestBody Product product) {
-		Product updateProduct = productService.getProductById(productId).get();
-		if (updateProduct != null) {
-			Product newProduct = new Product();
-			newProduct.setProductId(productId);
-			newProduct.setPricePerUnit(product.getPricePerUnit());
-			newProduct.setProductDescription(product.getProductDescription());
-			newProduct.setProductImg(product.getProductImg());
-			newProduct.setProductName(product.getProductName());
-			newProduct.setProductQty(product.getProductQty());
-			productService.update(newProduct);
+	public ResponseEntity<Product> updateProduct(@PathVariable("productid") Long productId,
+			@RequestBody Product product) {
+		Optional<Product> updateProduct = productService.getProductById(productId);
+		if (!updateProduct.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		Product newProduct = new Product();
+		newProduct.setProductId(productId);
+		newProduct.setPricePerUnit(product.getPricePerUnit());
+		newProduct.setProductDescription(product.getProductDescription());
+		newProduct.setProductImg(product.getProductImg());
+		newProduct.setProductName(product.getProductName());
+		newProduct.setProductQty(product.getProductQty());
+		productService.update(newProduct);
+		return new ResponseEntity<>(newProduct, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{productid}")
-	public void deleteProduct(@PathVariable("productid") Long productId) {
-		Product productRemoved = productService.getProductById(productId).get();
-
-		if (productRemoved != null) {
-			productService.deleteProduct(productId);
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Product> deleteProduct(@PathVariable("id") Long productId) {
+		Optional<Product> productRemoved = productService.getProductById(productId);
+		if (!productRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		productService.deleteProduct(productId);
+		return ResponseEntity.ok().build();
 	}
 
 }

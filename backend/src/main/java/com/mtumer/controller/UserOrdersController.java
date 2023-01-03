@@ -30,30 +30,36 @@ public class UserOrdersController {
 		return new ResponseEntity<List<UserOrders>>(userOrdersList, HttpStatus.OK);
 	}
 
-	@GetMapping("/user_orders/{order_id}")
-	public ResponseEntity<UserOrders> getById(@PathVariable Long orderId) {
+	@GetMapping("/orders/{id}")
+	public ResponseEntity<UserOrders> getById(@PathVariable("id") Long orderId) {
 		Optional<UserOrders> userOrders = userOrdersService.getUserOrdersById(orderId);
+		if (!userOrders.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		return new ResponseEntity<>(userOrders.get(), HttpStatus.OK);
 	}
 
 	@PostMapping("/save_user_orders")
 	public ResponseEntity<UserOrders> createUserOrders(@RequestBody UserOrders userOrders) {
 		UserOrders savedUserOrders = userOrdersService.createUserOrders(userOrders);
-		return new ResponseEntity<UserOrders>(savedUserOrders, HttpStatus.OK);
+		return new ResponseEntity<UserOrders>(savedUserOrders, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update/{order_id}")
-	public void updateUserOrders(@PathVariable("order_id") Long orderId, @RequestBody UserOrders userOrders) {
-		UserOrders updateuserOrders = userOrdersService.getUserOrdersById(orderId).get();
-		if (updateuserOrders != null) {
-			UserOrders newUserOrder = new UserOrders();
-			newUserOrder.setOrderId(orderId);
-			newUserOrder.setOrderDate(userOrders.getOrderDate());
-			newUserOrder.setTrackingInfo(userOrders.getTrackingInfo());
-			newUserOrder.setTotalPrice(userOrders.getTotalPrice());
-			newUserOrder.setUserOrder(userOrders.getUserOrder());
-			userOrdersService.update(newUserOrder);
+	public ResponseEntity<UserOrders> updateUserOrders(@PathVariable("order_id") Long orderId,
+			@RequestBody UserOrders userOrders) {
+		Optional<UserOrders> updateuserOrders = userOrdersService.getUserOrdersById(orderId);
+		if (!updateuserOrders.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		UserOrders newUserOrder = new UserOrders();
+		newUserOrder.setOrderId(orderId);
+		newUserOrder.setOrderDate(userOrders.getOrderDate());
+		newUserOrder.setTrackingInfo(userOrders.getTrackingInfo());
+		newUserOrder.setTotalPrice(userOrders.getTotalPrice());
+		newUserOrder.setUserId(userOrders.getUserId());
+		userOrdersService.update(newUserOrder);
+		return new ResponseEntity<>(newUserOrder, HttpStatus.OK);
 	}
 
 }

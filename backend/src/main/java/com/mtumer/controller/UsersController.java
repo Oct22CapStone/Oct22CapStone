@@ -36,6 +36,9 @@ public class UsersController {
 	@GetMapping("/show/{id}")
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
 		Optional<Users> user = usersService.getUserById(id);
+		if (!user.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 
 	}
@@ -43,32 +46,36 @@ public class UsersController {
 	@PostMapping("/save")
 	public ResponseEntity<Users> createUsers(@RequestBody Users user) {
 		Users savedUser = usersService.createUser(user);
-		return new ResponseEntity<Users>(savedUser, HttpStatus.OK);
+		return new ResponseEntity<Users>(savedUser, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update/{user_id}")
-	public void updateUser(@PathVariable("user_id") Long userId, @RequestBody Users user) {
-		Users updateUser = usersService.getUserById(userId).get();
-		if (updateUser != null) {
-			Users newUser = new Users();
-			newUser.setUserId(userId);
-			newUser.setFirstName(user.getFirstName());
-			newUser.setLastName(user.getLastName());
-			newUser.setPhone(user.getPhone());
-			newUser.setPassword(user.getPassword());
-			newUser.setEmail(user.getEmail());
-			newUser.setUsername(user.getUsername());
-			newUser.setAccRole(user.getAccRole());
-			usersService.update(newUser);
+	public ResponseEntity<Users> updateUser(@PathVariable("user_id") Long userId, @RequestBody Users user) {
+		Optional<Users> updateUser = usersService.getUserById(userId);
+		if (!updateUser.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		Users newUser = new Users();
+		newUser.setUserId(userId);
+		newUser.setFirstName(user.getFirstName());
+		newUser.setLastName(user.getLastName());
+		newUser.setPhone(user.getPhone());
+		newUser.setPassword(user.getPassword());
+		newUser.setEmail(user.getEmail());
+		newUser.setUsername(user.getUsername());
+		newUser.setAccRole(user.getAccRole());
+		usersService.update(newUser);
+		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{user_id}")
-	public void deleteUser(@PathVariable("user_id") Long userId) {
-		Users userRemoved = usersService.getUserById(userId).get();
-
-		if (userRemoved != null) {
-			usersService.deleteUser(userId);
+	public ResponseEntity<Users> deleteUser(@PathVariable("user_id") Long userId) {
+		Optional<Users> userRemoved = usersService.getUserById(userId);
+		if (!userRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+
+		usersService.deleteUser(userId);
+		return ResponseEntity.ok().build();
 	}
 }
