@@ -26,7 +26,7 @@ public class OrderItemController {
 	OrderItemService orderItemService;
 	
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<OrderItem>>getAllOrderItem(){
 		List<OrderItem> orderItemList = orderItemService.getAllOrderItem();
 		return new ResponseEntity<List<OrderItem>>(orderItemList, HttpStatus.OK);

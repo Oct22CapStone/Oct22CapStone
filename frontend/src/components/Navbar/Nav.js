@@ -24,11 +24,17 @@ const Nav = () => {
 				<li>
 					{
 						authState?.isAuthenticated ? (
+							<div>
+							<button><Link to ={"/orders"}>Orders</Link></button>
 							<button onClick={loggingOut}>Logout</button>
+							</div>
+							
 						) : (
 							<div>
 								<button onClick={loggingIn}>Login</button>
                             	<button><Link to={"/register"}>Register</Link></button>
+								
+								
                             </div>
 						)
 					}
