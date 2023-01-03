@@ -1,18 +1,12 @@
 package com.mtumer.repo;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mtumer.entity.Users;
+import com.mtumer.entity.UserRole;
 
 
 @Repository
-public interface UserRepo extends JpaRepository<Users, Long> {
-	
+public interface UserRoleRepo extends JpaRepository<UserRole, Long>{
 
 }
-
-
-

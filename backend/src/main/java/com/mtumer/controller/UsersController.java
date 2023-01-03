@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mtumer.entity.Users;
+
+import com.mtumer.repo.RolesRepo;
+import com.mtumer.services.RoleService;
 import com.mtumer.services.UsersService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -54,6 +57,7 @@ public class UsersController {
 		Optional<Users> updateUser = usersService.getUserById(userId);
 		if (!updateUser.isPresent()) {
 			return ResponseEntity.notFound().build();
+
 		}
 		Users newUser = new Users();
 		newUser.setUserId(userId);
@@ -78,4 +82,6 @@ public class UsersController {
 		usersService.deleteUser(userId);
 		return ResponseEntity.ok().build();
 	}
+	
 }
+
