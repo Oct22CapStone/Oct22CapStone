@@ -12,6 +12,9 @@ public class Product {
 	@Column(name="productid")
 	private Long productId;
 	
+	@Column (name="show_product")
+	private boolean showProduct;
+	
 	@Column(name="productQty")
 	private int productQty;
 	
