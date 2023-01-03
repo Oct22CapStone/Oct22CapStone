@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mtumer.entity.Address;
+import com.mtumer.entity.Product;
 import com.mtumer.repo.AddressRepo;
 
 
@@ -28,6 +29,10 @@ public class AddressService {
 		}
 	}
 	
+	public void update(Address address) {
+		addressRepo.saveAndFlush(address);
+	}
+	
 	
 	public Address createAddress(Address address) {
 		
@@ -38,7 +43,7 @@ public class AddressService {
 		newAddress.setState(address.getState());
 		newAddress.setCountry(address.getCountry());
 		newAddress.setZip(address.getZip());
-		newAddress.setUser(address.getUser());
+		newAddress.setUserId(address.getUserId());
 		newAddress = addressRepo.save(newAddress);
 		return newAddress;
 	}
@@ -48,8 +53,8 @@ public class AddressService {
 					
 	}
 	
-	public void deleteAddress(Long address_id) {
-		addressRepo.deleteById(address_id);
+	public void deleteAddress(Long addressId) {
+		addressRepo.deleteById(addressId);
 	}
 	
 }
