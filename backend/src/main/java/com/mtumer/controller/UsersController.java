@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtumer.entity.Users;
 
 import com.mtumer.repo.RolesRepo;
+import com.mtumer.services.RoleService;
 import com.mtumer.services.UsersService;
 
 @CrossOrigin(origins="http://localhost:3000")
@@ -31,7 +32,7 @@ public class UsersController {
 	UsersService usersService;
 	
 	@Autowired
-	RolesRepo rolesRepo;
+	RoleService RolesSRepo;
 	
 	
 	@GetMapping("/show")

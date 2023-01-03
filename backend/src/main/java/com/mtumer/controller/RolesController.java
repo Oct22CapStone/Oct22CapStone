@@ -29,9 +29,9 @@ public class RolesController {
 	RoleService roleService;
 	
 	@GetMapping("/show")
-	public ResponseEntity<Set<Roles>> getAllRoles(){
-		Set<Roles> roleList = roleService.getAllRoles();
-		return new ResponseEntity<Set<Roles>>(roleList, HttpStatus.OK);
+	public ResponseEntity<List<Roles>> getAllRoles(){
+		List<Roles> roleList = roleService.getAllRoles();
+		return new ResponseEntity<List<Roles>>(roleList, HttpStatus.OK);
 	}
 	
 	@GetMapping("/show/{id}")

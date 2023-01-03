@@ -35,8 +35,9 @@ public class Roles {
 	private String roleName;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "roles")
-	private Set<Users> user;
+	@OneToMany(mappedBy = "role")
+	private List<UserRole> user;
+	
 }
 
 

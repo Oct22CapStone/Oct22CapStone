@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.mtumer.entity.Roles;
 import com.mtumer.repo.RolesRepo;
+import com.mtumer.repo.UserRepo;
 
 @Service
 public class RoleService {
@@ -19,13 +20,11 @@ public class RoleService {
 	@Autowired
 	RolesRepo rolesRepo;
 	
-	public Set<Roles> getAllRoles() {
-		Set<Roles> roleList = new HashSet<Roles>(rolesRepo.findAll());
-		if(roleList.size() > 0) {
-			return roleList;
-		}else {
-			return new HashSet<Roles>();
-		}
+	@Autowired
+	UserRepo userRepo;
+	
+	public List<Roles> getAllRoles() {
+		return rolesRepo.findAll();
 	}
 	
 	public Roles createRole(Roles role) {

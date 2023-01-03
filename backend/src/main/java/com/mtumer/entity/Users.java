@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.EnumSet;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -60,9 +59,8 @@ public class Users {
     private List<UserCart>userCart;
 	
 	@JsonIgnore
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinTable(name="user_roles", joinColumns=@JoinColumn(name="user_id", referencedColumnName = "user_id"),
-		inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName = "role_id"))
-		private Set<Roles> roles;
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<UserRole> role;
+
 		
 }
