@@ -6,7 +6,7 @@ import Profile from "./pages/Profile";
 import { oktaConfig } from "./config";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import RegistryForm from "./components/RegistryForm";
-import AddProduct from "./components/AddProduct";
+import EditProducts from "./components/EditProducts";
 
 
 
@@ -24,7 +24,7 @@ const Routes = () => {
 			<Switch>
 				<Route path="/" exact={true} component={Home} />
         		<Route path="/register" exact={true} component={RegistryForm} />
-				<Route path="/addproduct" exact={true} component={AddProduct} />
+				<Route path="/editproducts" exact={true} component={EditProducts} />
 				<SecureRoute path="/profile" component={Profile} />
 				<Route path="/login/callback" component={LoginCallback} />
 			</Switch>
