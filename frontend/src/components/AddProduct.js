@@ -22,11 +22,11 @@ function AddProduct() {
 
 // change value of states
   const changeShowProduct = (event) => {
-    setShowProduct(event.target.value); //button trigger returns value here
+    setShowProduct(parseInt(event.target.value)); //button trigger returns value here
   };
 
   const changeProductQty = (event) => {
-    setProductQty(event.target.value); //button trigger returns value here
+    setProductQty(parseInt(event.target.value)); //button trigger returns value here
   };
 
   const changeProductName = (event) => {
@@ -38,7 +38,7 @@ function AddProduct() {
   };
 
   const changePricePerUnit = (event) => {
-    setPricePerUnit(event.target.value); //button trigger returns value here
+    setPricePerUnit(parseInt(event.target.value)); //button trigger returns value here
   };
 
   const changeProductDescription = (event) => {

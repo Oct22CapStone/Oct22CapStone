@@ -34,7 +34,7 @@ const Nav = () => {
 					}
 				</li>
 				<li>
-					<Link to="/addproduct">Add Product</Link>
+					<Link to="/addproduct">Edit Products</Link>
 				</li>
 			</ul>
 		</Section>
