@@ -11,7 +11,8 @@ import {
 from 'mdb-react-ui-kit';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import Card from "../components/DisplayCard/Card";
+import Card from './DisplayCard/Card';
+
 
 
 function EditProducts() {
@@ -103,7 +104,7 @@ function EditProducts() {
   const changeProductDescriptionUpdate = (eventUpdate) => {
     setProductDescriptionUpdate(eventUpdate.target.value); //button trigger returns value here
   };
-  console.log("Update Product ID: ", productIdUpdate);
+  // console.log("Update Product ID: ", productIdUpdate);
 
 // VIEW BY ID READ IN
 const changeProductIdView = (eventView) => {
@@ -123,6 +124,8 @@ const changeProductIdView = (eventView) => {
       pricePerUnit,
       productDescription,
     };
+    //testing
+    console.log("Add product info sent: ", addProductValue);
     axios.post("http://localhost:8181/product/save_product", addProductValue);
     clearEntryAddProduct();
   }
@@ -130,6 +133,8 @@ const changeProductIdView = (eventView) => {
 const handleDeleteProduct = (eventDelete) => {
   eventDelete.preventDefault();
   const deleteUrl = "http://localhost:8181/product/delete/".concat(productIdDelete);
+  //testing
+  console.log("Delete info sent: ", deleteUrl, productIdDelete);
   axios.delete(deleteUrl, parseInt(productIdDelete));
   clearEntryDeleteProduct();
 }
@@ -146,6 +151,8 @@ const handleUpdateProduct = (eventUpdate) => {
     productDescriptionUpdate,
   };
   const updateUrl = "http://localhost:8181/product/update/".concat(productIdUpdate);
+  //testing
+  console.log("update info sent: ", updateUrl, updateProductValue, productIdUpdate);
   axios.put(updateUrl, parseInt(productIdUpdate), updateProductValue);
   clearEntryUpdateProduct();
 }
@@ -154,6 +161,7 @@ const handleUpdateProduct = (eventUpdate) => {
 
 const handleViewProduct = (eventView) => {
   eventView.preventDefault();
+  console.log("inside handleViewProduct: ", products);
           products.map(
             ({productId, productQty, showProduct, productName, productImg, pricePerUnit, productDescription}) => (
             <div key={productId} className="card">
@@ -216,7 +224,20 @@ const handleViewProduct = (eventView) => {
 
       <MDBCard className='text-black m-5' style={{borderRadius: '25px'}}>
         <MDBCardBody>
-          <MDBRow>
+
+
+        <MDBRow>
+              {/* View Product */}
+            <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View Product</p>
+              <div className="d-flex flex-row align-items-center mb-4 ">
+                <MDBInput label='Product ID' value={productIdView} id="productIdView" onChange={changeProductIdView} type='text' />
+              </div>
+              <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View Product</MDBBtn>
+            </MDBCol> 
+        </MDBRow>
+
+        <MDBRow>
 
           {/* Add Product */}
             <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
@@ -279,28 +300,8 @@ const handleViewProduct = (eventView) => {
               </div>
               <MDBBtn className='mb-4' size='lg' onClick={handleDeleteProduct}>Delete Product</MDBBtn>
             </MDBCol> 
-
-  {/* End of First Row */}
-
-
-            <MDBRow>
-              {/* View Product */}
-            <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View Product</p>
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBInput label='Product ID' value={productIdView} id="productIdView" onChange={changeProductIdView} type='text' />
-              </div>
-              <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View Product</MDBBtn>
-            </MDBCol> 
-
-            </MDBRow>
-
-            <MDBRow>
-
-              
-            </MDBRow>
-
           </MDBRow>
+          
         </MDBCardBody>
       </MDBCard>
 
