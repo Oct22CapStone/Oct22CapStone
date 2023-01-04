@@ -16,7 +16,6 @@ const Home = () => {
 
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [users, setUsers] = useState(null);
 
 	useEffect(() =>{
 		const fetchData  = async () => {
@@ -49,25 +48,6 @@ const Home = () => {
 							<p><Link to="/order">Orders (empty link)</Link></p>
 						</section>
 					</Container>
-
-				
-					
-					{/* {products.map(
-						({productId, productQty, productName, productImg, price_per_unit, productDescription}) => (
-						<div key={productId} className="card">
-
-								<Card
-									productImg={productImg}
-									productName={productName}
-									price_per_unit={price_per_unit}
-									productDescription={productDescription}
-								/>
-
-						</div>
-						)
-					)}; */}
-
-					
 				</article>)}
 				</>
 			) : (
