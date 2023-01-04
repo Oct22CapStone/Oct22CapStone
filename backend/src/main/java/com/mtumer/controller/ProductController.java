@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.mtumer.entity.Product;
 import com.mtumer.services.ProductService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/product")
 public class ProductController {
 
@@ -60,6 +62,8 @@ public class ProductController {
 		newProduct.setProductImg(product.getProductImg());
 		newProduct.setProductName(product.getProductName());
 		newProduct.setProductQty(product.getProductQty());
+		newProduct.setProductQty(product.getProductQty());
+		newProduct.setShowProduct(product.isShowProduct()); // added
 		productService.update(newProduct);
 		return new ResponseEntity<>(newProduct, HttpStatus.OK);
 	}

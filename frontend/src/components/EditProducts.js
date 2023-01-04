@@ -9,7 +9,10 @@ import {
   MDBInput,
 } 
 from 'mdb-react-ui-kit';
-import { useState } from 'react';
+import { useEffect, useState } from "react";
+import ProductService from "../services/ProductService";
+import Card from "../components/DisplayCard/Card";
+
 
 function EditProducts() {
 
@@ -31,6 +34,24 @@ function EditProducts() {
   const [productImgUpdate, setProductImgUpdate] = useState('');
   const [pricePerUnitUpdate, setPricePerUnitUpdate] = useState('');
   const [productDescriptionUpdate, setProductDescriptionUpdate] = useState('');
+  // VIEW BY ID
+  const [productIdView, setProductIdView] = useState('');
+  const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() =>{
+    const fetchData  = async () => {
+      setLoading(true);
+      try {
+        const response = await ProductService.getProduct();
+        setProducts(response.data); // now 'products' have all the products'
+      } catch(error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+    
+  }, []);
 
 
 
@@ -84,7 +105,11 @@ function EditProducts() {
   };
   console.log("Update Product ID: ", productIdUpdate);
 
-
+// VIEW BY ID READ IN
+const changeProductIdView = (eventView) => {
+  setProductIdView(parseInt(eventView.target.value));
+};
+//console.log("View by Id: ", productIdView);
 
 //************************* SEND VALUES TO AXIOS  *************************/
 // ADD SEND VALUES
@@ -106,13 +131,13 @@ const handleDeleteProduct = (eventDelete) => {
   eventDelete.preventDefault();
   const deleteUrl = "http://localhost:8181/product/delete/".concat(productIdDelete);
   axios.delete(deleteUrl, parseInt(productIdDelete));
-  //axios.delete(deleteUrl);
   clearEntryDeleteProduct();
 }
 // UPDATE SEND VALUES
 const handleUpdateProduct = (eventUpdate) => {
   eventUpdate.preventDefault();
   const updateProductValue = {
+    productIdUpdate, // added
     showProductUpdate,
     productQtyUpdate,
     productNameUpdate,
@@ -124,6 +149,36 @@ const handleUpdateProduct = (eventUpdate) => {
   axios.put(updateUrl, parseInt(productIdUpdate), updateProductValue);
   clearEntryUpdateProduct();
 }
+
+// VIEW BY ID SEND VALUE
+
+const handleViewProduct = (eventView) => {
+  eventView.preventDefault();
+          products.map(
+            ({productId, productQty, showProduct, productName, productImg, pricePerUnit, productDescription}) => (
+            <div key={productId} className="card">
+
+                <Card
+                  productImg={productImg}
+                  productQty={productQty}
+                  productName={productName}
+                  pricePerUnit={pricePerUnit}
+                  productDescription={productDescription}
+                  showProduct={showProduct}
+                  productId={productId}
+                />
+            </div>
+            )
+          )
+  clearEntryViewProduct();
+} // end of handleViewProduct
+
+
+
+
+
+
+
   //************************* CLEAR FIELDS  *************************/
 
   // ADD CLEAR FIELDS
@@ -149,6 +204,10 @@ const handleUpdateProduct = (eventUpdate) => {
     setPricePerUnitUpdate('');
     setProductDescriptionUpdate('');
   };
+  // VIEW ID CLEAR FIELDS
+  const clearEntryViewProduct = () => {
+    setProductIdView('');
+  };
 
 
   // display
@@ -160,8 +219,8 @@ const handleUpdateProduct = (eventUpdate) => {
           <MDBRow>
 
           {/* Add Product */}
-            <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Add A Product</p>
+            <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Add Product</p>
               <div className="d-flex flex-row align-items-center mb-4 ">
                 <MDBInput label='Product Name' value={productName} id="productName" onChange={changeProductName} type='text' />
               </div>
@@ -183,18 +242,10 @@ const handleUpdateProduct = (eventUpdate) => {
               <MDBBtn className='mb-4' size='lg' onClick={handleAddProduct}>Add Product</MDBBtn>
             </MDBCol>
 
-          {/* Delete Product */}
-             <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Delete A Product</p>
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBInput label='Product ID' value={productIdDelete} id="productIdDelete" onChange={changeProductIdDelete} type='text' />
-              </div>
-              <MDBBtn className='mb-4' size='lg' onClick={handleDeleteProduct}>Delete Product</MDBBtn>
-            </MDBCol>
 
             {/* Update Product */}
-            <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Update A Product</p>
+            <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Update Product</p>
               <div className="d-flex flex-row align-items-center mb-4 ">
                 <MDBInput label='Product ID' value={productIdUpdate} id="productIdUpdate" onChange={changeProductIdUpdate} type='text' />
               </div>
@@ -219,6 +270,35 @@ const handleUpdateProduct = (eventUpdate) => {
               <MDBBtn className='mb-4' size='lg' onClick={handleUpdateProduct}>Update Product</MDBBtn>
             </MDBCol>
              
+
+             {/* Delete Product */}
+             <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Delete Product</p>
+              <div className="d-flex flex-row align-items-center mb-4 ">
+                <MDBInput label='Product ID' value={productIdDelete} id="productIdDelete" onChange={changeProductIdDelete} type='text' />
+              </div>
+              <MDBBtn className='mb-4' size='lg' onClick={handleDeleteProduct}>Delete Product</MDBBtn>
+            </MDBCol> 
+
+  {/* End of First Row */}
+
+
+            <MDBRow>
+              {/* View Product */}
+            <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View Product</p>
+              <div className="d-flex flex-row align-items-center mb-4 ">
+                <MDBInput label='Product ID' value={productIdView} id="productIdView" onChange={changeProductIdView} type='text' />
+              </div>
+              <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View Product</MDBBtn>
+            </MDBCol> 
+
+            </MDBRow>
+
+            <MDBRow>
+
+              
+            </MDBRow>
 
           </MDBRow>
         </MDBCardBody>
