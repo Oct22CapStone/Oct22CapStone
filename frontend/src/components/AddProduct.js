@@ -22,8 +22,10 @@ function AddProduct() {
 
 // change value of states
   const changeShowProduct = (event) => {
-    setShowProduct(parseInt(event.target.value)); //button trigger returns value here
+    setShowProduct(Boolean(event.target.value) ? 1 : 0); //button trigger returns value here
   };
+
+  console.log("show Product: ", showProduct);
 
   const changeProductQty = (event) => {
     setProductQty(parseInt(event.target.value)); //button trigger returns value here
@@ -81,7 +83,7 @@ function AddProduct() {
 
             <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
 
-              <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Add A Product</p>
+              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Add A Product</p>
 
               <div className="d-flex flex-row align-items-center mb-4 ">
                 <MDBInput label='Product Name' value={productName} id="productName" onChange={changeProductName} type='text' />
@@ -104,7 +106,7 @@ function AddProduct() {
               </div>
 
               <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBInput label='Show Product Boolean' value={showProduct} id="showProduct" onChange={changeShowProduct}  type='text' />
+                <MDBInput label='Show Product Boolean' value={Boolean(showProduct)} id="showProduct" onChange={changeShowProduct}  type='text' />
               </div>
 
               <MDBBtn className='mb-4' size='lg' onClick={handleAddProduct}>Add Product</MDBBtn>
