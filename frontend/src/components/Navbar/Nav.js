@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
 
+
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
 
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
 
 	const loggingOut = async () => {
-		oktaAuth.tokenManager.clear();
-	  };
+		oktaAuth.signOut();
+		//oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
+		//oktaAuth.closeSession();
+	 };
 
 	return (
 		<Section>
