@@ -7,6 +7,7 @@ import User from "./pages/User";
 import { oktaConfig } from "./config";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import RegistryForm from "./components/RegistryForm";
+import EditUser from "./pages/EditUser";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -24,6 +25,7 @@ const Routes = () => {
         <Route path="/register" exact={true} component={RegistryForm} />
 				<SecureRoute path="/profile" component={Profile} />
 				<SecureRoute path="/user" component={User} />
+				<SecureRoute path="/user/edit" component={EditUser} />
 				<Route path="/login/callback" component={LoginCallback} />
 			</Switch>
 		</Security>
