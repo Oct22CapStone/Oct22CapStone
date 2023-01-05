@@ -297,21 +297,22 @@ const handleViewProduct = (eventView) => {
         </MDBCardBody>
 
         <MDBCardBody>
+          
           <MDBRow>
                 {/* View Product *******************************/}
-              <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+              {/* <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
                 <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View Product</p>
                 <div className="d-flex flex-row align-items-center mb-4 ">
                   <MDBInput label='Product ID' value={productIdView} id="productIdView" onChange={changeProductIdView} type='text' />
                 </div>
                 <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View Product</MDBBtn>
-              </MDBCol> 
+              </MDBCol>  */}
 
                 {/* View All Products *******************************/} 
-              <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+              {/* <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
                 <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View All Products</p>
                 <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View All</MDBBtn>
-              </MDBCol> 
+              </MDBCol>  */}
           </MDBRow>
 
       </MDBCardBody>

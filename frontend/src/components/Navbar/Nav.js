@@ -39,6 +39,9 @@ const Nav = () => {
 				<li>
 					<Link to="/viewproducts">View Products</Link>
 				</li>
+				<li>
+					<Link to="/viewsingleproduct">View Single Product</Link>
+				</li>
 			</ul>
 		</Section>
 	);

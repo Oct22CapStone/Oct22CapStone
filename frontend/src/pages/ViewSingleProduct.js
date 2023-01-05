@@ -5,34 +5,86 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import Card from "../components/DisplayCard/Card";
+import {
+    MDBBtn,
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBInput,
+  } 
+  from 'mdb-react-ui-kit';
 
 
-
-const ViewProducts = () => {
+const ViewSingleProduct = () => {
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
-
-	const [products, setProducts] = useState(null);
+    const [product, setProduct] = useState(null);
 	const [loading, setLoading] = useState(true);
 
+    // product ID
+    const [productIdView, setProductIdView] = useState('');
+
+    // on click event, assign number to 'productIdView'
+    const changeProductIdView = (eventView) => {
+        setProductIdView(parseInt(eventView.target.value));
+      };
+
+    
+    const handleViewProduct = (eventView) => {
+    eventView.preventDefault();
+    
+    const productViewUrl = "http://localhost:8181/product/".concat(productIdView);
+    ProductService.getProductById(productIdView);
+    
+    // fetch(productViewUrl) //1
+    // .then((response) => response.json()) //2
+    // .then((product) => {
+    //     //setProduct(product); // ADDED **************
+    //     console.log("Inside of fetch, line 36: ", product); //3
+    // });
+
+    var productTest;
+    fetch(productViewUrl)
+        .then(res => res.json())
+        .then(data => {
+            productTest = data;
+        })
+        .then( () => {
+            console.log(productTest)
+        });
+
+    console.log("OUTSIDE of fetch: ", product);
+    console.log("PRODUCT TEST: ", productTest);
+    clearEntryViewProduct();
+    } // end of handleViewProduct
+
+    // VIEW ID CLEAR FIELDS
+  const clearEntryViewProduct = () => {
+    setProductIdView('');
+  };
+
     // Fetch all data and put into 'products'
-	useEffect(() =>{
-		const fetchData  = async () => {
-			setLoading(true);
-			try {
-				const response = await ProductService.getProduct();
-				setProducts(response.data);
-			} catch(error) {
-				console.log(error);
-			}
-			setLoading(false);
-		};
-		fetchData();
+	// useEffect(() =>{
+	// 	const fetchData  = async () => {
+	// 		setLoading(true);
+	// 		try {
+	// 			const response = await ProductService.getProductById(productIdView);
+	// 			setProduct(response.data);
+	// 		} catch(error) {
+	// 			console.log(error);
+	// 		}
+	// 		setLoading(false);
+	// 	};
+	// 	fetchData();
 		
-	}, []);
+	// }, []);
 
 
+    console.log("ID: ", productIdView);
 	return (
+
 		
 		<Container>
 	
@@ -47,7 +99,17 @@ const ViewProducts = () => {
                     */}
                 
                 
-                <h2>All Products</h2>	
+                <h2>Single Product</h2>	
+                {/* View Product *******************************/}
+              <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View Product</p>
+                <div className="d-flex flex-row align-items-center mb-4 ">
+                  <MDBInput label='Product ID' value={productIdView} id="productIdView" onChange={changeProductIdView} type='text' />
+                </div>
+                <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View Product</MDBBtn>
+              </MDBCol> 
+
+              
 					{!loading && (		
 				<article>             
                     {
@@ -61,12 +123,12 @@ const ViewProducts = () => {
                             <th>Price Per Unit</th>
                             <th>Product Description</th>
                             <th>Show</th>
-                            <th> {products.productImg}</th>
+                            <th> Image</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                products.map( ({productId, productQty, showProduct, productName, productImg, pricePerUnit, productDescription}) => {
+                                product.map( ({productId, productQty, showProduct, productName, productImg, pricePerUnit, productDescription}) => {
                                 return (
                                     <tr key={productId}>
                                     <td> { productId } </td>
@@ -83,7 +145,9 @@ const ViewProducts = () => {
                         </tbody> 
                     </table>
                     }
-				</article>)}
+				</article>
+                
+                )}
 				</>
 			) : ( //when not signed in:
 <>
@@ -148,4 +212,4 @@ const Container = styled.section`
 	}
 `;
 
-export default ViewProducts;
+export default ViewSingleProduct;
