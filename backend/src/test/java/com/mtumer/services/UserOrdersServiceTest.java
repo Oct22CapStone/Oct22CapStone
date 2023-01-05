@@ -126,7 +126,7 @@ public class UserOrdersServiceTest {
 		service.update(order1);
 		verify(repo).saveAndFlush(order1);
 		
-		//Assert that new phone number is saved
+		//Assert 
 		assertEquals("Shipped",order1.getTrackingInfo());
 	}
 }

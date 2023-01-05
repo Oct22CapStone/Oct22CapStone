@@ -27,43 +27,50 @@ public class RolesController {
 
 	@Autowired
 	RoleService roleService;
-	
+
 	@GetMapping("/show")
-	public ResponseEntity<List<Roles>> getAllRoles(){
+	public ResponseEntity<List<Roles>> getAllRoles() {
 		List<Roles> roleList = roleService.getAllRoles();
 		return new ResponseEntity<List<Roles>>(roleList, HttpStatus.OK);
 	}
-	
-	@GetMapping("/show/{id}")
-    public ResponseEntity<Roles> getById(@PathVariable Integer roleId) {
-        Optional<Roles> role = roleService.getRoleById(roleId);
-         return new ResponseEntity<>(role.get(), HttpStatus.OK);
 
-    }
-	
+	@GetMapping("/show/{id}")
+	public ResponseEntity<Roles> getById(@PathVariable("id") Integer roleId) {
+		Optional<Roles> role = roleService.getRoleById(roleId);
+		if (!role.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<>(role.get(), HttpStatus.OK);
+
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<Roles> createRole(@RequestBody Roles role) {
 		Roles savedRole = roleService.createRole(role);
-		return new ResponseEntity<Roles>(savedRole, HttpStatus.OK);
+		return new ResponseEntity<Roles>(savedRole, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/update/{roleId}")
-	public void updateRole(@PathVariable("roleId") Integer roleId, @RequestBody Roles role) {
-		Roles updateRole = roleService.getRoleById(roleId).get();
-		if(updateRole != null) {
-			Roles newRole = new Roles();
-			newRole.setRoleId(roleId);
-			newRole.setRoleName(role.getRoleName());
-			roleService.update(newRole);
+	public ResponseEntity<Roles> updateRole(@PathVariable("roleId") Integer roleId, @RequestBody Roles role) {
+		Optional<Roles> updateRole = roleService.getRoleById(roleId);
+		if (!updateRole.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		Roles newRole = new Roles();
+		newRole.setRoleId(roleId);
+		newRole.setRoleName(role.getRoleName());
+		roleService.update(newRole);
+		return new ResponseEntity<>(newRole, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete/{roleId}")
-	public void deleteRole(@PathVariable("roleId") Integer roleId) {
-		Roles roleRemoved = roleService.getRoleById(roleId).get();
-		if(roleRemoved != null) {
-			roleService.deleteRole(roleId);
+	public ResponseEntity<Roles> deleteRole(@PathVariable("roleId") Integer roleId) {
+		Optional<Roles> roleRemoved = roleService.getRoleById(roleId);
+		if (!roleRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		roleService.deleteRole(roleId);
+		return ResponseEntity.ok().build();
 	}
-		
-}	
+
+}

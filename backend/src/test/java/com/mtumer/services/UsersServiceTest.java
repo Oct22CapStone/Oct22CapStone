@@ -166,7 +166,7 @@ public class UsersServiceTest {
 		service.update(user1);
 		verify(repo).saveAndFlush(user1);
 		
-		//Assert that new phone number is saved
+		//Assert 
 		assertEquals("1235738456",user1.getPhone());
 	}
 }

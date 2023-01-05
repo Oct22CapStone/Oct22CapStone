@@ -21,51 +21,54 @@ import com.mtumer.entity.UserRole;
 @RestController
 @RequestMapping("/user_role")
 public class UserRoleController {
-	
-	
+
 	@Autowired
 	UserRoleService userRoleService;
-	
+
 	@GetMapping("/show")
-	public ResponseEntity<List<UserRole>> getAllUserRoles(){
-		List<UserRole> userRoleList=userRoleService.getAllUserRoles();
-		return new ResponseEntity<List<UserRole>>(userRoleList,HttpStatus.OK);
+	public ResponseEntity<List<UserRole>> getAllUserRoles() {
+		List<UserRole> userRoleList = userRoleService.getAllUserRoles();
+		return new ResponseEntity<List<UserRole>>(userRoleList, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/show/{id}")
-	public ResponseEntity<UserRole> getUserRoleById(@PathVariable Long id){
-		Optional<UserRole> userRole=userRoleService.getUserRoleById(id);
-		return new ResponseEntity<>(userRole.get(),HttpStatus.OK);
+	public ResponseEntity<UserRole> getUserRoleById(@PathVariable Long id) {
+		Optional<UserRole> userRole = userRoleService.getUserRoleById(id);
+		if (!userRole.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<>(userRole.get(), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/save")
-	public ResponseEntity<UserRole> createUserRole(@RequestBody UserRole userRole){
+	public ResponseEntity<UserRole> createUserRole(@RequestBody UserRole userRole) {
 		UserRole savedUserRole = userRoleService.createUserRole(userRole);
-		return new ResponseEntity<UserRole>(savedUserRole,HttpStatus.OK);
+		return new ResponseEntity<UserRole>(savedUserRole, HttpStatus.CREATED);
 	}
-	
-	
+
 	@PutMapping("/update/{user_role_id}")
-	public void updateUser(@PathVariable("user_role_id") Long user_role_id, @RequestBody UserRole userRole) {
-		UserRole updateUserRole = userRoleService.getUserRoleById(user_role_id).get();
-		if(updateUserRole != null) {
-			UserRole newUserRole=new UserRole();
-			newUserRole.setUserRoleId(user_role_id);
-			newUserRole.setRole(userRole.getRole());
-			newUserRole.setUser(userRole.getUser());
-			userRoleService.update(newUserRole);
+	public ResponseEntity<UserRole> updateUser(@PathVariable("user_role_id") Long user_role_id,
+			@RequestBody UserRole userRole) {
+		Optional<UserRole> updateUserRole = userRoleService.getUserRoleById(user_role_id);
+		if (!updateUserRole.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		UserRole newUserRole = new UserRole();
+		newUserRole.setUserRoleId(user_role_id);
+		newUserRole.setRole(userRole.getRole());
+		newUserRole.setUser(userRole.getUser());
+		userRoleService.update(newUserRole);
+		return new ResponseEntity<>(newUserRole, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete/{user_role_id}")
-	public void deleteUserRole(@PathVariable("user_role_id")Long user_role_id) {
-		UserRole userRoleRemoved = userRoleService.getUserRoleById(user_role_id).get();
-		if(userRoleRemoved!=null) {
-			userRoleService.deleteUserRole(user_role_id);
+	public ResponseEntity<UserRole> deleteUserRole(@PathVariable("user_role_id") Long user_role_id) {
+		Optional<UserRole> userRoleRemoved = userRoleService.getUserRoleById(user_role_id);
+		if (!userRoleRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		userRoleService.deleteUserRole(user_role_id);
+		return ResponseEntity.ok().build();
 	}
-	
-	
-	
-	
+
 }
