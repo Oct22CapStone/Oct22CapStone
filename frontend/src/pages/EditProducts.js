@@ -11,7 +11,7 @@ import {
 from 'mdb-react-ui-kit';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import Card from './DisplayCard/Card';
+import Card from '../components/DisplayCard/Card';
 import styled from "styled-components";
 
 

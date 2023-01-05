@@ -11,7 +11,7 @@ const Nav = () => {
 	const loggingOut = async () => {
 		oktaAuth.tokenManager.clear();
 	  };
-
+ 
 	return (
 		<Section>
 			<Link to="/">
@@ -35,6 +35,9 @@ const Nav = () => {
 				</li>
 				<li>
 					<Link to="/editproducts">Edit Products</Link>
+				</li>
+				<li>
+					<Link to="/viewproducts">View Products</Link>
 				</li>
 			</ul>
 		</Section>
