@@ -1,3 +1,23 @@
+/** 
+ * Install Brew: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ * Info : brew info rabbitmq
+ * Start node in foreground: CONF_ENV_FILE="/usr/local/etc/rabbitmq/rabbitmq-env.conf" /usr/local/opt/rabbitmq/sbin/rabbitmq-server
+ * Start node in background: brew services start rabbitmq
+ * stop server: brew services stop rabbitmq
+ * or CLI tools directly: /opt/homebrew/opt/rabbitmq/sbin/rabbitmqctl shutdown
+
+Compile both with RabbitMQ java client on classpath: 
+>>>> javac -cp amqp-client-5.7.1.jar Sender.java Receiver.java
+
+To run them, you'll need rabbitmq-client.jar and its dependencies on the classpath. In a terminal, run the consumer (receiver):
+>>>> java -cp .:amqp-client-5.7.1.jar:slf4j-api-1.7.26.jar:slf4j-simple-1.7.26.jar Recv
+
+then, run the publisher (sender):
+>>>> java -cp .:amqp-client-5.7.1.jar:slf4j-api-1.7.26.jar:slf4j-simple-1.7.26.jar Send
+
+ */
+
+
 package com.mtumer.controller;
 
 import java.util.List;

@@ -41,12 +41,16 @@ const Home = () => {
 			{authState?.isAuthenticated ? (
 				<>
 					<h2>Welcome back, {userInfo?.name}</h2>
+
 					<input type="text" placeholder="Search..." className="search"/>
 
 					{!loading && (
 						
 				<article>
-					
+
+				
+
+
 					{products.map(
 						({productId, productQty, showProduct, productName, productImg, pricePerUnit, productDescription}) => (
 						<div key={productId} className="card">
@@ -77,7 +81,7 @@ const Home = () => {
 						({id, productQty, productName, showProduct, productImg, pricePerUnit,productDescription}) => (
 							
 						<div key={id} className="card">
-			
+								
 								<Card
 									
 									productImg={productImg}

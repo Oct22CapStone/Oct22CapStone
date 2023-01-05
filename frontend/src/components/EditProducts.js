@@ -17,6 +17,7 @@ import styled from "styled-components";
 
 
 
+
 function EditProducts() {
 
  //************************* STATES  //*************************/
@@ -128,7 +129,8 @@ const changeProductIdView = (eventView) => {
     };
     //testing
     console.log("Add product info sent: ", addProductValue);
-    axios.post("http://localhost:8181/product/save_product", addProductValue);
+    ProductService.createProduct(addProductValue);
+    //axios.post("http://localhost:8181/product/save_product", addProductValue);
     clearEntryAddProduct();
   }
 // DELETE SEND VALUES
@@ -140,14 +142,15 @@ const handleDeleteProduct = (eventDelete) => {
   axios.delete(deleteUrl, parseInt(productIdDelete));
   clearEntryDeleteProduct();
 }
-// UPDATE SEND VALUES
+// UPDATE SEND VALUES *********************************************
 const handleUpdateProduct = (eventUpdate) => {
   eventUpdate.preventDefault();
   const showProductUpdateBoolean = Boolean(showProductUpdate);
   const productQtyUpdateInt = parseInt(productQtyUpdate);
   const pricePerUnitUpdateInt = parseInt(pricePerUnitUpdate);
+  //const productIdUpdateLong = parseLong(productIdUpdate);
   const updateProductValue = {
-    //productIdUpdate, // added
+    //productIdUpdateLong, // added
     showProductUpdateBoolean,
     productQtyUpdateInt,
     productNameUpdate,
@@ -167,21 +170,20 @@ const handleViewProduct = (eventView) => {
   eventView.preventDefault();
 
   const productViewUrl = "http://localhost:8181/product/".concat(productIdView);
+  ProductService.getProductById(productIdView);
   //testing
-  console.log("get product by id: ", productIdView, productViewUrl);
-  axios.get(productViewUrl, parseInt(productIdView));
-  console.log(axios.get(productViewUrl).then(response => response.data));
-  const viewByIdProduct = axios.get(productViewUrl).then(response => response.data);
-  console.log(viewByIdProduct);
+  // console.log("get product by id: ", productIdView, productViewUrl);
+  // axios.get(productViewUrl, parseInt(productIdView));
+  // console.log(axios.get(productViewUrl).then(response => response.data));
+  // const viewByIdProduct = axios.get(productViewUrl).then(response => response.data);
+  // console.log(viewByIdProduct);
 
   fetch(productViewUrl) //1
   .then((response) => response.json()) //2
   .then((product) => {
-    console.log(product.pricePerUnit); //3
+    console.log(product); //3
   });
 
-
-  
   clearEntryViewProduct();
 } // end of handleViewProduct
 
