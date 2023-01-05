@@ -12,6 +12,8 @@ from 'mdb-react-ui-kit';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import Card from './DisplayCard/Card';
+import styled from "styled-components";
+
 
 
 
@@ -37,22 +39,22 @@ function EditProducts() {
   const [productDescriptionUpdate, setProductDescriptionUpdate] = useState('');
   // VIEW BY ID
   const [productIdView, setProductIdView] = useState('');
-  const [products, setProducts] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() =>{
-    const fetchData  = async () => {
-      setLoading(true);
-      try {
-        const response = await ProductService.getProduct();
-        setProducts(response.data); // now 'products' have all the products'
-      } catch(error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
-    fetchData();
+  // const [products, setProducts] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // useEffect(() =>{
+  //   const fetchData  = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await ProductService.getProduct();
+  //       setProducts(response.data); // now 'products' have all the products'
+  //     } catch(error) {
+  //       console.log(error);
+  //     }
+  //     setLoading(false);
+  //   };
+  //   fetchData();
     
-  }, []);
+  // }, []);
 
 
 
@@ -141,13 +143,16 @@ const handleDeleteProduct = (eventDelete) => {
 // UPDATE SEND VALUES
 const handleUpdateProduct = (eventUpdate) => {
   eventUpdate.preventDefault();
+  const showProductUpdateBoolean = Boolean(showProductUpdate);
+  const productQtyUpdateInt = parseInt(productQtyUpdate);
+  const pricePerUnitUpdateInt = parseInt(pricePerUnitUpdate);
   const updateProductValue = {
-    productIdUpdate, // added
-    showProductUpdate,
-    productQtyUpdate,
+    //productIdUpdate, // added
+    showProductUpdateBoolean,
+    productQtyUpdateInt,
     productNameUpdate,
     productImgUpdate,
-    pricePerUnitUpdate,
+    pricePerUnitUpdateInt,
     productDescriptionUpdate,
   };
   const updateUrl = "http://localhost:8181/product/update/".concat(productIdUpdate);
@@ -158,26 +163,25 @@ const handleUpdateProduct = (eventUpdate) => {
 }
 
 // VIEW BY ID SEND VALUE
-
 const handleViewProduct = (eventView) => {
   eventView.preventDefault();
-  console.log("inside handleViewProduct: ", products);
-          products.map(
-            ({productId, productQty, showProduct, productName, productImg, pricePerUnit, productDescription}) => (
-            <div key={productId} className="card">
 
-                <Card
-                  productImg={productImg}
-                  productQty={productQty}
-                  productName={productName}
-                  pricePerUnit={pricePerUnit}
-                  productDescription={productDescription}
-                  showProduct={showProduct}
-                  productId={productId}
-                />
-            </div>
-            )
-          )
+  const productViewUrl = "http://localhost:8181/product/".concat(productIdView);
+  //testing
+  console.log("get product by id: ", productIdView, productViewUrl);
+  axios.get(productViewUrl, parseInt(productIdView));
+  console.log(axios.get(productViewUrl).then(response => response.data));
+  const viewByIdProduct = axios.get(productViewUrl).then(response => response.data);
+  console.log(viewByIdProduct);
+
+  fetch(productViewUrl) //1
+  .then((response) => response.json()) //2
+  .then((product) => {
+    console.log(product.pricePerUnit); //3
+  });
+
+
+  
   clearEntryViewProduct();
 } // end of handleViewProduct
 
@@ -204,7 +208,7 @@ const handleViewProduct = (eventView) => {
   };
   // UPDATE CLEAR FIELDS
   const clearEntryUpdateProduct = () =>{
-    setProductIdUpdate('');
+    //setProductIdUpdate('');
     setShowProductUpdate('');
     setProductQtyUpdate('');
     setProductNameUpdate('');
@@ -224,19 +228,6 @@ const handleViewProduct = (eventView) => {
 
       <MDBCard className='text-black m-5' style={{borderRadius: '25px'}}>
         <MDBCardBody>
-
-
-        <MDBRow>
-              {/* View Product */}
-            <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-              <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View Product</p>
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBInput label='Product ID' value={productIdView} id="productIdView" onChange={changeProductIdView} type='text' />
-              </div>
-              <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View Product</MDBBtn>
-            </MDBCol> 
-        </MDBRow>
-
         <MDBRow>
 
           {/* Add Product */}
@@ -264,7 +255,7 @@ const handleViewProduct = (eventView) => {
             </MDBCol>
 
 
-            {/* Update Product */}
+            {/* Update Product *******************************/}
             <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
               <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Update Product</p>
               <div className="d-flex flex-row align-items-center mb-4 ">
@@ -301,12 +292,64 @@ const handleViewProduct = (eventView) => {
               <MDBBtn className='mb-4' size='lg' onClick={handleDeleteProduct}>Delete Product</MDBBtn>
             </MDBCol> 
           </MDBRow>
-          
         </MDBCardBody>
-      </MDBCard>
 
+        <MDBCardBody>
+          <MDBRow>
+                {/* View Product *******************************/}
+              <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View Product</p>
+                <div className="d-flex flex-row align-items-center mb-4 ">
+                  <MDBInput label='Product ID' value={productIdView} id="productIdView" onChange={changeProductIdView} type='text' />
+                </div>
+                <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View Product</MDBBtn>
+              </MDBCol> 
+
+                {/* View All Products *******************************/} 
+              <MDBCol md='10' lg='3' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">View All Products</p>
+                <MDBBtn className='mb-4' size='lg' onClick={handleViewProduct}>View All</MDBBtn>
+              </MDBCol> 
+          </MDBRow>
+
+      </MDBCardBody>
+
+    </MDBCard>
+
+      
     </MDBContainer>
+
   );
 }
+
+const Container = styled.section`
+	max-width: 90%;
+	margin: 2rem auto;
+
+	& h1 {
+		display: flex;
+		align-items: right;
+		font-weight: 500;
+		margin-bottom: 2rem;
+		font-size: 1.7rem;
+		background: #e6ffee;
+		padding: 20px 80px;
+	}
+
+	& h2 {
+		font-weight: 500;
+		margin-bottom: 2rem;
+		font-size: 1.3rem;
+	}
+	& > article {
+		width: 90%;
+		margin: auto;
+		display: flex;
+		flex-wrap: wrap;
+		.card {
+			margin: 1rem;
+		}
+	}
+`;
 
 export default EditProducts;
