@@ -2,22 +2,24 @@ import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import OrderItemService from "../services/OrderItemService";
+import UserOrdersService from "../services/UserOrdersService";
 
 
 
 const Orders = () => {
-    
-	const [orderItems, setOrderItems] = useState(null);
+	const { authState } = useOktaAuth();
+	const userInfo = useAuthUser();
+
+	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() =>{
 		const fetchData  = async () => {
 			setLoading(true);
 			try {
-				const response = await OrderItemService.getAllOrderItems();
-				setOrderItems(response.data);
-				console.log(orderItems);
+				const response = await UserOrdersService.getAllUserOrders();
+				setOrders(response.data);
+				console.log(orders);
 			} catch(error) {
 				console.log(error);
 			}
@@ -27,37 +29,52 @@ const Orders = () => {
 	}, []);
 
 
+
 	return (
 		<Container>
-            <div>
-            <h2 className = "text-center">Orders List</h2>
-            <div className = "row">
-                <table className = "table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Order Quantity</th>
-                            <th>Order ID</th>
-                            <th>Product ID</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            orderItems.map(
-                                Orders=>
-                                <tr key = {Orders.order_item_id}>
-                                    <td>{Orders.product_qty}</td>
-                                    <td>{Orders.order_id}</td>
-                                    <td>{Orders.productid}</td>
-                                </tr>
+			{
+				<>
+					{!loading && (
+				<article>
+					
+					{orders.map(
+						
+						({order_id, user_id, order_date, tracking_info, total_price, address_id}) => (
+							
+						<div key={order_id} className="table table-bordered">
+							
+							<h2 className = "text-center">Orders</h2>
+							
+							<thead>
+								<tr>
+									<th>Order Quantity</th>
+									<th>Order ID</th>
+									<th>Product ID</th>
+									<th></th>
+								</tr>
+							</thead>	
+							<tbody>
+								{
+									orders.map(
+										orders=>
+										<tr key = {orders.order_id}>
+											<td>{orders.user_id}</td>
+											<td>{orders.order_date}</td>
+											<td>{orders.tracking_info}</td>
+											<td>{orders.total_price}</td>
+										</tr>
 
-                            )
-                        }
-                    </tbody>
+									)
+								}
+                    		</tbody>	
+							</div>	
+						)
+					)};
 
-                </table>
-            </div>
-      </div>
+					
+				</article>)}
+				</>
+			}
 		</Container>
 	);
 };

@@ -25,7 +25,7 @@ public class UserOrdersController {
 	@Autowired
 	UserOrdersService userOrdersService;
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<UserOrders>> getAllUserOrders(){
 		List<UserOrders> userOrdersList = userOrdersService.getAllUserOrders();
 		return new ResponseEntity<List<UserOrders>>(userOrdersList, HttpStatus.OK);
