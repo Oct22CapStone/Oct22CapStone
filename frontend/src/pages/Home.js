@@ -2,6 +2,8 @@ import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
 import styled from "styled-components";
 import axios from "axios";
+import Header from "../components/Navbar/Header";
+import Footer from "../components/Navbar/Footer"; 
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import Card from "../components/DisplayCard/Card";
@@ -34,7 +36,11 @@ const Home = () => {
 		//console.log("inside of products: ", products);
 
 	return (
+		
+
 		<Container>
+
+			<Header />
 			
 			{authState?.isAuthenticated ? (
 				<>
@@ -88,7 +94,11 @@ const Home = () => {
 				</article>	)}</>
 	
 			)}
+
+			<Footer />
 		</Container>
+
+		
 	);
 };
 
