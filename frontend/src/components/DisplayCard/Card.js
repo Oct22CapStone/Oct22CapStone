@@ -1,14 +1,17 @@
 import styled from "styled-components";
 
-const Card = ({ productDescription, productName, price_per_unit, productImg }) => {
+const Card = ({ productQty, productId, showProduct, productDescription, productName, pricePerUnit, productImg }) => {
 	return (
 		<Wrapper productImg={productImg}>
 			<div className="bg" />
 			<div className="body">
-				<h4>Product Name: {productName}</h4>
+				<h4>{productName}</h4>
 				<footer>
-					<p>Price: {price_per_unit}</p>
-                    <p>Product Description: {productDescription}</p>
+					<p>${pricePerUnit}</p>
+                    <p>{productDescription}</p>
+					<p>Quantity: {productQty}</p>
+					<p>Show Product: {showProduct}</p>
+					<p>ID# {productId}</p>
 				</footer>
 			</div>
 		</Wrapper>

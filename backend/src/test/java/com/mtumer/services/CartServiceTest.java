@@ -130,7 +130,7 @@ public class CartServiceTest {
 		service.update(cart1);
 		verify(repo).saveAndFlush(cart1);
 		
-		//Assert that new phone number is saved
+		//Assert 
 		assertEquals(3,cart1.getQty());
 	}
 }
