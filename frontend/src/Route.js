@@ -3,11 +3,10 @@ import Navbar from "./components/Navbar/Nav";
 import { Security, SecureRoute, LoginCallback } from "@okta/okta-react";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import User from "./pages/User";
 import { oktaConfig } from "./config";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import RegistryForm from "./components/RegistryForm";
-import EditUser from "./pages/EditUser";
+import ViewUser from "./pages/ViewUser";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -22,10 +21,9 @@ const Routes = () => {
 			<Navbar />
 			<Switch>
 				<Route path="/" exact={true} component={Home} />
-        <Route path="/register" exact={true} component={RegistryForm} />
+        		<Route path="/register" exact={true} component={RegistryForm} />
 				<SecureRoute path="/profile" component={Profile} />
-				<SecureRoute path="/user" component={User} />
-				<SecureRoute path="/user/edit" component={EditUser} />
+				<SecureRoute path="/user" component={ViewUser} />
 				<Route path="/login/callback" component={LoginCallback} />
 			</Switch>
 		</Security>
