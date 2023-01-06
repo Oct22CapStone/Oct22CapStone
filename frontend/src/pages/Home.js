@@ -5,13 +5,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import Card from "../components/DisplayCard/Card";
+import { ID_TOKEN_STORAGE_KEY } from "@okta/okta-auth-js";
 
 
 
 const Home = () => {
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
-
+	
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
 
