@@ -31,13 +31,29 @@ const ViewSingleProduct = () => {
         setProductIdView(parseInt(eventView.target.value));
       };
 
-    
+    // handle
     const handleViewProduct = (eventView) => {
     eventView.preventDefault();
     
     const productViewUrl = "http://localhost:8181/product/".concat(productIdView);
-    ProductService.getProductById(productIdView);
+    //ProductService.getProductById(productIdView);
+
+    axios.get(productViewUrl, parseInt(productIdView));
+    console.log("Id sent to axios: ", productIdView);
+    console.log("Product: ", product); // should be null
+    console.log("URL being sent: ", productViewUrl);
+
+    function axiosTest(url) {
+        return axios.get(url).then(response => response.data)
+    }
+
+    var prod = 0;
     
+    //setProduct(axiosTest(productViewUrl));
+    prod = axiosTest(productViewUrl);
+    console.log("Prod: ", prod); // checking prod
+
+
     // fetch(productViewUrl) //1
     // .then((response) => response.json()) //2
     // .then((product) => {
@@ -45,18 +61,18 @@ const ViewSingleProduct = () => {
     //     console.log("Inside of fetch, line 36: ", product); //3
     // });
 
-    var productTest;
-    fetch(productViewUrl)
-        .then(res => res.json())
-        .then(data => {
-            productTest = data;
-        })
-        .then( () => {
-            console.log(productTest)
-        });
+    // var productTest;
+    // fetch(productViewUrl)
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         productTest = data;
+    //     })
+    //     .then( () => {
+    //         console.log(productTest)
+    //     });
+    // console.log("OUTSIDE of fetch: ", product);
+    // console.log("PRODUCT TEST: ", productTest);
 
-    console.log("OUTSIDE of fetch: ", product);
-    console.log("PRODUCT TEST: ", productTest);
     clearEntryViewProduct();
     } // end of handleViewProduct
 
@@ -82,7 +98,6 @@ const ViewSingleProduct = () => {
 	// }, []);
 
 
-    console.log("ID: ", productIdView);
 	return (
 
 		
