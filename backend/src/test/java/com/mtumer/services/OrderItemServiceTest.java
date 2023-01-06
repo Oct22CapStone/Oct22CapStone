@@ -134,7 +134,7 @@ public class OrderItemServiceTest {
 		service.update(orderItem1);
 		verify(repo).saveAndFlush(orderItem1);
 		
-		//Assert that new phone number is saved
+		//Assert
 		assertEquals(5,orderItem1.getProductQty());
 	}
 }

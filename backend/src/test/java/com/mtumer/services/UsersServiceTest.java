@@ -50,12 +50,12 @@ public class UsersServiceTest {
 		user1.setPassword("js1234");
 
 		Users user2 = new Users();
-		user1.setUsername("Bobc");
-		user1.setFirstName("Bob");
-		user1.setLastName("Clarke");
-		user1.setEmail("bclarke@gmail.com");
-		user1.setPhone("0987654321");
-		user1.setPassword("bc1234");
+		user2.setUsername("Bobc");
+		user2.setFirstName("Bob");
+		user2.setLastName("Clarke");
+		user2.setEmail("bclarke@gmail.com");
+		user2.setPhone("0987654321");
+		user2.setPassword("bc1234");
 
 		users.add(user1);
 		users.add(user2);
@@ -166,7 +166,7 @@ public class UsersServiceTest {
 		service.update(user1);
 		verify(repo).saveAndFlush(user1);
 		
-		//Assert that new phone number is saved
+		//Assert 
 		assertEquals("1235738456",user1.getPhone());
 	}
 }

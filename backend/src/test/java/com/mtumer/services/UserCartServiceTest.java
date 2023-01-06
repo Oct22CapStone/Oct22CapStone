@@ -156,7 +156,7 @@ public class UserCartServiceTest {
 		service.update(userCart1);
 		verify(repo).saveAndFlush(userCart1);
 		
-		//Assert that new phone number is saved
+		//Assert
 		assertEquals(26L,userCart1.getUserId().getUserId());
 	}
 }

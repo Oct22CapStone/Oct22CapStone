@@ -46,8 +46,8 @@ public class UserOrdersServiceTest {
 		order1.setTotalPrice(134.70);
 
 		UserOrders order2 = new UserOrders();
-		order1.setTrackingInfo("Pending");
-		order1.setTotalPrice(87.95);
+		order2.setTrackingInfo("Pending");
+		order2.setTotalPrice(87.95);
 
 		orders.add(order1);
 		orders.add(order2);
@@ -126,7 +126,7 @@ public class UserOrdersServiceTest {
 		service.update(order1);
 		verify(repo).saveAndFlush(order1);
 		
-		//Assert that new phone number is saved
+		//Assert 
 		assertEquals("Shipped",order1.getTrackingInfo());
 	}
 }
