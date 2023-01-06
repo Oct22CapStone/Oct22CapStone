@@ -4,11 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "users")
@@ -39,10 +42,10 @@ public class Users {
 
 	@Column(name = "password")
 	private String password;
-
-	@Column(name = "acc_role")
-	private String accRole;
-
+	
+	@Column(name="acc_status")
+	private int acc_status;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<Address> addresses;
@@ -52,7 +55,13 @@ public class Users {
 	private List<UserOrders> userOrder;
 
 	@JsonIgnore
+
 	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<UserCart> userCart;
+
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<UserRole> role;
 
 }
