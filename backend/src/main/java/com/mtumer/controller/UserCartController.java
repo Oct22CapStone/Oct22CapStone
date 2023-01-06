@@ -1,13 +1,11 @@
 package com.mtumer.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,80 +16,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mtumer.entity.UserCart;
-import com.mtumer.repo.UserCartRepo;
 import com.mtumer.services.UserCartService;
 
-
 @RestController
-@RequestMapping("user_cart")
+@RequestMapping("/user_cart")
 public class UserCartController {
-	
+
 	@Autowired
 	UserCartService userCartService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<UserCart>> getAllUserCarts() {
 		List<UserCart> userCartList = userCartService.getAllUserCarts();
-		return new ResponseEntity<List<UserCart>>(userCartList,HttpStatus.OK);
+		return new ResponseEntity<List<UserCart>>(userCartList, HttpStatus.OK);
 	}
-	
-	
-	@GetMapping("/{usercart_id}")
-	public ResponseEntity<UserCart> getById(@PathVariable Long usercart_id) {
-		Optional<UserCart>userCart = userCartService.getUserCartById(usercart_id);
+
+	@GetMapping("/show/{id}")
+	public ResponseEntity<UserCart> getById(@PathVariable("id") Long userCartId) {
+		Optional<UserCart> userCart = userCartService.getUserCartById(userCartId);
+		if (!userCart.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		return new ResponseEntity<>(userCart.get(), HttpStatus.OK);
 	}
-	
-	
+
 	@PostMapping("/save_user_cart")
 	public ResponseEntity<UserCart> createUserCart(@RequestBody UserCart userCart) {
 		UserCart savedUserCart = userCartService.createUserCart(userCart);
-		return new ResponseEntity<UserCart>(savedUserCart,HttpStatus.OK);
+		return new ResponseEntity<UserCart>(savedUserCart, HttpStatus.CREATED);
 	}
-	
-	@PutMapping("/update/{usercart_id}")
-	public void updateUserCart(@PathVariable("usercart_id") Long usercart_id, @RequestBody UserCart userCart) {
-		UserCart updateUserCart = userCartService.getUserCartById(usercart_id).get();
-		if(updateUserCart != null) {
-			UserCart newUserCart = new UserCart();
-			newUserCart.setUsercart_id(usercart_id);
-			newUserCart.setCart(userCart.getCart());
-			newUserCart.setUser_id(userCart.getUser_id());
-			userCartService.update(newUserCart);
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<UserCart> updateUserCart(@PathVariable("id") Long userCartId,
+			@RequestBody UserCart userCart) {
+		Optional<UserCart> updateUserCart = userCartService.getUserCartById(userCartId);
+		if (!updateUserCart.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		UserCart newUserCart = new UserCart();
+		newUserCart.setUserCartId(userCartId);
+		newUserCart.setCart(userCart.getCart());
+		newUserCart.setUserId(userCart.getUserId());
+		userCartService.update(newUserCart);
+		return new ResponseEntity<>(newUserCart, HttpStatus.OK);
+
 	}
-	
-	@DeleteMapping("/delete/usercart_id")
-	public void deleteUserCart(@PathVariable("usercart_id") Long usercart_id) {
-		UserCart userCartRemoved = userCartService.getUserCartById(usercart_id).get();
-		if(userCartRemoved != null) {
-			userCartService.deleteUserCart(usercart_id);
+
+	@DeleteMapping("/delete/id")
+	public ResponseEntity<UserCart> deleteUserCart(@PathVariable("id") Long userCartId) {
+		Optional<UserCart> userCartRemoved = userCartService.getUserCartById(userCartId);
+		if (!userCartRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
-		
-		
+		userCartService.deleteUserCart(userCartId);
+		return ResponseEntity.ok().build();
+
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

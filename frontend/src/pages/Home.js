@@ -5,13 +5,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import Card from "../components/DisplayCard/Card";
+import { ID_TOKEN_STORAGE_KEY } from "@okta/okta-auth-js";
 
 
 
 const Home = () => {
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
-
+	
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
 
@@ -21,23 +22,28 @@ const Home = () => {
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
-				console.log(products);
+				//console.log(response.data);
 			} catch(error) {
 				console.log(error);
 			}
 			setLoading(false);
 		};
 		fetchData();
+		
 	}, []);
 
-
+		//console.log("inside of products: ", products);
 
 	return (
 		<Container>
+			
 			{authState?.isAuthenticated ? (
 				<>
 					<h2>Welcome back, {userInfo?.name}</h2>
+					<input type="text" placeholder="Search..." className="search"/>
+
 					{!loading && (
+						
 				<article>
 					
 					{products.map(
@@ -53,7 +59,7 @@ const Home = () => {
 
 						</div>
 						)
-					)};
+					)}
 
 					
 				</article>)}

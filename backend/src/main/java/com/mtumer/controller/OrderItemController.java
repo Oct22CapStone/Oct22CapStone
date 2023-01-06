@@ -21,80 +21,57 @@ import com.mtumer.services.OrderItemService;
 @RestController
 @RequestMapping("/order_item")
 public class OrderItemController {
-	
+
 	@Autowired
 	OrderItemService orderItemService;
-	
-	
+
 	@GetMapping("/all")
 	public ResponseEntity<List<OrderItem>>getAllOrderItem(){
 		List<OrderItem> orderItemList = orderItemService.getAllOrderItem();
 		return new ResponseEntity<List<OrderItem>>(orderItemList, HttpStatus.OK);
 	}
-	
-	
-	@GetMapping("/show/{order_item_id}")
-	public ResponseEntity<OrderItem> getById(@PathVariable Long order_item_id) {
-		Optional<OrderItem> orderItem = orderItemService.getOrderItemById(order_item_id);
+
+	@GetMapping("/show/{id}")
+	public ResponseEntity<OrderItem> getById(@PathVariable("id") Long orderItemId) {
+		Optional<OrderItem> orderItem = orderItemService.getOrderItemById(orderItemId);
+		if (!orderItem.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		return new ResponseEntity<>(orderItem.get(), HttpStatus.OK);
-		
- 	}
-	
-	
+
+	}
+
 	@PostMapping("/save_order_item")
 	public ResponseEntity<OrderItem> createOrderItem(@RequestBody OrderItem orderItem) {
 		OrderItem savedOrderItem = orderItemService.createOrderItem(orderItem);
-		return new ResponseEntity<OrderItem>(savedOrderItem, HttpStatus.OK);
+		return new ResponseEntity<OrderItem>(savedOrderItem, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/update/{order_item_id}")
-	public void updateOrderItem(@PathVariable("order_item_id") Long order_item_id, @RequestBody OrderItem orderItem) {
-		OrderItem updateOrderItem = orderItemService.getOrderItemById(order_item_id).get();
-		if(updateOrderItem != null) {
-			OrderItem newOrderItem = new OrderItem();
-			newOrderItem.setOrder_item_id(order_item_id);
-			newOrderItem.setOrder_id(orderItem.getOrder_id());
-			newOrderItem.setProduct_qty(orderItem.getProduct_qty());
-			newOrderItem.setProductId(orderItem.getProductId());
-			orderItemService.update(newOrderItem);
-				
+	public ResponseEntity<OrderItem> updateOrderItem(@PathVariable("order_item_id") Long orderItemId,
+			@RequestBody OrderItem orderItem) {
+		Optional<OrderItem> updateOrderItem = orderItemService.getOrderItemById(orderItemId);
+		if (!updateOrderItem.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+
+		OrderItem newOrderItem = new OrderItem();
+		newOrderItem.setOrderItemId(orderItemId);
+		newOrderItem.setOrderId(orderItem.getOrderId());
+		newOrderItem.setProductQty(orderItem.getProductQty());
+		newOrderItem.setProductId(orderItem.getProductId());
+		orderItemService.update(newOrderItem);
+		return new ResponseEntity<>(newOrderItem, HttpStatus.OK);
 	}
-	
-	@DeleteMapping("/delete/{order_item_id}")
-	public void deleteOrderItem(@PathVariable("order_item_id") Long order_item_id) {
-		OrderItem orderItemRemoved = orderItemService.getOrderItemById(order_item_id).get();
-		if(orderItemRemoved != null) {
-			orderItemService.deleteOrderItem(order_item_id);
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<OrderItem> deleteOrderItem(@PathVariable("id") Long orderItemId) {
+		Optional<OrderItem> orderItemRemoved = orderItemService.getOrderItemById(orderItemId);
+		if (!orderItemRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		orderItemService.deleteOrderItem(orderItemId);
+		return ResponseEntity.ok().build();
 	}
-	
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
