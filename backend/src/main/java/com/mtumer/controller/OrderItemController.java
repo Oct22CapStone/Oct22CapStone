@@ -25,8 +25,8 @@ public class OrderItemController {
 	@Autowired
 	OrderItemService orderItemService;
 
-	@GetMapping
-	public ResponseEntity<List<OrderItem>> getAllOrderItem() {
+	@GetMapping("/all")
+	public ResponseEntity<List<OrderItem>>getAllOrderItem(){
 		List<OrderItem> orderItemList = orderItemService.getAllOrderItem();
 		return new ResponseEntity<List<OrderItem>>(orderItemList, HttpStatus.OK);
 	}
