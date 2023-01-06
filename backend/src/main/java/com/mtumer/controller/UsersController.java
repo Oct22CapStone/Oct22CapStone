@@ -34,6 +34,18 @@ public class UsersController {
 		return new ResponseEntity<List<Users>>(list, HttpStatus.OK);
 	}
 
+	@GetMapping("/check/{email}")
+	public Boolean getByEmail(@PathVariable String email) {
+		Boolean user = usersService.userExistsByEmail(email);
+		System.out.println(user);
+		if (user) {
+			
+			return true;			
+		}
+		return false;
+		
+	}
+
 	@GetMapping("/show/{id}")
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
 		Optional<Users> user = usersService.getUserById(id);
@@ -79,6 +91,5 @@ public class UsersController {
 		usersService.deleteUser(userId);
 		return ResponseEntity.ok().build();
 	}
-	
-}
 
+}

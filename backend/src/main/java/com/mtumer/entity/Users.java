@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users",uniqueConstraints=
+@UniqueConstraint(columnNames={"email"}))
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
