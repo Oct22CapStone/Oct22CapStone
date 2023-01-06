@@ -22,7 +22,9 @@ const Routes = () => {
 			<Navbar />
 			<Switch>
 				<Route path="/" exact={true} component={Home} />
-       			<Route path="/register" exact={true} component={RegistryForm} />
+
+        		<Route path="/register" exact={true} component={RegistryForm} />
+
 				<SecureRoute path="/profile" component={Profile} />
 				<Route path="/login/callback" component={LoginCallback} />
 			</Switch>
