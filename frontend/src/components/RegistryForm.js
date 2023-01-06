@@ -10,12 +10,12 @@ import {
   MDBCardImage,
   MDBInput,
   MDBIcon,
-}
+} 
 from 'mdb-react-ui-kit';
 import { useState } from 'react';
 
 function RegistryForm() {
-//destructure here
+//destructure here 
 
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
