@@ -35,44 +35,31 @@ const Orders = () => {
 			{
 				<>
 					{!loading && (
-				<article>
-					
-					{orders.map(
-						
-						({order_id, user_id, order_date, tracking_info, total_price, address_id}) => (
+						<><h2 className="text-center">Orders</h2><article>
 							
-						<div key={order_id} className="table table-bordered">
-							
-							<h2 className = "text-center">Orders</h2>
-							
-							<thead>
-								<tr>
-									<th>Order Quantity</th>
-									<th>Order ID</th>
-									<th>Product ID</th>
-									<th></th>
-								</tr>
-							</thead>	
-							<tbody>
-								{
-									orders.map(
-										orders=>
-										<tr key = {orders.order_id}>
+							<table className="table table-bordered">
+								<thead>
+									<tr>
+										<th>Order ID</th>
+										<th>User ID</th>
+										<th>Order Date</th>
+										<th>Tracking Info</th>
+										<th>Total Price</th>
+									</tr>
+								</thead>
+								<tbody>
+									{orders.map(
+										orders => <tr key={orders.order_id}>
+											<td>{orders.order_id}</td>
 											<td>{orders.user_id}</td>
 											<td>{orders.order_date}</td>
 											<td>{orders.tracking_info}</td>
 											<td>{orders.total_price}</td>
 										</tr>
-
-									)
-								}
-                    		</tbody>	
-							</div>	
-						)
-					)};
-
-					
-				</article>)}
+									)}
+								</tbody>
+							</table>
+						</article></>)}
 				</>
 			}
 		</Container>
