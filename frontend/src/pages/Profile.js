@@ -11,6 +11,8 @@ const Profile = () => {
 					<li>Username: {userInfo?.preferred_username}</li>
 					<li>Email: {userInfo?.email}</li>
 					<li>Full Name: {userInfo?.name}</li>
+					<li>first Name: {userInfo?.first_name}</li>
+					<li>first Name: {userInfo?.last_name}</li>
 					<li>Email Verified: {userInfo?.email_verified ? "Yes" : "No"}</li>
 					<li>Zone: {userInfo?.zoneinfo}</li>
 				</ul>
