@@ -85,3 +85,19 @@
     clear: both;
     display: table;
   }
+  /* Float cancel and delete buttons and add an equal width */
+.cancelbtn, .submitbtn {
+    float: left;
+    width: 50%;
+  }
+  
+  /* Add a color to the cancel button */
+  .cancelbtn {
+    background-color: #ccc;
+    color: black;
+  }
+  
+  /* Add a color to the delete button */
+  .submitbtn {
+    background-color: #3688f4;
+  }

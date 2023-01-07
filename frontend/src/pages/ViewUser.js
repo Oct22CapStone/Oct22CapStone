@@ -6,6 +6,8 @@ import { Container } from "react-bootstrap";
   function ViewUser() {
     const [user, setUser] = useState([]);
 
+    // const [firstName_update, setFirstName_update] = useState('');
+
     useEffect(()=> {
         const getUser = async ()=> {
             const res = await UserService.getUser();
@@ -13,13 +15,72 @@ import { Container } from "react-bootstrap";
             console.log(user);
         }
 
+        // const editUser = async ()=> {
+        //   const res = await UserService.getUser();
+        //   setFirstName_update(res.data)
+        //   console.log(firstName_update);
+        // }
+
         getUser();
+        // editUser();
 
     },[]);
+
+
+
+//Make the DIV element draggagle:
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+dragElement(document.getElementById("editUserModal"));
+dragElement(document.getElementById("addUserModal"));
+dragElement(document.getElementById("deleteUserModal"));
 
     return (
 <>
 
+
+
+
+{/* These links are necessary to see the edit and delete icons for each user row */}
   <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
   <link
     rel="stylesheet"
@@ -58,10 +119,11 @@ import { Container } from "react-bootstrap";
             </div>
 <Container>
 
-{/* ADD A USER MODAL */}
+{/* ADD USER BUTTON */}
 <a href="#addUserModal"> 
   <button>ADD NEW USER</button>
   </a>
+  {/* ADD A USER MODAL */}
 <div id="addUserModal" className="lightbox">
   <div className="box"><a className="close" href="#">X</a>
     <p className="title">Add User</p>
@@ -88,38 +150,40 @@ import { Container } from "react-bootstrap";
               <input type="email" className="form-control" required="" />
             </div>
           </div>
-          <div class="clearfix">
-        <button type="button" class="cancelbtn">Cancel</button>
-        <button type="button" class="deletebtn">Delete</button>
-      </div>
+          <div className="clearfix">
+            <a href="#"><button type="button" className="cancelbtn">Cancel</button></a>
+            <button type="button" className="submitbtn">Add</button>
+          </div>
       </div>
     </div>
   </div>
 
-{/* DELETE A USER MODAL */}
+{/* DELETE USER BUTTON */}
 <a href="#deleteUserModal"> 
   <button>DELETE SELECTED</button>
   </a>
+  {/* DELETE A USER MODAL */}
 <div id="deleteUserModal" className="lightbox">
   <div className="box"><a className="close" href="#">X</a>
     <p className="title">Delete User</p>
       <div className="container">
       <p>Are you sure you want to delete this user?</p>
-      <div class="clearfix">
-        <button type="button" class="cancelbtn">Cancel</button>
-        <button type="button" class="deletebtn">Delete</button>
+      <div className="clearfix">
+        <a href="#"><button type="button" className="cancelbtn">Cancel</button></a>
+        <button type="button" className="submitbtn">Delete User</button>
       </div>
     </div>
     </div>
   </div>
 
-{/* EDIT A USER MODAL */}
+{/* EDIT USER LINK TO MODAL */}
   <a href="#editUserModal"> </a>
+  {/* EDIT A USER MODAL */}
 <div id="editUserModal" className="lightbox">
   <div className="box"><a className="close" href="#">X</a>
     <p className="title">Edit User</p>
       <div className="content">
-        <div className="modal-body">
+      <div className="modal-body">
             <div className="form-group">
               <label>First</label>
               <input type="text" className="form-control" required="" />
@@ -141,10 +205,10 @@ import { Container } from "react-bootstrap";
               <input type="email" className="form-control" required="" />
             </div>
           </div>
-          <div class="clearfix">
-        <button type="button" class="cancelbtn">Cancel</button>
-        <button type="button" class="deletebtn">Delete</button>
-      </div>
+          <div className="clearfix">
+            <a href="#"><button type="button" className="cancelbtn">Cancel</button></a>
+            <button type="button" className="submitbtn">Submit</button>
+          </div>
       </div>
     </div>
   </div>
