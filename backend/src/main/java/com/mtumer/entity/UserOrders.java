@@ -20,37 +20,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
-@Table(name="user_orders")
+@Table(name = "user_orders")
 @Data
 public class UserOrders {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="order_id")
-	private Long order_id;
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_id")
+	private Long orderId;
+
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
-	private Users userOrder;
-	
-	@Column(name="order_date")
-	private java.sql.Date order_date;
-	
-	@Column(name="tracking_info")
-	private String tracking_info;
-	
-	@Column(name="total_price")
-	private Double total_price;
-	
-	@OneToOne(cascade=CascadeType.MERGE)
-	@JoinColumn(name="shipping_address")
-	private Address address_id;
-	
-	
+	@JoinColumn(name = "userId", nullable = false)
+	private Users userId;
+
+	@Column(name = "order_date")
+	private java.sql.Date orderDate;
+
+	@Column(name = "tracking_info")
+	private String trackingInfo;
+
+	@Column(name = "total_price")
+	private Double totalPrice;
+
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "addressId")
+	private Address addressId;
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "order_id", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<OrderItem>OrderItems;
-	
-	
+	@OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<OrderItem> OrderItems;
+
 }

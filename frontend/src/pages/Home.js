@@ -1,6 +1,10 @@
 import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
 
+import styled from "styled-components";
+import axios from "axios";
+import Header from "../components/Navbar/Header";
+import Footer from "../components/Navbar/Footer"; 
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import { Link, Route, useHistory } from "react-router-dom";
@@ -28,15 +32,17 @@ const Home = () => {
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
-				console.log(products);
+				//console.log(response.data);
 			} catch(error) {
 				console.log(error);
 			}
 			setLoading(false);
 		};
 		fetchData();
+		
 	}, []);
 
+		//console.log("inside of products: ", products);
 
 
 	return(
@@ -62,5 +68,6 @@ const Home = () => {
 	</div>)}
 	</>
 	)};
+
 
 export default Home;
