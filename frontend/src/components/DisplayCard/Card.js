@@ -18,6 +18,18 @@ const Card = ({ productQty, productId, showProduct, productDescription, productN
 	);
 };
 
+
+// adding add cart button
+const handleButtonAddCart = e => {
+    e.preventDefault()
+    props.addToCart(props.product.id, variantInfo)
+}
+
+<Button fluid className='add-button' onClick={handleButtonAddCart}>
+    Add to Cart
+    <Icon name='arrow right' />
+</Button>
+
 const Wrapper = styled.div`
 	border-radius: 7px;	
 	box-shadow: -2px 7px 8px 3px rgba(204, 204, 204, 0.63);
@@ -45,3 +57,5 @@ const Wrapper = styled.div`
 `;
 
 export default Card;
+
+
