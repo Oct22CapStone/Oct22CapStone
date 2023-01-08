@@ -10,7 +10,7 @@ export const oktaConfig = {
     redirectUri: `${window.location.origin}/login/callback`,
     //redirectUri: 'http://localhost:3000/login/callback',
     endSessionRedirectUri: `${window.location.origin}`,
-    scopes: ["openid", "profile", "email","phone","lastname","username"],
+    scopes: ["openid", "profile", "email"],
     pkce: true,
     disableHttpsCheck: true,
 };
