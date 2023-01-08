@@ -64,7 +64,7 @@ public class AddressControllerTest {
 		address1.setCity("Nashville");
 		address1.setState("TN");
 		address1.setCountry("USA");
-		address1.setZip("45842");
+		address1.setZip("55842");
 
 		Address address2 = new Address();
 		address2.setAddressId(2l);
@@ -80,7 +80,7 @@ public class AddressControllerTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$[0].addressId", is(1))).andExpect(jsonPath("$[0].street", is("12 Main Street")))
 				.andExpect(jsonPath("$[0].city", is("Nashville"))).andExpect(jsonPath("$[0].state", is("TN")))
-				.andExpect(jsonPath("$[0].country", is("USA"))).andExpect(jsonPath("$[0].zip", is("45842")))
+				.andExpect(jsonPath("$[0].country", is("USA"))).andExpect(jsonPath("$[0].zip", is("55842")))
 				.andExpect(jsonPath("$[1].addressId", is(2))).andExpect(jsonPath("$[1].street", is("13 South Street")))
 				.andExpect(jsonPath("$[1].city", is("New York"))).andExpect(jsonPath("$[1].state", is("NY")))
 				.andExpect(jsonPath("$[1].country", is("USA"))).andExpect(jsonPath("$[1].zip", is("84723")));
