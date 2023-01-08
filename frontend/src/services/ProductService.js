@@ -8,7 +8,6 @@ class ProductService {
     getProduct() {
         return axios.get(PRODUCT_API_BASE_URL);
     }
-
     getProductById(id){
         return axios.get(`http://localhost:8181/product/${id}`);
     }
@@ -21,6 +20,7 @@ class ProductService {
     createProduct(product){
         return axios.post(`http://localhost:8181/product/save_product`, product);
     }
+
 
 }
 
