@@ -1,5 +1,6 @@
 export const oktaConfig = {
 
+
     //dev-09055718.okta.com/oauth2/default',
     issuer: 'https://dev-75726251.okta.com/oauth2/default',
     //clientId: "0oa7ubwwdkshNMbWg5d7",
@@ -13,4 +14,3 @@ export const oktaConfig = {
     pkce: true,
     disableHttpsCheck: true,
 };
-//0BA5L7es9eCsmnkk1Isz

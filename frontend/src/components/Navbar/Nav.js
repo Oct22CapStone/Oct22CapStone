@@ -27,14 +27,14 @@ const Nav = () => {
 					{
 						authState?.isAuthenticated ? (
 							<div>
-							<button><Link to ={"/orders"}>Orders</Link></button>
+							<Link to ="/orders">Orders</Link>
 							<button onClick={loggingOut}>Logout</button>
 							</div>
 							
 						) : (
 							<div>
 								<button onClick={loggingIn}>Login</button>
-                            	<button><Link to={"/register"}>Register</Link></button>
+                            	<button><Link to="/register">Register</Link></button>
 								
 								
                             </div>
@@ -47,9 +47,7 @@ const Nav = () => {
 				<li>
 					<Link to="/viewproducts">View Products</Link>
 				</li>
-				<li>
-					<Link to="/viewsingleproduct">View Single Product</Link>
-				</li>
+
 			</ul>
 		</Section>
 	);
