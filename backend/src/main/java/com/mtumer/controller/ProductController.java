@@ -1,3 +1,23 @@
+/** 
+ * Install Brew: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ * Info : brew info rabbitmq
+ * Start node in foreground: CONF_ENV_FILE="/usr/local/etc/rabbitmq/rabbitmq-env.conf" /usr/local/opt/rabbitmq/sbin/rabbitmq-server
+ * Start node in background: brew services start rabbitmq
+ * stop server: brew services stop rabbitmq
+ * or CLI tools directly: /opt/homebrew/opt/rabbitmq/sbin/rabbitmqctl shutdown
+
+Compile both with RabbitMQ java client on classpath: 
+>>>> javac -cp amqp-client-5.7.1.jar Sender.java Receiver.java
+
+To run them, you'll need rabbitmq-client.jar and its dependencies on the classpath. In a terminal, run the consumer (receiver):
+>>>> java -cp .:amqp-client-5.7.1.jar:slf4j-api-1.7.26.jar:slf4j-simple-1.7.26.jar Recv
+
+then, run the publisher (sender):
+>>>> java -cp .:amqp-client-5.7.1.jar:slf4j-api-1.7.26.jar:slf4j-simple-1.7.26.jar Send
+
+ */
+
+
 package com.mtumer.controller;
 
 import java.util.List;
@@ -6,6 +26,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,62 +39,63 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtumer.entity.Product;
 import com.mtumer.services.ProductService;
 
-
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/product")
 public class ProductController {
 
 	@Autowired
 	ProductService productService;
-	
-	
+
 	@GetMapping
-	public ResponseEntity<List<Product>> getAllProduct(){
+	public ResponseEntity<List<Product>> getAllProduct() {
 		List<Product> productList = productService.getAllProduct();
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
-	
-	
-	@GetMapping("/{productid}")
-	public ResponseEntity<Product> getByID(@PathVariable Long productid) {
-		Optional<Product> product = productService.getProductById(productid);
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Product> getById(@PathVariable("id") Long productId) {
+		Optional<Product> product = productService.getProductById(productId);
+		if (!product.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
 		return new ResponseEntity<>(product.get(), HttpStatus.OK);
-		
 	}
-	
-	
+
 	@PostMapping("/save_product")
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		Product savedProduct = productService.createProduct(product);
-		return new ResponseEntity<Product>(savedProduct,HttpStatus.OK);
-		}
-	
+		return new ResponseEntity<Product>(savedProduct, HttpStatus.CREATED);
+	}
+
 	@PutMapping("/update/{productid}")
-	public void updateProduct(@PathVariable("productid") Long productid, @RequestBody Product product) {
-		Product updateProduct = productService.getProductById(productid).get();
-		if(updateProduct != null) {
-			Product newProduct = new Product();
-			newProduct.setProductId(productid);
-			newProduct.setPrice_per_unit(product.getPrice_per_unit());
-			newProduct.setProductDescription(product.getProductDescription());
-			newProduct.setProductImg(product.getProductImg());
-			newProduct.setProductName(product.getProductName());
-			newProduct.setProductQty(product.getProductQty());
-			productService.update(newProduct);
+	public ResponseEntity<Product> updateProduct(@PathVariable("productid") Long productId,
+			@RequestBody Product product) {
+		Optional<Product> updateProduct = productService.getProductById(productId);
+		if (!updateProduct.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		Product newProduct = new Product();
+		newProduct.setProductId(productId);
+		newProduct.setPricePerUnit(product.getPricePerUnit());
+		newProduct.setProductDescription(product.getProductDescription());
+		newProduct.setProductImg(product.getProductImg());
+		newProduct.setProductName(product.getProductName());
+		newProduct.setProductQty(product.getProductQty());
+		newProduct.setProductQty(product.getProductQty());
+		newProduct.setShowProduct(product.isShowProduct()); // added
+		productService.update(newProduct);
+		return new ResponseEntity<>(newProduct, HttpStatus.OK);
 	}
-	
-	
-	@DeleteMapping("/delete/{productid}")
-	public void deleteProduct(@PathVariable("productid") Long productid) {
-		Product productRemoved = productService.getProductById(productid).get();
-		
-		if(productRemoved != null) {
-			productService.deleteProduct(productid);
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Product> deleteProduct(@PathVariable("id") Long productId) {
+		Optional<Product> productRemoved = productService.getProductById(productId);
+		if (!productRemoved.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
+		productService.deleteProduct(productId);
+		return ResponseEntity.ok().build();
 	}
-	
-	
-	
-	
+
 }
