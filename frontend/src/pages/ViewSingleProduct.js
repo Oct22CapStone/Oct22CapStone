@@ -3,9 +3,10 @@ import ProductService from "../services/ProductService";
 import { useParams } from "react-router-dom";
 
 const ViewSingleProduct = () => {
-    const {id} = useParams();    
-    
+
+    const {id} = useParams();        
 	const [product, setProduct] = useState("");
+
 
     console.log(product); 
     useEffect(() =>{	
@@ -45,7 +46,9 @@ const ViewSingleProduct = () => {
                                 </div>
                             </div>
                             <p className="about">{product.productDescription}</p>                            
-                            <div className="cart mt-4 align-items-center"> <button className="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button> <i className="fa fa-heart text-muted"></i> <i className="fa fa-share-alt text-muted"></i> </div>
+                            <div className="cart mt-4 align-items-center"> 
+                            <button className="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button> 
+                            <i className="fa fa-heart text-muted"></i> <i className="fa fa-share-alt text-muted"></i> </div>
                         </div>
                     </div>
                 </div>
