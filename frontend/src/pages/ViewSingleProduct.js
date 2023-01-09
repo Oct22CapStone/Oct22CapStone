@@ -3,6 +3,7 @@ import ProductService from "../services/ProductService";
 import { useParams } from "react-router-dom";
 
 const ViewSingleProduct = () => {
+
     const {id} = useParams();        
 	const [product, setProduct] = useState("");
 
