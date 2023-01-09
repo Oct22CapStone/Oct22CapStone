@@ -20,6 +20,12 @@ class UserService {
     addUser() {
         return axios.post("http://localhost:8181/userpage/save");
     }
+    createUser(user){
+        return axios.post(`http://localhost:8181/userpage/save`, user);
+    }
+    checkUser(email){
+        return axios.get(`http://localhost:8181/userpage/check/${email}`).then(response=>response.data)
+    }
 }
 
 export default new UserService();

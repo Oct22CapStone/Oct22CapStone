@@ -14,27 +14,24 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="order_item")
+@Table(name = "order_item")
 @Data
 public class OrderItem {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="order_item_id")
-	private Long order_item_id;
-	
-	@Column(name="product_qty")
-	private int product_qty;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_item_id")
+	private Long orderItemId;
+
+	@Column(name = "product_qty")
+	private int productQty;
+
 	@ManyToOne
-	@JoinColumn(name="order_id", nullable=false)
-	private UserOrders order_id;
-	
-	@OneToOne(cascade=CascadeType.MERGE)
-	@JoinColumn(name="productId", nullable=false)
+	@JoinColumn(name = "orderId", nullable = false)
+	private UserOrders orderId;
+
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "productId", nullable = false)
 	private Product productId;
 
-	
-	
-	
 }
