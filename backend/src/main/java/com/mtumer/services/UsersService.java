@@ -29,6 +29,20 @@ public class UsersService {
 	public List<Users> getAllUsers() {
 		return usersRepo.findAll();
 	}
+	
+	public Boolean userExistsByEmail(String email) {
+		List<Users> userList = usersRepo.findAll();
+		
+		for (Users users : userList) {
+			if(users.getEmail() != null) {
+//				System.out.println((users.getEmail().toString()).equals(email));
+				if((users.getEmail().toString()).equals(email)) {
+					return true;					
+				}
+			}
+		}
+		return false;
+	}
 
 	public Users createUser(Users user) {
 
