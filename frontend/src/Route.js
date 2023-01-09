@@ -9,6 +9,10 @@ import Profile from "./pages/Profile";
 import { oktaConfig } from "./config";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import RegistryForm from "./components/RegistryForm";
+import ViewSingleProduct from "./pages/ViewSingleProduct";
+import ViewProducts from "./pages/ViewProducts";
+import EditProducts from "./pages/EditProducts";
+import AddAddress from "./pages/AddAddress";
 
 
 
@@ -25,11 +29,16 @@ const Routes = () => {
 			<Nav />
 			<Switch>
 
-				<Route path="/" exact={true} component={Home} />
-        		<Route path="/register" exact={true} component={RegistryForm} />
-				<Route path="/about" exact={true} component={About} />
-				<SecureRoute path="/profile" component={Profile} />
-				<Route path="/login/callback" component={LoginCallback} />
+			<Route path="/" exact={true} component={Home} />
+			<Route path="/register" exact={true} component={RegistryForm} />
+			<Route path="/editproducts" exact={true} component={EditProducts} />
+			<Route path="/viewproducts" exact={true} component={ViewProducts} />
+			<Route path="/viewsingleproduct" exact={true} component={ViewSingleProduct} />
+			<Route path="/addaddress" exact={true} component={AddAddress} />
+
+			<SecureRoute path="/profile" component={Profile} />
+
+			<Route path="/login/callback" component={LoginCallback} />
 				
 			</Switch>
 		</Security>
