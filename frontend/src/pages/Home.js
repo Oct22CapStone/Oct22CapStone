@@ -29,7 +29,6 @@ const Home = () => {
 
 		//console.log("inside of products: ", products);
 
-
 	return(
 	<>{!loading &&(
 		<div>
@@ -78,6 +77,7 @@ const Home = () => {
 	</div>)}
 	</>
 	)
+
 };
 
 

@@ -45,12 +45,21 @@ public class UsersController {
 		return false;
 		
 	}
+	
+	@GetMapping("/userbyemail/{id}")
+	public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
+		Users user = usersService.getUserByEmail(email);
+		if (user.getUserId() != null) {			
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 	@GetMapping("/show/{id}")
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
 		Optional<Users> user = usersService.getUserById(id);
 		if (!user.isPresent()) {
-			return ResponseEntity.notFound().build();
+			
 		}
 		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 

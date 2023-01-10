@@ -4,8 +4,7 @@ import UserService from "../services/UserService";
 
 const useAuthUser = () => {
 	const { oktaAuth, authState } = useOktaAuth();
-  const [userInfo, setUserInfo] = useState(null);
-
+  	const [userInfo, setUserInfo] = useState(null);
 	useEffect(() => {
 		const getUser = async () => {
 			try {
