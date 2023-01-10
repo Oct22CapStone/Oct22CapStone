@@ -56,9 +56,12 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<scope>runtime</scope>
 =======
 >>>>>>> 03312ca4362a58a23145eb6d210a4c25f11096fe
+=======
+>>>>>>> 1205f860acfcef77fbd308400783c283cdc8318a
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

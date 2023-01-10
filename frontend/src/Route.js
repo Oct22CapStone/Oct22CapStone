@@ -13,6 +13,11 @@ import ViewSingleProduct from "./pages/ViewSingleProduct";
 import ViewUser from "./pages/ViewUser";
 import CreateUser from "./pages/CreateUser";
 import EditUser from "./pages/EditUser";
+import ViewProducts from "./pages/ViewProducts";
+import EditProducts from "./pages/EditProducts";
+import AddAddress from "./pages/AddAddress";
+import Orders from "./pages/Orders";
+import AddProduct from "./pages/AddProduct";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -35,7 +40,14 @@ const Routes = () => {
 				<SecureRoute path="/user/post" component={CreateUser} />
 				<SecureRoute path="/user/put" component={EditUser} />
 				<Route path="/login/callback" component={LoginCallback} />	
-				<Route path="/viewsingleproduct/:id" exact={true} component={ViewSingleProduct}/>			
+				<Route path="/viewsingleproduct/:id" exact={true} component={ViewSingleProduct}/>
+				<SecureRoute path="/viewproducts" component={ViewProducts}/>
+				<SecureRoute path="/addproduct" component={AddProduct}/>	
+				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
+				<SecureRoute path="/orders" exact={true} component={Orders}/>
+        <Route path="/addaddress" exact={true} component={AddAddress} />
+
+
 			</Switch>
 		</Security>
 	);

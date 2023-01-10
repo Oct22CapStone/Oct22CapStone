@@ -81,50 +81,6 @@ const Home = () => {
 	</>
 	)
 
-
-
-	return (
-		<Container>
-			{authState?.isAuthenticated ? (
-				<>
-					<h2>Welcome back, {userInfo?.name}</h2>
-					{!loading && (
-				<article>
-					<Container>
-						<section>
-							<h2>ADMIN PANEL</h2>
-							<p><Link to="/user/read">View Users</Link></p>
-						</section>
-					</Container>
-				</article>)}
-				</>
-			) : (
-<>
-				{!loading  && (
-				<article>
-					
-					{products.map(
-						({id, productQty, productName, productImg, price_per_unit,productDescription}) => (
-							
-						<div key={id} className="card">
-			
-								<Card
-									productImg={productImg}
-									productName={productName}
-									price_per_unit={price_per_unit}
-									productDescription={productDescription}
-								/>
-						
-						</div>
-						)
-					)};
-
-					
-				</article>	)}</>
-	
-			)}
-		</Container>
-	);
 };
 
 
