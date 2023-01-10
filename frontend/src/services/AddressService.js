@@ -5,7 +5,7 @@ const PRODUCT_API_BASE_URL = "http://localhost:8181/addresspage";
 
 class AddressService {
 
-    getAddress() {
+    findAllAddresses() {
         return axios.get(PRODUCT_API_BASE_URL);
     }
     getAddressById(id){

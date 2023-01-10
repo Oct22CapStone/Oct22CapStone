@@ -13,11 +13,7 @@ import ViewSingleProduct from "./pages/ViewSingleProduct";
 import ViewProducts from "./pages/ViewProducts";
 import EditProducts from "./pages/EditProducts";
 import AddAddress from "./pages/AddAddress";
-
 import ViewUser from "./pages/ViewUser";
-import ViewSingleProduct from "./pages/ViewSingleProduct";
-import ViewProducts from "./pages/ViewProducts";
-import EditProducts from "./pages/EditProducts";
 import Orders from "./pages/Orders";
 import AddProduct from "./pages/AddProduct";
 
@@ -36,11 +32,9 @@ const Routes = () => {
 
 				<Route path="/" exact={true} component={Home} />
         <Route path="/register" exact={true} component={RegistryForm} />
-				<SecureRoute path="/user" component={ViewUser} />
+				<SecureRoute path="/viewuser" component={ViewUser} />
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
-
-				<SecureRoute path="/user" component={User} />
 
 				<Route path="/login/callback" component={LoginCallback} />	
 				<Route path="/viewsingleproduct/:id" exact={true} component={ViewSingleProduct}/>

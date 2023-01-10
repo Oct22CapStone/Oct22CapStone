@@ -4,14 +4,19 @@ import UserService from "../services/UserService";
 
 const useAuthUser = () => {
 	const { oktaAuth, authState } = useOktaAuth();
-  const [userInfo, setUserInfo] = useState(null);
-
+  	const [userInfo, setUserInfo] = useState(null);
+	const [users, setUsers] = useState([]);
 	useEffect(() => {
 		const getUser = async () => {
 			try {
 				const res = await oktaAuth.getUser();
 				setUserInfo(res);
 
+				const userResponse = await UserService.getUserByEmail(authState.idToken.claims.email);
+				setUsers(userResponse.data);
+				
+				console.log(users);
+				sessionStorage.setItem("user", users.userId);
 				const email = authState.idToken.claims.email;
                 const doesExist = await UserService.checkUser(email);
                 const firstName = authState.idToken.claims.given_name;

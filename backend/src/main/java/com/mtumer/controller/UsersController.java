@@ -45,6 +45,16 @@ public class UsersController {
 		return false;
 		
 	}
+	
+	@GetMapping("/showId/{id}")
+	public Long getUserByEmail(@PathVariable String email) {
+		Long userId = usersService.getUserByEmail(email);
+		System.out.println(userId);
+		if (userId != null) {
+			return userId;
+		}
+		return null;
+	}
 
 	@GetMapping("/show/{id}")
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
