@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
+//import Header from '../components/Navbar/Header';
+import Footer from '../components/Navbar/Footer'
 
-function About () {
-    return (
-        <div>
 
-<section className="page-section" id="about">
+function About() {
+  return (
+    <div>
+    
+      <section className="page-section" id="about">
             <div className="container">
                 <div className="text-center">
-                    <h2 className="section-heading text-uppercase">Learn About Us</h2>
-                    <h3 className="section-subheading text-muted">Get to know the story behind our buisness and how we got here.</h3>
+                    <h2 className="section-heading text-uppercase">Our Journey</h2>
+                    <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <ul className="timeline">
                     <li>
@@ -18,11 +21,11 @@ function About () {
                                 <h4>2009-2011</h4>
                                 <h4 className="subheading">Our Humble Beginnings</h4>
                             </div>
-                            <div className="timeline-body"><p classNam="text-muted">Our founders discovered the idea for this buisness in 2009. They worked relentlessly for 2 years to build the company from the ground up. </p></div>
+                            <div className="timeline-body"><p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
                         </div>
                     </li>
                     <li className="timeline-inverted">
-                        <div className="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                        <div className="timeline-image"><img className="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
                         <div className="timeline-panel">
                             <div className="timeline-heading">
                                 <h4>March 2011</h4>
@@ -65,9 +68,9 @@ function About () {
                 </ul>
             </div>
         </section>
-
-        </div>
-    )
+        <Footer />
+    </div>
+  )
 }
 
-export default About; 
+export default About

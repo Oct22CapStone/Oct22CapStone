@@ -41,7 +41,8 @@ const Nav = () => {
 					<ul className="navbar-nav ms-auto mb-2 mb-lg-0 ms-lg-4">
 					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/profile">Profile</a></li>
 					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/register">Register</a></li>
-					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Login</a></li>
+					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Login</a></li> 
+                    
 					</ul>
                 </div>
             </div>

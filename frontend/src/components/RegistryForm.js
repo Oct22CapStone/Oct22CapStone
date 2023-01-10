@@ -1,17 +1,21 @@
-
+import React from 'react'; 
 import axios from 'axios';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBInput,
-  MDBIcon,
+import Footer from '../components/Navbar/Footer'
+import Header from '../components/Navbar/Header'
+import { 
+  MDBBtn, 
+  MDBContainer, 
+  MDBRow, 
+  MDBCol, 
+  MDBCard, 
+  MDBCardBody, 
+  MDBCardImage, 
+  MDBInput, 
+  MDBIcon, 
+  MDBCheckbox 
 } 
 from 'mdb-react-ui-kit';
+
 import { useState } from 'react';
 
 function RegistryForm() {
@@ -88,58 +92,80 @@ function RegistryForm() {
   return (
     <MDBContainer fluid>
 
-      <MDBCard className='text-black m-5' style={{borderRadius: '25px'}}>
-        <MDBCardBody>
-          <MDBRow>
-            <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+      <Header/>
 
-              <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput label='Username' value={username} id="username" onChange={changeUsername}  type='text' className='w-100'/>
-              </div>
+    <MDBCard className='text-black m-5' style={{borderRadius: '25px'}}>
+      <MDBCardBody>
+        <MDBRow>
+          <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
 
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput label='Your Name' value={firstName} onChange={changeFirstName} id="name"type='text' className='w-100'/>
-              </div>
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput label='Your Lastname' value={lastName} onChange={changeLastName} id="last" type='text' className='w-100'/>
-              </div>
+            <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="envelope me-3" size='lg'/>
-                <MDBInput label='Your Email' onChange={changeEmail} value={email} id="email" type='email'/>
-              </div>
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput label='Your Phone' value={phone} onChange={changePhone} id="phone" type='text' className='w-100'/>
-              </div>
+            <div className="d-flex flex-row align-items-center mb-4 ">
+               <MDBIcon fas icon="user me-3" size='lg'/>
+              <MDBInput label='Username' value={username} id="username" onChange={changeUsername}  type='text' className='w-100'/>
+            </div>
 
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="lock me-3" size='lg'/>
-                <MDBInput label='Password' value={password} onChange={changePassword} id="password" type='password'/>
-              </div>
+            <div className="d-flex flex-row align-items-center mb-4 ">
+               <MDBIcon fas icon="user me-3" size='lg'/>
+               <MDBInput label='First Name' value={firstName} onChange={changeFirstName} id="name"type='text' className='w-100'/>
+            </div>
 
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="key me-3" size='lg'/>
-                <MDBInput label='Repeat your password' value={passwordRepeat} onChange={changePasswordRepeat} id="passwordRepeat" type='password'/>
-              </div>
+            <div className="d-flex flex-row align-items-center mb-4 ">
+               <MDBIcon fas icon="user me-3" size='lg'/>
+               <MDBInput label='Last Name' value={lastName} onChange={changeLastName} id="last" type='text' className='w-100'/>
+            </div>
 
-              <MDBBtn className='mb-4' size='lg' onClick={handleRegister}>Register</MDBBtn>
+            <div className="d-flex flex-row align-items-center mb-4">
+              <MDBIcon fas icon="envelope me-3" size='lg'/>
+              <MDBInput label='Email Address' onChange={changeEmail} value={email} id="email" type='email'/>
+            </div>
 
-            </MDBCol>
+            <div className="d-flex flex-row align-items-center mb-4 ">
+               <MDBIcon fas icon="user me-3" size='lg'/>
+               <MDBInput label='Phone Number' value={phone} onChange={changePhone} id="phone" type='text' className='w-100'/>
+            </div>
 
-            <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
-              <MDBCardImage src='https://th.bing.com/th/id/OIP.fP8ME8Bs6Ndjo50ACPnviwHaFn?pid=ImgDet&rs=1' fluid/>
-            </MDBCol>
+            <div className="d-flex flex-row align-items-center mb-4">
+              <MDBIcon fas icon="lock me-3" size='lg'/>
+              <MDBInput label='Password' value={password} onChange={changePassword} id="password" type='password'/>
+            </div>
 
-          </MDBRow>
-        </MDBCardBody>
-      </MDBCard>
+            <div className="d-flex flex-row align-items-center mb-4">
+              <MDBIcon fas icon="key me-3" size='lg'/>
+              <MDBInput label='Repeat your password' value={passwordRepeat} onChange={changePasswordRepeat} id="passwordRepeat" type='password'/>
+            </div>
 
-    </MDBContainer>
+            <div className='mb-4'>
+              <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
+            </div>
+
+            <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
+            
+          </MDBCol>
+
+          <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
+            <MDBCardImage src='https://www.logodesign.net/logo/line-art-car-with-swoosh-5986ld.png' fluid/>
+          </MDBCol>
+          
+        </MDBRow>
+      </MDBCardBody>
+    </MDBCard>
+
+
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+      />
+    <link
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      rel="stylesheet"
+      />
+
+    <Footer/>
+  </MDBContainer>
+  
   );
 }
 
