@@ -44,15 +44,15 @@ public class Users {
 	private String acc_role;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)//removed orphanRemoval = true
     private List<Address>addresses;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "userOrder", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userOrder", fetch = FetchType.LAZY)//removed orphanRemoval = true
     private List<UserOrders>userOrder;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)//removed orphanRemoval = true
     private List<UserCart>userCart;
 	
 	

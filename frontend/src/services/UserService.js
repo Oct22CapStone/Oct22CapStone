@@ -5,21 +5,21 @@ import axios from "axios";
 
 class UserService {
 
-    getUser() {
-        return axios.get("http://localhost:8181/userpage/show");
-    }
+    // getUser() {
+    //     return axios.get("http://localhost:8181/userpage/show");
+    // }
 
     deleteUser() {
         return axios.delete("http://localhost:8181/userpage/delete/{user_id}");
     }
 
-    editUser() {
-        return axios.put("http://localhost:8181/userpage/update/{user_id}");
-    }
+    // editUser() {
+    //     return axios.put("http://localhost:8181/userpage/update/{user_id}");
+    // }
 
-    addUser() {
-        return axios.post("http://localhost:8181/userpage/save");
-    }
+    // addUser() {
+    //     return axios.post("http://localhost:8181/userpage/save");
+    // }
 }
 
 export default new UserService();
