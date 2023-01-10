@@ -34,6 +34,7 @@ public class ProductService {
 		newProduct.setPricePerUnit(product.getPricePerUnit());
 		newProduct.setProductDescription(product.getProductDescription());
 		newProduct = productRepo.save(newProduct);
+	
 		return newProduct;
 	}
 
