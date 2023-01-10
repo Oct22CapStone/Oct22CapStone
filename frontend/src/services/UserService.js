@@ -23,8 +23,17 @@ class UserService {
     createUser(user){
         return axios.post(`http://localhost:8181/userpage/save`, user);
     }
+
     checkUser(email){
         return axios.get(`http://localhost:8181/userpage/check/${email}`).then(response=>response.data)
+    }
+
+    getUserById(id){
+        return axios.get(`http://localhost:8181/userpage/show/${id}`);
+    }
+
+    getUserByEmail(email){
+        return axios.get(`http://localhost:8181/userpage/showId/${email}`).then(response=>response.data)
     }
 }
 
