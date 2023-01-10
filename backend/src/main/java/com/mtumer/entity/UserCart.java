@@ -1,6 +1,5 @@
 package com.mtumer.entity;
 
-
 import java.util.List;
 
 import javax.persistence.*;
@@ -9,25 +8,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
-
 @Entity
-@Table(name="usercart")
+@Table(name = "usercart")
 @Data
 public class UserCart {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="usercart_id")
-	private Long usercart_id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "userCart_id")
+	private Long userCartId;
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
-	private Users user_id;
-	
+	@JoinColumn(name = "userId")
+	private Users userId;
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "usercart_id", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Cart>cart;
-	
-	
-	
+	@OneToMany(mappedBy = "userCartId", fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<Cart> cart;
+
 }
