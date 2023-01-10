@@ -157,7 +157,7 @@ public class AddressServiceTest {
 		service.update(address1);
 		verify(repo).saveAndFlush(address1);
 		
-		//Assert that new phone number is saved
+		//Assert 
 		assertEquals("14 Main Street",address1.getStreet());
 	}
 }

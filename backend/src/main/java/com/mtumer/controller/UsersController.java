@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mtumer.entity.Users;
+
 import com.mtumer.services.UsersService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -33,11 +34,32 @@ public class UsersController {
 		return new ResponseEntity<List<Users>>(list, HttpStatus.OK);
 	}
 
+	@GetMapping("/check/{email}")
+	public Boolean getByEmail(@PathVariable String email) {
+		Boolean user = usersService.userExistsByEmail(email);
+		System.out.println(user);
+		if (user) {
+			
+			return true;			
+		}
+		return false;
+		
+	}
+	
+	@GetMapping("/userbyemail/{id}")
+	public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
+		Users user = usersService.getUserByEmail(email);
+		if (user.getUserId() != null) {			
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 	@GetMapping("/show/{id}")
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
 		Optional<Users> user = usersService.getUserById(id);
 		if (!user.isPresent()) {
-			return ResponseEntity.notFound().build();
+			
 		}
 		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 
@@ -54,6 +76,7 @@ public class UsersController {
 		Optional<Users> updateUser = usersService.getUserById(userId);
 		if (!updateUser.isPresent()) {
 			return ResponseEntity.notFound().build();
+
 		}
 		Users newUser = new Users();
 		newUser.setUserId(userId);
@@ -63,7 +86,6 @@ public class UsersController {
 		newUser.setPassword(user.getPassword());
 		newUser.setEmail(user.getEmail());
 		newUser.setUsername(user.getUsername());
-		newUser.setAccRole(user.getAccRole());
 		usersService.update(newUser);
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
@@ -78,4 +100,5 @@ public class UsersController {
 		usersService.deleteUser(userId);
 		return ResponseEntity.ok().build();
 	}
+
 }
