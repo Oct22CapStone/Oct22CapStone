@@ -1,9 +1,13 @@
 import AddressService from "../services/AddressService";
 import { Link, Route, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useOktaAuth } from "@okta/okta-react";
+import UserService from "../services/UserService";
 
 const AddAddress = () => {   
 	  const [address, setAddress] = useState("");
+    const { oktaAuth, authState } = useOktaAuth();
+    const [user, setUser] = useState("");
 
     const handleSubmit = async() =>{
         await AddressService.createAddress(address);
@@ -13,6 +17,23 @@ const AddAddress = () => {
       setAddress(address =>({...address, [event.target.name]: event.target.value}));
     }
 
+     useEffect(() =>{	
+        const fetchData  = async () => {
+            try {
+                const response = await UserService.getUser();                                                        
+                setUser(response.data);
+                setUser(
+                    user.filter((u)=>{
+                        return u.email === authState.idToken.claims.email;
+                    })
+                )
+            } catch(error) {
+                console.log(error);
+            }
+        }; 
+		  fetchData();
+       
+	},[]);
 
     
     return (
