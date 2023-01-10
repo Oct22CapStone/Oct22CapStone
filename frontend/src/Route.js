@@ -31,12 +31,10 @@ const Routes = () => {
 			<Switch>
 
 				<Route path="/" exact={true} component={Home} />
-        <Route path="/register" exact={true} component={RegistryForm} />
-				<SecureRoute path="/user" component={ViewUser} />
+        		<Route path="/register" exact={true} component={RegistryForm} />
+				<SecureRoute path="/viewuser" component={ViewUser} />
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
-
-				<SecureRoute path="/user" component={User} />
 
 				<Route path="/login/callback" component={LoginCallback} />	
 				<Route path="/viewsingleproduct/:id" exact={true} component={ViewSingleProduct}/>
