@@ -34,11 +34,32 @@ public class UsersController {
 		return new ResponseEntity<List<Users>>(list, HttpStatus.OK);
 	}
 
+	@GetMapping("/check/{email}")
+	public Boolean getByEmail(@PathVariable String email) {
+		Boolean user = usersService.userExistsByEmail(email);
+		System.out.println(user);
+		if (user) {
+			
+			return true;			
+		}
+		return false;
+		
+	}
+	
+	@GetMapping("/userbyemail/{id}")
+	public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
+		Users user = usersService.getUserByEmail(email);
+		if (user.getUserId() != null) {			
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 	@GetMapping("/show/{id}")
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
 		Optional<Users> user = usersService.getUserById(id);
 		if (!user.isPresent()) {
-			return ResponseEntity.notFound().build();
+			
 		}
 		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 
@@ -79,6 +100,5 @@ public class UsersController {
 		usersService.deleteUser(userId);
 		return ResponseEntity.ok().build();
 	}
-	
-}
 
+}

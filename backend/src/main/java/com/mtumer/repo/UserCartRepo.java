@@ -7,6 +7,7 @@ import com.mtumer.entity.UserCart;
 
 
 @Repository
-public interface UserCartRepo extends JpaRepository<UserCart, Long>{
+public interface UserCartRepo extends JpaRepository<UserCart, Long> {
+	
 
 }
