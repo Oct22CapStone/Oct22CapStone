@@ -35,8 +35,7 @@ const Orders = () => {
 			{
 				<>
 					{!loading && (
-						<><h2 className="text-center">Orders</h2><article>
-							
+						<><h2 className="text-center">Orders</h2><article>		
 							<table className="table table-bordered">
 								<thead>
 									<tr>
