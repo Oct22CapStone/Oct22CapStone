@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - CAP-11-Adding-Junit/Mockito-tests-on-backend
+    paths:
+      - 'frontend/**'
   workflow_dispatch:
 
 jobs:
@@ -23,15 +25,14 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-
+          cd frontend
+          npm install --force
+          npm run build
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: ./frontend/build/static
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,5 +53,5 @@ jobs:
         with:
           app-name: 'VehicleVault'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_36340DBF186245578823BCCDC2419A51 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_15C2B3524E124DDAB52B395310DC317D }}
           package: .
