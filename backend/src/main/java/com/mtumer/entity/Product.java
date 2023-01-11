@@ -9,8 +9,11 @@ import javax.persistence.*;
 public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="productid")
+	@Column(name="product_id")
 	private Long productId;
+	
+	@Column (name="show_product")
+	private boolean showProduct;
 	
 	@Column(name="productQty")
 	private int productQty;
@@ -22,9 +25,11 @@ public class Product {
 	private String productImg;
 	
 	@Column(name="price_per_unit")
-	private double price_per_unit;
+	private double pricePerUnit;
 	
 	@Column(name="productdesc")
 	private String productDescription;
 	
 }
+
+// 

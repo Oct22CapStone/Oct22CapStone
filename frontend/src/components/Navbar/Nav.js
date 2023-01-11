@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
 
+
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
 
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
 
 	const loggingOut = async () => {
+
 		oktaAuth.tokenManager.clear();
 	  };
-
+ 
 	return (
 		<Section>
 			<Link to="/">
@@ -38,6 +40,15 @@ const Nav = () => {
                             </div>
 						)
 					}
+				</li>
+				<li>
+					<Link to="/editproducts">Edit Products</Link>
+				</li>
+				<li>
+					<Link to="/viewproducts">View Products</Link>
+				</li>
+				<li>
+					<Link to="/viewsingleproduct">View Single Product</Link>
 				</li>
 			</ul>
 		</Section>

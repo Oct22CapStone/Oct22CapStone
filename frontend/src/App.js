@@ -3,6 +3,8 @@ import Route from "./Route";
 
 const App = () => {
 	return (
+		
+		
 		<BrowserRouter>
 			<Route />
 		</BrowserRouter>
