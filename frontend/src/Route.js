@@ -33,19 +33,19 @@ const Routes = () => {
 			<Switch>
 
 				<Route path="/" exact={true} component={Home} />
-        				<Route path="/register" exact={true} component={RegistryForm} />
+        		<Route path="/register" exact={true} component={RegistryForm} />
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
-				<SecureRoute path="/user/read" component={ViewUser} />
-				<SecureRoute path="/user/post" component={CreateUser} />
-				<SecureRoute path="/user/put" component={EditUser} />
+				<SecureRoute path="/users" component={ViewUser} />
+				<SecureRoute path="/adduser" component={CreateUser} />
+				<SecureRoute path="/edituser" component={EditUser} />
 				<Route path="/login/callback" component={LoginCallback} />	
 				<Route path="/viewsingleproduct/:id" exact={true} component={ViewSingleProduct}/>
 				<SecureRoute path="/viewproducts" component={ViewProducts}/>
 				<SecureRoute path="/addproduct" component={AddProduct}/>	
 				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
-        <Route path="/addaddress" exact={true} component={AddAddress} />
+        		<Route path="/addaddress" exact={true} component={AddAddress} />
 
 
 			</Switch>

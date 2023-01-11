@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 
 const Home = () => {

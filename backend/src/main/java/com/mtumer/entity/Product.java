@@ -31,5 +31,3 @@ public class Product {
 	private String productDescription;
 	
 }
-
-// 

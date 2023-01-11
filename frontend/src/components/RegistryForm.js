@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import {
   MDBBtn,
@@ -24,7 +23,7 @@ function RegistryForm() {
   const [phone, setPhone] = useState('');
   const [password, setpassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
-  const acc_role='Customer';
+  const role='Customer';
 
   const changeUsername = (event) => {
     setUsername(event.target.value);
@@ -67,7 +66,7 @@ function RegistryForm() {
         email,
         phone,
         password,
-        acc_role,
+        role,
       };
       axios.post("http://localhost:8181/userpage/save", val);
       clearState();

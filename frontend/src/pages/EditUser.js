@@ -7,25 +7,25 @@ export default function EditUser() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [acc_role, setAcc_role] = useState('');
-  const [user_id, setUser_id] = useState(null);
+  const [role, setRole] = useState('');
+  const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-        setUser_id(localStorage.getItem('ID'))
+        setUserId(localStorage.getItem('ID'))
         setFirstName(localStorage.getItem('First Name'));
         setLastName(localStorage.getItem('Last Name'));
         setEmail(localStorage.getItem('Email'));
         setPhone(localStorage.getItem('Phone'));
-        setAcc_role(localStorage.getItem('Role'));
+        setRole(localStorage.getItem('Role'));
     }, []);
 
   const putData = () => {
-    axios.put(`http://localhost:8181/userpage/update/${user_id}`, {
+    axios.put(`http://localhost:8181/userpage/update/${userId}`, {
         firstName,
         lastName,
         email,
         phone,
-        acc_role
+        role
         })
     }
 
@@ -50,7 +50,7 @@ export default function EditUser() {
               </Form.Field>
               <Form.Field>
                   <label>Role</label>
-                  <input placeholder='Role' value={acc_role} onChange={(e) => setAcc_role(e.target.value)}/>
+                  <input placeholder='Role' value={role} onChange={(e) => setRole(e.target.value)}/>
               </Form.Field>
               <Button type='submit' onClick={putData}>Update</Button>
           </Form>

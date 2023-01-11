@@ -46,7 +46,7 @@ public class UsersController {
 		
 	}
 	
-	@GetMapping("/showId/{id}")
+	@GetMapping("/showId/{user_id}")
 	public Long getUserByEmail(@PathVariable String email) {
 		Long userId = usersService.getUserByEmail(email);
 		System.out.println(userId);
@@ -72,7 +72,7 @@ public class UsersController {
 		return new ResponseEntity<Users>(savedUser, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update/{user_id}")
+	@PutMapping("/update/{userId}")
 	public ResponseEntity<Users> updateUser(@PathVariable("user_id") Long userId, @RequestBody Users user) {
 		Optional<Users> updateUser = usersService.getUserById(userId);
 		if (!updateUser.isPresent()) {
@@ -91,7 +91,7 @@ public class UsersController {
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{user_id}")
+	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<Users> deleteUser(@PathVariable("user_id") Long userId) {
 		Optional<Users> userRemoved = usersService.getUserById(userId);
 		if (!userRemoved.isPresent()) {

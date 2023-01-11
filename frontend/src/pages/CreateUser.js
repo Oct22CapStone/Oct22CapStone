@@ -7,7 +7,7 @@ function CreateUser() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [acc_role, setAcc_role] = useState('');
+  const [role, setRole] = useState('');
 
 
 
@@ -17,7 +17,7 @@ function CreateUser() {
         lastName,
         email,
         phone,
-        acc_role
+        role
     })
 }
   return (
@@ -41,7 +41,7 @@ function CreateUser() {
               </Form.Field>
               <Form.Field>
                   <label>Role</label>
-                  <input placeholder='Role' onChange={(e) => setAcc_role(e.target.value)}/>
+                  <input placeholder='Role' onChange={(e) => setRole(e.target.value)}/>
               </Form.Field>
               <Button onClick={postData} type='submit'>Submit</Button>
           </Form>

@@ -6,19 +6,19 @@ import { Link } from 'react-router-dom';
 export default function ViewUser() {
   //const [user, setUser] = useState([]);
 
-  const onDelete = (user_id) => {
-    axios.delete(`http://localhost:8181/userpage/delete/${user_id}`);
+  const onDelete = (userId) => {
+    axios.delete(`http://localhost:8181/userpage/delete/${userId}`);
   }
 
   const setData = (data) => {
     console.log(data);
-    let { user_id, firstName, lastName, email, phone, acc_role } = data;
-    localStorage.setItem('ID', user_id);
+    let { userId, firstName, lastName, email, phone, role } = data;
+    localStorage.setItem('ID', userId);
     localStorage.setItem('First Name', firstName);
     localStorage.setItem('Last Name', lastName);
     localStorage.setItem('Email', email);
     localStorage.setItem('Phone', phone);
-    localStorage.setItem('Role', acc_role)
+    localStorage.setItem('Role', role)
 }
 
 const [APIData, setAPIData] = useState([]);
@@ -35,9 +35,9 @@ useEffect(() => {
       <Table singleLine>
 
           <Table.Header>
-            <h1>All <b>Users</b></h1> <b> 
+            <h1>Manage <b>Users</b></h1> <b> 
               <h4>
-              <Link to='/user/post'>
+              <Link to='/adduser'>
               <Table.Cell> 
               <Button>Add New User</Button>
               </Table.Cell>
@@ -62,11 +62,11 @@ useEffect(() => {
                   <Table.Cell>{data.lastName}</Table.Cell>
                   <Table.Cell>{data.email}</Table.Cell>
                   <Table.Cell>{data.phone}</Table.Cell>
-                  <Table.Cell>{data.acc_role}</Table.Cell>
+                  <Table.Cell>{data.role}</Table.Cell>
 
                   <Table.Cell>
-                    <Button onClick={() => onDelete(data.user_id)}>Delete</Button>
-                    <Link to='/user/put'>
+                    <Button onClick={() => onDelete(data.userId)}>Delete</Button>
+                    <Link to='/edituser'>
                     <Table.Cell> 
                     <Button onClick={() => setData(data)}>Update</Button>
                     </Table.Cell>
