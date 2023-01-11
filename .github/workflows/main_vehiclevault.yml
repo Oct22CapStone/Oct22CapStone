@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: ./frontend/build
+          path: ./frontend/build/static
 
   deploy:
     runs-on: ubuntu-latest
