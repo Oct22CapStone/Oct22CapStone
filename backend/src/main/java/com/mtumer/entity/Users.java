@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users",uniqueConstraints=
+@UniqueConstraint(columnNames={"email"}))
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,9 +38,6 @@ public class Users {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "phone")
-	private String phone;
-
 	@Column(name = "password")
 	private String password;
 	
@@ -55,7 +53,6 @@ public class Users {
 	private List<UserOrders> userOrder;
 
 	@JsonIgnore
-
 	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<UserCart> userCart;
 
