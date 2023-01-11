@@ -63,7 +63,6 @@ public class UsersControllerTest {
 		users1.setFirstName("John");
 		users1.setLastName("Smith");
 		users1.setEmail("jsmith@gmail.com");
-		users1.setPhone("1234567890");
 		users1.setPassword("js1234");
 
 		Users users2 = new Users();
@@ -72,7 +71,6 @@ public class UsersControllerTest {
 		users2.setFirstName("Bob");
 		users2.setLastName("Clarke");
 		users2.setEmail("bclarke@gmail.com");
-		users2.setPhone("0987654321");
 		users2.setPassword("bc1234");
 
         doReturn(Lists.newArrayList(users1, users2)).when(service).getAllUsers();
@@ -86,7 +84,7 @@ public class UsersControllerTest {
 				
 				.andExpect(jsonPath("$[1].userId", is(2))).andExpect(jsonPath("$[1].username", is("Bobc")))
 				.andExpect(jsonPath("$[1].firstName", is("Bob"))).andExpect(jsonPath("$[1].lastName", is("Clarke")))
-				.andExpect(jsonPath("$[1].email", is("bclarke@gmail.com"))).andExpect(jsonPath("$[1].phone", is("0987654321")))
+				.andExpect(jsonPath("$[1].email", is("bclarke@gmail.com")))
 				.andExpect(jsonPath("$[1].password", is("bc1234")));
 	}
 
@@ -99,7 +97,6 @@ public class UsersControllerTest {
 		users1.setFirstName("John");
 		users1.setLastName("Smith");
 		users1.setEmail("jsmith@gmail.com");
-		users1.setPhone("1234567890");
 		users1.setPassword("js1234");
         doReturn(Optional.of(users1)).when(service).getUserById(1l);
 
@@ -107,7 +104,7 @@ public class UsersControllerTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.userId", is(1))).andExpect(jsonPath("$.username", is("jsmith")))				
 				.andExpect(jsonPath("$.firstName", is("John"))).andExpect(jsonPath("$.lastName", is("Smith")))
-				.andExpect(jsonPath("$.email", is("jsmith@gmail.com"))).andExpect(jsonPath("$.phone", is("1234567890")))
+				.andExpect(jsonPath("$.email", is("jsmith@gmail.com")))
 				.andExpect(jsonPath("$.password", is("js1234")));
 
 	}
@@ -127,7 +124,6 @@ public class UsersControllerTest {
 		userToPost.setFirstName("John");
 		userToPost.setLastName("Smith");
 		userToPost.setEmail("jsmith@gmail.com");
-		userToPost.setPhone("1234567890");
 		userToPost.setPassword("js1234");
 		
 		Users userToReturn = new Users();
@@ -136,7 +132,6 @@ public class UsersControllerTest {
 		userToReturn.setFirstName("John");
 		userToReturn.setLastName("Smith");
 		userToReturn.setEmail("jsmith@gmail.com");
-		userToReturn.setPhone("1234567890");
 		userToReturn.setPassword("js1234");
 		when(service.createUser(any())).thenReturn(userToReturn);
 		
@@ -147,7 +142,7 @@ public class UsersControllerTest {
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.userId", is(1))).andExpect(jsonPath("$.username", is("jsmith")))				
 			.andExpect(jsonPath("$.firstName", is("John"))).andExpect(jsonPath("$.lastName", is("Smith")))
-			.andExpect(jsonPath("$.email", is("jsmith@gmail.com"))).andExpect(jsonPath("$.phone", is("1234567890")))
+			.andExpect(jsonPath("$.email", is("jsmith@gmail.com")))
 			.andExpect(jsonPath("$.password", is("js1234")));
 	}
 	
@@ -160,7 +155,6 @@ public class UsersControllerTest {
 		userToPut.setFirstName("John");
 		userToPut.setLastName("Smith");
 		userToPut.setEmail("jsmith@gmail.com");
-		userToPut.setPhone("1234567890");
 		userToPut.setPassword("js1234");
 		
 		Users userToReturnFindBy = new Users();
@@ -168,7 +162,6 @@ public class UsersControllerTest {
 		userToReturnFindBy.setFirstName("John");
 		userToReturnFindBy.setLastName("Smith");
 		userToReturnFindBy.setEmail("jsmith@gmail.com");
-		userToReturnFindBy.setPhone("1234567890");
 		userToReturnFindBy.setPassword("js1234");
 		service.createUser(userToReturnFindBy);
 		
@@ -177,7 +170,6 @@ public class UsersControllerTest {
 		userToReturnSave.setFirstName("John");
 		userToReturnSave.setLastName("Smith");
 		userToReturnSave.setEmail("jsmith@gmail.com");
-		userToReturnSave.setPhone("1234567890");
 		userToReturnSave.setPassword("js1234");
 		
 		when(service.getUserById(1l)).thenReturn(Optional.of(userToReturnFindBy));
@@ -190,7 +182,7 @@ public class UsersControllerTest {
 		 	.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.userId", is(1))).andExpect(jsonPath("$.username", is("jsmith")))				
 			.andExpect(jsonPath("$.firstName", is("John"))).andExpect(jsonPath("$.lastName", is("Smith")))
-			.andExpect(jsonPath("$.email", is("jsmith@gmail.com"))).andExpect(jsonPath("$.phone", is("1234567890")))
+			.andExpect(jsonPath("$.email", is("jsmith@gmail.com")))
 			.andExpect(jsonPath("$.password", is("js1234")));
 	}
 	

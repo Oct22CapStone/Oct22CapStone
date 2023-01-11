@@ -7,14 +7,13 @@ const Cart = () => {
   const [items,setItems] = useState([]);
  
   function deleteProduct  (id,e){
-		console.log(id);
+		console.log(items);
 		//similar to delete function in viewProducts.js make sure to remove it from items variable AND local storage
    };
 
   useEffect(() => {
     if(JSON.parse(localStorage.getItem('cart')) != null){
       setItems(JSON.parse(localStorage.getItem('cart')));
-      
     }
   }, []);
 

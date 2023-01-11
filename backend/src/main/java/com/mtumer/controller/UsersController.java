@@ -46,7 +46,7 @@ public class UsersController {
 		
 	}
 	
-	@GetMapping("/userbyemail/{id}")
+	@GetMapping("/userbyemail/{email}")
 	public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
 		Users user = usersService.getUserByEmail(email);
 		if (user.getUserId() != null) {			
@@ -82,7 +82,6 @@ public class UsersController {
 		newUser.setUserId(userId);
 		newUser.setFirstName(user.getFirstName());
 		newUser.setLastName(user.getLastName());
-		newUser.setPhone(user.getPhone());
 		newUser.setPassword(user.getPassword());
 		newUser.setEmail(user.getEmail());
 		newUser.setUsername(user.getUsername());
