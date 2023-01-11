@@ -5,7 +5,7 @@ import { useOktaAuth } from "@okta/okta-react";
 
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
-
+    //add local storage here and pull cart quantity
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
 
 	const loggingOut = async () => {
@@ -32,11 +32,11 @@ const Nav = () => {
                         </li>
                     </ul>
                     <form className="d-flex">
-                        <button className="btn btn-outline-dark" type="submit">
+                        <Link to="/cart" className="btn btn-outline-dark" type="submit">
                             <i className="bi-cart-fill me-1"></i>
                             Cart
                             <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
+                        </Link>
                     </form>
                     
 					<ul className="navbar-nav ms-auto mb-2 mb-lg-0 ms-lg-4">
