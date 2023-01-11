@@ -1,11 +1,7 @@
 export const oktaConfig = {
 
-
-    //dev-09055718.okta.com/oauth2/default',
-    issuer: 'https://dev-75726251.okta.com/oauth2/default',
-    //clientId: "0oa7ubwwdkshNMbWg5d7",
-    clientId: "0oa7ubwwdkshNMbWg5d7", // SINGLE PAGE APP - WORKS
-    //clientId: "0oa7spieo4luUqayk5d7", WEB APP - DOESN'T WORK
+    issuer: 'https://dev-38245936.okta.com/oauth2/default',//chinar's issuer
+    clientId: "0oa7urjx6kd5LTbMZ5d7",   //chinar's clientId
 
     redirectUri: `${window.location.origin}/login/callback`,
     //redirectUri: 'http://localhost:3000/login/callback',

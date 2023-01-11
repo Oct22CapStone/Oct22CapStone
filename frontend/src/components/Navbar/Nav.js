@@ -5,6 +5,7 @@ import { useOktaAuth } from "@okta/okta-react";
 
 
 const Nav = () => {
+
 	const { oktaAuth, authState } = useOktaAuth();
 
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });

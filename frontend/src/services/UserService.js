@@ -33,7 +33,7 @@ class UserService {
     }
 
     getUserByEmail(email){
-        return axios.get(`http://localhost:8181/userpage/showId/${email}`).then(response=>response.data)
+        return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`);
     }
 }
 

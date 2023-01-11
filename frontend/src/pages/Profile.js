@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import AddressService from "../services/AddressService";
 import { Link, useParams } from "react-router-dom";
 import UserService from "../services/UserService";
+import { useOktaAuth } from "@okta/okta-react";
 
 const Profile = () => {
-
+    const { oktaAuth, authState } = useOktaAuth();
     const {id} = useParams();        
-	const [address, setAddress] = useState([]);
-    const [user, setUser] = useState("");
-
+	const [address, setAddress] = useState(null);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     async function deleteAddress  (id,e){
 		console.log(id);
 		await AddressService.delete(id);
@@ -23,31 +24,32 @@ const Profile = () => {
         const res = await AddressService.findAllAddresses();
         setAddress(res.data);
         setAddress(
-            address.filter((a)=>{
+            address.filter((a)=>{       
+                console.log(a.userId); 
                 return a.userId === user;
             })
         );
    };
-
-    console.log(user); 
+ 
     useEffect(() =>{	
         const fetchData  = async () => {
-            try {
-                const response = await UserService.getUserById(id);                                           
-                setUser(response.data);
+            setLoading(true);
+            try {                
+                const response = UserService.getUserByEmail(authState.idToken.claims.email);                                                        
+                setUser((await response).data)
+                console.log(response);                                
             } catch(error) {
                 console.log(error);
             }
+            setLoading(false);
         }; 
-
-        if(id && id !=="")
 		fetchData();
         fetchAddress();
-	},[id]);
+	},[]);
 
     
     return (
-        <>
+        <>{!loading &&(
         <section className="bg-light">
     <div className="container">
         <div className="row">
@@ -59,11 +61,11 @@ const Profile = () => {
                             </div>
                             <div className="col-lg-6 px-xl-10">
                                 <div className="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
-                                    <h3 className="h2 text-white mb-0">{user.firstName} {user.lastName}</h3>
+                                    {/* <h3 className="h2 text-white mb-0">{user.firstName} {user.lastName}</h3> */}
                                 </div>
                                 <ul className="list-unstyled mb-1-9">
                                     <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {user.email}</li>
-                                    <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Phone Number:</span> {user.phone}</li>
+                                    {/* <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Phone Number:</span> {user.phone}</li> */}
                                 </ul>
                             </div>
                         </div>
@@ -73,6 +75,7 @@ const Profile = () => {
             <div className="col-lg-12 mb-4 mb-sm-5">
             </div>
             <div className="col-lg-12">
+                <h3>Your Addresses</h3>
                 <div className="row">
                     <div className="col-lg-12 mb-4 mb-sm-5">
                     
@@ -89,8 +92,7 @@ const Profile = () => {
                         </thead>
                         <tbody>
                     {address.map(
-        ({addressId, street, city, state, country, zip}) =>(
-                        
+        ({addressId, street, city, state, country, zip}) =>(                        
             <tr key={addressId}>
             <td>{street}</td>
             <td>{city}</td>
@@ -116,7 +118,7 @@ const Profile = () => {
             </div>
         </div>
     </div>
-</section>
+</section>)}
 </>
     )
 };

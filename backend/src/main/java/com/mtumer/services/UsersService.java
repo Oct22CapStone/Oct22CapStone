@@ -44,14 +44,15 @@ public class UsersService {
 		return false;
 	}
 	
-	public Long getUserByEmail(String email) {
+	public Users getUserByEmail(String email) {
 		List<Users> userList = usersRepo.findAll();
-		
+		Users user = new Users();
 		for (Users users : userList) {
 			if(users.getEmail() != null) {
 //				System.out.println((users.getEmail().toString()).equals(email));
 				if((users.getEmail().toString()).equals(email)) {
-					return users.getUserId();					
+					user = users;
+					return user;					
 				}
 			}
 		}
