@@ -28,6 +28,7 @@ jobs:
           cd frontend
           npm install --force
           npm run build
+        working-directory: .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
