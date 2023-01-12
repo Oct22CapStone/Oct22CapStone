@@ -15,7 +15,7 @@ import ViewUser from "./pages/ViewUser";
 import Orders from "./pages/Orders";
 import AddProduct from "./pages/AddProduct";
 import Cart from "./pages/Cart";
-//Kenzie was here!
+
 const oktaAuth = new OktaAuth(oktaConfig);
 
 const Routes = () => {
