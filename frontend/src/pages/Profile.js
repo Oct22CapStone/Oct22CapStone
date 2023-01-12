@@ -13,6 +13,7 @@ const Profile = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    
     async function deleteAddress  (id,e){
 		console.log(id);
 		await AddressService.delete(id);
@@ -20,7 +21,7 @@ const Profile = () => {
 			address.filter((address) => {
 			   return address.addressId !== id;
 			})
-		 );
+		);
    };
    const fetchAddress = async() => {
     setLoading(true);
