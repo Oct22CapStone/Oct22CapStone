@@ -34,15 +34,18 @@ const Home = () => {
 
 	return(
 		<>
+		<Header/>
+		<section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 justify-content-center">
+		
 	{!loading &&(
 		<div>
-			<Header/>
+			
 			{products.map(
 ({productId, productName, productImg, pricePerUnit, productDescription}) =>(
 	<div key={productId} className="container py-2">
-	    <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+	    
 					
 				
                     <div class="col mb-5">
@@ -65,96 +68,29 @@ const Home = () => {
 
 						</div>
 					</div>
-					
 
 					
-					<div class="col mb-5">
-                        <div class="card h-100">
-						
-                            <img class="card-img-top" src= {productImg} alt="..." /> 
-                
-
-							<div class="card-body p-4">
-                                <div class="text-center">
-									<h5 class = "fw-bolder">
-										<Link to={`/viewsingleproduct/${productId}`}>{productName}</Link>
-									</h5>
-									<h4 class = "mb-1" >${pricePerUnit}</h4>
-									<h6 className="text-success">Free shipping</h6>
-									<button class="btn btn-outline-dark mt-auto" type="button"><i class="bi-cart-fill me-1"></i> Add to cart</button>
-								</div>
-
-							</div>
-
-						</div>
-					</div>
 					
+				
 
-					
-					<div class="col mb-5">
-                        <div class="card h-100">
-						
-                            <img class="card-img-top" src= {productImg} alt="..." /> 
-                
-
-							<div class="card-body p-4">
-                                <div class="text-center">
-									<h5 class = "fw-bolder">
-										<Link to={`/viewsingleproduct/${productId}`}>{productName}</Link>
-									</h5>
-									<h4 class = "mb-1" >${pricePerUnit}</h4>
-									<h6 className="text-success">Free shipping</h6>
-									<button class="btn btn-outline-dark mt-auto" type="button"><i class="bi-cart-fill me-1"></i> Add to cart</button>
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-					
-
-					
-					<div class="col mb-5">
-                        <div class="card h-100">
-						
-                            <img class="card-img-top" src= {productImg} alt="..." /> 
-                
-
-							<div class="card-body p-4">
-                                <div class="text-center">
-									<h5 class = "fw-bolder">
-										<Link to={`/viewsingleproduct/${productId}`}>{productName}</Link>
-									</h5>
-									<h4 class = "mb-1" >${pricePerUnit}</h4>
-									<h6 className="text-success">Free shipping</h6>
-									<button class="btn btn-outline-dark mt-auto" type="button"><i class="bi-cart-fill me-1"></i> Add to cart</button>
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-					
-					
-				</div>
-			</div>
-		</section>
-
-
-
-
+	</div>
 
 	
-	</div>
 	))};
 
+	
+
+	</div>)}
+
+	
+
+	</div>
+	</div>
+	</section>
 
 	<Footer/>
 
-	</div>)}
-</>
-
-	
+	</>
 	)
 
 };

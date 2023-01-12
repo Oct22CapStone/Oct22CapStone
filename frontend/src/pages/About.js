@@ -53,7 +53,7 @@ function About () {
       </div>
 
       <div class="col-xl-3 col-sm-6 mb-5">
-        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://static.vecteezy.com/system/resources/previews/006/485/093/original/letter-ap-logo-design-template-letter-ap-for-corporate-or-brand-identity-vector.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://cdn4.vectorstock.com/i/1000x1000/10/53/ap-initials-letter-logo-vector-20891053.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 class="mb-0">Arogaya Piya</h5><span class="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
