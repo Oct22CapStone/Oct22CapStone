@@ -6,6 +6,7 @@ const ViewSingleProduct = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState("");
+    
     const addToCart = () => {
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");

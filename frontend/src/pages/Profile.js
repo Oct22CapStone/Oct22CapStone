@@ -10,6 +10,7 @@ const Profile = () => {
     const userInfo = useAuthUser();     
 	const [address, setAddress] = useState([]);
     const [filter, setFilter] = useState([]);
+    const [userId, setUserId] = useState(null);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -25,26 +26,29 @@ const Profile = () => {
    };
    const fetchAddress = async() => {
     setLoading(true);
-    const res = await AddressService.findAllAddresses();
+    const res = await AddressService.getAddressById(userId);
     setAddress(res.data);
-    setFilter(address.filter((i)=>{
-        console.log(user.userId);
-        return i.userId.userId == user.userId;
-    }))
+    setFilter(address);
+    console.log(filter);
+    // setFilter(address.filter((i)=>{
+    //     console.log(user.userId);
+    //     return i.userId.userId == user.userId;
+    // }))
     setLoading(false);
 };
  
     useEffect(() =>{	
         const fetchData  = async () => {
-            setLoading(true);
+            
             try {                
                 const response = await UserService.getUserByEmail(authState.idToken.claims.email);                                              
-                setUser(response)  
-                console.log(response);                                   
+                setUser(response);
+                setUserId(user.userId);
+                console.log(response);           
             } catch(error) {
                 console.log(error);
             }
-            setLoading(false);
+            
         };         
 
 		fetchData();
