@@ -71,7 +71,7 @@ public class UserOrdersControllerTest {
 
         doReturn(Lists.newArrayList(UserOrders1, UserOrders2)).when(service).getAllUserOrders();
 
-		mockMvc.perform(get("/user_orders")).andExpect(status().isOk())
+		mockMvc.perform(get("/user_orders/all")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$[0].orderId", is(1)))
 				.andExpect(jsonPath("$[0].trackingInfo", is("Pending")))

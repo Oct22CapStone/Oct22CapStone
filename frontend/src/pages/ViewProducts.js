@@ -12,14 +12,12 @@ const ViewProducts = () => {
 	const [loading, setLoading] = useState(true);
 
 
-    // Fetch all data and put into 'products'
 	useEffect(() =>{
 		const fetchData  = async () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
-				console.log(response);
 			} catch(error) {
 				console.log(error);
 			}

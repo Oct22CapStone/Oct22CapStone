@@ -79,7 +79,7 @@ public class UsersControllerTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$[0].userId", is(1))).andExpect(jsonPath("$[0].username", is("jsmith")))				
 				.andExpect(jsonPath("$[0].firstName", is("John"))).andExpect(jsonPath("$[0].lastName", is("Smith")))
-				.andExpect(jsonPath("$[0].email", is("jsmith@gmail.com"))).andExpect(jsonPath("$[0].phone", is("1234567890")))
+				.andExpect(jsonPath("$[0].email", is("jsmith@gmail.com")))
 				.andExpect(jsonPath("$[0].password", is("js1234")))
 				
 				.andExpect(jsonPath("$[1].userId", is(2))).andExpect(jsonPath("$[1].username", is("Bobc")))

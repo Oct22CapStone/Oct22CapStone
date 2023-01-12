@@ -7,40 +7,44 @@ import useAuthUser from "../hook/getUser";
 
 const Profile = () => {
     const { oktaAuth, authState } = useOktaAuth();
-    const userInfo = useAuthUser();
-    const {id} = useParams();        
+    const userInfo = useAuthUser();     
 	const [address, setAddress] = useState([]);
+    const [filter, setFilter] = useState([]);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     async function deleteAddress  (id,e){
 		console.log(id);
 		await AddressService.delete(id);
-		setAddress(
+		setFilter(
 			address.filter((address) => {
 			   return address.addressId !== id;
 			})
 		 );
    };
-
+   const fetchAddress = async() => {
+    setLoading(true);
+    const res = await AddressService.findAllAddresses();
+    setAddress(res.data);
+    setFilter(address.filter((i)=>{
+        console.log(user.userId);
+        return i.userId.userId == user.userId;
+    }))
+    setLoading(false);
+};
  
     useEffect(() =>{	
         const fetchData  = async () => {
             setLoading(true);
             try {                
-                const response = UserService.getUserByEmail(authState.idToken.claims.email);                                              
-                setUser((await response).data)                               
+                const response = await UserService.getUserByEmail(authState.idToken.claims.email);                                              
+                setUser(response)  
+                console.log(response);                                   
             } catch(error) {
                 console.log(error);
             }
             setLoading(false);
-        }; 
-        const isInUser = (value) => value === user.userId;
-        const fetchAddress = async() => {
-            const res = await AddressService.findAllAddresses();
-            setAddress(res.data);
-            const filters = address.filter(isInUser);
-       };
+        };         
 
 		fetchData();
         fetchAddress();
@@ -90,10 +94,11 @@ const Profile = () => {
                     <th scope="col">State</th>
                     <th scope="col">Country</th>
                     <th scope="col">Zip Code</th>
+                    <th scope="col">Manage</th>
                     </tr>
                         </thead>
                         <tbody>
-                    {address.map(
+                    {filter.map(
         ({addressId, street, city, state, country, zip, userId}) =>(                        
             <tr key={addressId}>
             <td>{street}</td>
