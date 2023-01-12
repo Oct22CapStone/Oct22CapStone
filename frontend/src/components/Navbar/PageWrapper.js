@@ -7,7 +7,7 @@ const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
     const [cartItems, setCartItems] = useState(null);
-    const cart = JSON.parse(localStorage.getItem("cart")).length;
+    
     
 	const loggingOut = async () => {
 		oktaAuth.tokenManager.clear();
@@ -15,6 +15,7 @@ const Nav = () => {
 
       useEffect(() => {
         if(JSON.parse(localStorage.getItem('cart')) != null){
+            const cart = JSON.parse(localStorage.getItem("cart")).length;
             setCartItems(cart);
         }
       }, [cartItems]);
