@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
 
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
-
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
-
+    const [cartItems, setCartItems] = useState(null);
+    
+    
 	const loggingOut = async () => {
 		oktaAuth.tokenManager.clear();
 	  };
+
+      useEffect(() => {
+        if(JSON.parse(localStorage.getItem('cart')) != null){
+            const cart = JSON.parse(localStorage.getItem("cart")).length;
+            setCartItems(cart);
+        }
+      }, [cartItems]);
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,11 +40,11 @@ const Nav = () => {
                         </li>
                     </ul>
                     <form className="d-flex">
-                        <button className="btn btn-outline-dark" type="submit">
+                        <Link to="/cart" className="btn btn-outline-dark" type="submit">
                             <i className="bi-cart-fill me-1"></i>
                             Cart
-                            <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
+                            <span className="badge bg-dark text-white ms-1 rounded-pill">{cartItems}</span>
+                        </Link>
                     </form>
                     
 					<ul className="navbar-nav ms-auto mb-2 mb-lg-0 ms-lg-4">

@@ -17,15 +17,12 @@ class UserService {
         return axios.put("http://localhost:8181/userpage/update/{user_id}");
     }
 
-    addUser() {
-        return axios.post("http://localhost:8181/userpage/save");
-    }
     createUser(user){
         return axios.post(`http://localhost:8181/userpage/save`, user);
     }
 
     checkUser(email){
-        return axios.get(`http://localhost:8181/userpage/check/${email}`).then(response=>response.data)
+        return axios.get(`http://localhost:8181/userpage/check/${email}`).then(response=>response.data);
     }
 
     getUserById(id){
@@ -33,7 +30,7 @@ class UserService {
     }
 
     getUserByEmail(email){
-        return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`);
+        return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`).then(response=>response.data);
     }
 }
 

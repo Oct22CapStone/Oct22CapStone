@@ -10,14 +10,12 @@ const useAuthUser = () => {
 			try {
 				const res = await oktaAuth.getUser();
 				setUserInfo(res);
-
 				const email = authState.idToken.claims.email;
                 const doesExist = await UserService.checkUser(email);
                 const firstName = authState.idToken.claims.given_name;
-                const lastName = authState.idToken.claims.lastName;
+				const lastName = authState.idToken.claims.family_name;
                 const username = authState.idToken.claims.preferred_username;
-                const phone = authState.idToken.claims.phone;
-                const user = {email,firstName,lastName,username,phone};
+                const user = {email,firstName,lastName,username};
 				if(doesExist !== true){
                     UserService.createUser(user);
                 }
