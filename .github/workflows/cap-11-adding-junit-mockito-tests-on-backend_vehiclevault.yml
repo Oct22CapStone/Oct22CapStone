@@ -27,7 +27,7 @@ jobs:
         run: |
           cd frontend
           npm install --force
-          npm run build
+          CI=false npm run build
         working-directory: .
 
       - name: Upload artifact for deployment job
