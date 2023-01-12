@@ -4,7 +4,7 @@ import { useOktaAuth } from "@okta/okta-react";
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import { Link, Route, useHistory } from "react-router-dom";
-
+const CART = [];
 
 const Home = () => {
 	

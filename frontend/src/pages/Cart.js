@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../styles/cart.css";
 
+
 const Cart = ({ cart, setCart, handleChange }) => {
   const [price, setPrice] = useState(0);
+  
 
   const handleRemove = (id) => {
     const arr = cart.filter((item) => item.id !== id);

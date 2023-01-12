@@ -14,6 +14,7 @@ import ViewProducts from "./pages/ViewProducts";
 import EditProducts from "./pages/EditProducts";
 import Orders from "./pages/Orders";
 import AddProduct from "./pages/AddProduct";
+import Messages from "./pages/Messages";
 
 
 
@@ -40,9 +41,10 @@ const Routes = () => {
 				<SecureRoute path="/addproduct" component={AddProduct}/>	
 				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
+				<Route path="/messages" exact={true} component={Messages}/>
 			</Switch>
 		</Security>
 	);
-};
+}; 
 
 export default Routes;

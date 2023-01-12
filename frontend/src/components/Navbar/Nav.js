@@ -47,6 +47,10 @@ const Nav = () => {
 				<li>
 					<Link to="/viewproducts">View Products</Link>
 				</li>
+				<li>
+					<Link to="/messages">Messages</Link>
+				</li>
+
 
 			</ul>
 		</Section>
