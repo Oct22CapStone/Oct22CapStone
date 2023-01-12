@@ -11,7 +11,7 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="product_id")
 	private Long productId;
-	
+	//comment
 	@Column (name="show_product")
 	private boolean showProduct;
 	
