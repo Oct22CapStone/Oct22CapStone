@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
 
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
-    //add local storage here and pull cart quantity
-	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
 
+	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
+    const [cartItems, setCartItems] = useState(null);
+    
+    
 	const loggingOut = async () => {
-		oktaAuth.tokenManager.clear();
-	  };
+		oktaAuth.signOut(); 
+    
+		//oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
+		//oktaAuth.closeSession();
+	 };
+
+
+      useEffect(() => {
+        if(JSON.parse(localStorage.getItem('cart')) != null){
+            const cart = JSON.parse(localStorage.getItem("cart")).length;
+            setCartItems(cart);
+        }
+      }, [cartItems]);
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,7 +48,7 @@ const Nav = () => {
                         <Link to="/cart" className="btn btn-outline-dark" type="submit">
                             <i className="bi-cart-fill me-1"></i>
                             Cart
-                            <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span className="badge bg-dark text-white ms-1 rounded-pill">{cartItems}</span>
                         </Link>
                     </form>
                     
@@ -45,12 +58,23 @@ const Nav = () => {
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><Link className="dropdown-item" to="/viewproducts">Manage Products</Link></li>
                                 <li><Link className="dropdown-item" to="/orders">Manage Orders</Link></li>
-                                {/* <li><Link className="dropdown-item" to="/user">Manage Orders</Link></li> */}
+                                <li><Link className="dropdown-item" to="/users">Manage Users</Link></li>
                             </ul>
                         </li>
 					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/profile">Profile</a></li>
 					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/register">Register</a></li>
-					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Login</a></li>
+					<li className="nav-item">
+					{
+						authState?.isAuthenticated ? (
+							<button className = "nav-link active" onClick={loggingOut}>Logout</button>
+						) : (
+							<div>
+								<button className = " nav-link active" onClick={loggingIn}>Login</button>
+                            </div>
+						)
+					}
+				</li>
+                    {/*<li className="nav-item"><a className="nav-link active" aria-current="page" onClick={loggingIn}>Login</a></li>*/}
 					</ul>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import { useOktaAuth } from "@okta/okta-react";
 
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
+import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
 
 
@@ -28,6 +29,7 @@ const Home = () => {
 	}, []);
 
 		//console.log("inside of products: ", products);
+
 
 	return(
 	<>{!loading &&(

@@ -58,7 +58,7 @@ function RegistryForm() {
 
   const [passwordRepeat, setPasswordRepeat] = useState('');
 
-  const acc_role='Customer';
+  const role='Customer';
 
 
 
@@ -144,8 +144,7 @@ function RegistryForm() {
 
         password,
 
-        acc_role,
-
+        role,
       };
 
       axios.post("http://localhost:8181/userpage/save", val);
