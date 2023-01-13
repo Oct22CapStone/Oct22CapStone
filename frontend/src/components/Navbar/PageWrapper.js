@@ -5,12 +5,16 @@ import { useOktaAuth } from "@okta/okta-react";
 
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
-    //add local storage here and pull cart quantity
+
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
 
 	const loggingOut = async () => {
-		oktaAuth.tokenManager.clear();
-	  };
+		oktaAuth.signOut(); 
+    
+		//oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
+		//oktaAuth.closeSession();
+	 };
+
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,7 +54,18 @@ const Nav = () => {
                         </li>
 					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/profile">Profile</a></li>
 					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/register">Register</a></li>
-					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Login</a></li>
+					<li className="nav-item">
+					{
+						authState?.isAuthenticated ? (
+							<button className = "nav-link active" onClick={loggingOut}>Logout</button>
+						) : (
+							<div>
+								<button className = " nav-link active" onClick={loggingIn}>Login</button>
+                            </div>
+						)
+					}
+				</li>
+                    {/*<li className="nav-item"><a className="nav-link active" aria-current="page" onClick={loggingIn}>Login</a></li>*/}
 					</ul>
                 </div>
             </div>
