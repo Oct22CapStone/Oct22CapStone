@@ -19,6 +19,7 @@ const Home = () => {
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
+				console.log(products.productId);
 			} catch(error) {
 				console.log(error);
 			}
