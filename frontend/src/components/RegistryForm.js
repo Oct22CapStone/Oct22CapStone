@@ -140,8 +140,6 @@ function RegistryForm() {
 
         email,
 
-        phone,
-
         password,
 
         role,

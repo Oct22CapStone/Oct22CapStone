@@ -10,8 +10,7 @@ const Profile = () => {
     const userInfo = useAuthUser();     
 	const [address, setAddress] = useState([]);
     const [filter, setFilter] = useState([]);
-    const [userId, setUserId] = useState(null);
-    const [user, setUser] = useState(null);
+    const [users, setUsers] = useState("");
     const [loading, setLoading] = useState(true);
 
     
@@ -24,31 +23,23 @@ const Profile = () => {
 			})
 		);
    };
+   
    const fetchAddress = async() => {
-    setLoading(true);
-    const res = await AddressService.getAddressById(userId);
+    const res = await AddressService.findAllAddresses();
     setAddress(res.data);
-    setFilter(address);
-    console.log(filter);
-    // setFilter(address.filter((i)=>{
-    //     console.log(user.userId);
-    //     return i.userId.userId == user.userId;
-    // }))
-    setLoading(false);
-};
+    setFilter(filter.filter((i)=>{
+        return i.userId.userId == users.userId;
+    }))
+}
  
     useEffect(() =>{	
         const fetchData  = async () => {
-            
-            try {                
-                const response = await UserService.getUserByEmail(authState.idToken.claims.email);                                              
-                setUser(response);
-                setUserId(user.userId);
-                console.log(response);           
-            } catch(error) {
-                console.log(error);
+            if(JSON.parse(localStorage.getItem('user')) != null){
+                setLoading(true);
+                setUsers(JSON.parse(localStorage.getItem('user')));
+                console.log(users.userId);
+                setLoading(false);
             }
-            
         };         
 
 		fetchData();
@@ -70,7 +61,7 @@ const Profile = () => {
                                     <h3 className="h2 text-white mb-0">{userInfo?.given_name} {userInfo?.family_name}</h3>
                                 </div>
                                 <ul className="list-unstyled mb-1-9">
-                                    <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {userInfo?.email}</li>
+                                    <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {users.userId}</li>
                                 </ul>
                                 <ul className="list-unstyled mb-1-9">
                                     <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Username:</span> {userInfo?.preferred_username}</li>

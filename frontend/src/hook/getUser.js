@@ -11,6 +11,7 @@ const useAuthUser = () => {
                 const res = await oktaAuth.getUser();
                 setUserInfo(res);
                 const email = authState.idToken.claims.email;
+                localStorage.setItem("userEmail",JSON.stringify(authState.idToken.claims.email));
                 const doesExist = await UserService.checkUser(email);
                 const firstName = authState.idToken.claims.given_name;
                 const lastName = authState.idToken.claims.family_name;

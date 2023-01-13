@@ -2,19 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
+import UserService from '../../services/UserService';
+
 
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
-
+    const [loading, setLoading] = useState(true);
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
     const [cartItems, setCartItems] = useState(null);
+    const [user, setUser] = useState("");
     
+    const fetchData  = async () => {
+        
+        try { 
+            setLoading(true);  
+            const email = JSON.parse(localStorage.getItem("userEmail"));           
+            const response = await UserService.getUserByEmail(email);  
+            setUser(response.data);
+            localStorage.setItem("user",JSON.stringify(response.data));                                      
+            setLoading(false);
+        } catch(error) {
+            console.log(error);
+        }
+        
+    };         
     
 	const loggingOut = async () => {
 		oktaAuth.signOut(); 
     
-		//oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
-		//oktaAuth.closeSession();
+		oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
+		oktaAuth.closeSession();
 	 };
 
 
@@ -22,6 +39,7 @@ const Nav = () => {
         if(JSON.parse(localStorage.getItem('cart')) != null){
             const cart = JSON.parse(localStorage.getItem("cart")).length;
             setCartItems(cart);
+            fetchData();
         }
       }, [cartItems]);
 
@@ -61,7 +79,7 @@ const Nav = () => {
                                 <li><Link className="dropdown-item" to="/users">Manage Users</Link></li>
                             </ul>
                         </li>
-					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/profile">Profile</a></li>
+					<li className="nav-item"><Link to="/profile" className="nav-link active" aria-current="page" >Profile</Link></li>
 					<li className="nav-item"><a className="nav-link active" aria-current="page" href="/register">Register</a></li>
 					<li className="nav-item">
 					{

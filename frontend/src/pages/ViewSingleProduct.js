@@ -25,7 +25,8 @@ const ViewSingleProduct = () => {
         const fetchData = async () => {
             try {
                 const response = await ProductService.getProductById(id);
-                setProduct(response.data);
+                setProduct(response.data);   
+                console.log(response.data);             
             } catch (error) {
                 console.log(error);
             }

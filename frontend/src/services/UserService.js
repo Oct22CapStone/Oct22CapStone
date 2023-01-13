@@ -9,10 +9,6 @@ class UserService {
     //     return axios.get("http://localhost:8181/userpage/show");
     // }
 
-    getUserById(userId) {
-        return axios.get(`http://localhost:8181/userpage/show/${userId}`)
-    }
-
     deleteUser() {
         return axios.delete("http://localhost:8181/userpage/delete/{user_id}");
     }
@@ -35,7 +31,7 @@ class UserService {
     }
 
     getUserByEmail(email){
-        return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`).then(response=>response.data);
+        return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`);
     }
 
 }

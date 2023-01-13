@@ -11,8 +11,6 @@ function CreateUser() {
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState('');
 
-
-
   const postData = () => {
     axios.post(`http://localhost:8181/userpage/save`, {
         firstName,
