@@ -37,7 +37,6 @@ public class UsersController {
 	@GetMapping("/check/{email}")
 	public Boolean getByEmail(@PathVariable String email) {
 		Boolean user = usersService.userExistsByEmail(email);
-		System.out.println(user);
 		if (user) {
 			
 			return true;			
@@ -59,7 +58,7 @@ public class UsersController {
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
 		Optional<Users> user = usersService.getUserById(id);
 		if (!user.isPresent()) {
-			
+			return ResponseEntity.notFound().build();
 		}
 		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 

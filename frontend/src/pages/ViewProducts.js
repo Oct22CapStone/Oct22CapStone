@@ -12,17 +12,16 @@ const ViewProducts = () => {
 	const [loading, setLoading] = useState(true);
 
 
-    // Fetch all data and put into 'products'
 	useEffect(() =>{
 		const fetchData  = async () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
-				console.log(response);
 			} catch(error) {
 				console.log(error);
 			}
+		
 			setLoading(false);
 		};
 		fetchData();
@@ -59,10 +58,10 @@ const ViewProducts = () => {
 				
     <tr key={productId}>
 		<td><img className="rounded-pill" width={50} height={50} src={productImg} /></td>
-      <td><Link to={`/viewsingleproduct/${productId}`}>{productName}</Link></td>
-	  <td>${pricePerUnit}</td>
-	  <td>{productQty}</td>
-	  <td>                                     
+    	<td><Link to={`/viewsingleproduct/${productId}`}>{productName}</Link></td>
+		<td>${pricePerUnit}</td>
+		<td>{productQty}</td>
+		<td>
     <ul className="list-inline m-0">
         <li className="list-inline-item">
             <Link to={`/editproducts/${productId}`} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i className="fa fa-edit"></i></Link>

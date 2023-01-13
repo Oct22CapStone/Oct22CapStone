@@ -1,12 +1,12 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - VehicleVault
+name: Azure Web App - Frontend
 
 on:
   push:
     branches:
-      - CAP-11-Adding-Junit/Mockito-tests-on-backend
+      - main
     paths:
       - 'frontend/**'
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
         run: |
           cd frontend
           npm install --force
-          CI=false npm run build
+          npm run build
         working-directory: .
 
       - name: Upload artifact for deployment job
