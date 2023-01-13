@@ -4,6 +4,7 @@ import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer'; 
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
+import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
 
 
@@ -31,6 +32,7 @@ const Home = () => {
 
 		//console.log("inside of products: ", products);
 		
+
 
 	return(
 		<>

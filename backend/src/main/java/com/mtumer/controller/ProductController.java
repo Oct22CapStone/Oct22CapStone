@@ -34,15 +34,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mtumer.entity.Product;
 import com.mtumer.services.ProductService;
+import com.mtumer.services.RabbitSender;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/product")
 public class ProductController {
+	
+	@Autowired
+	RabbitSender sender;
 
 	@Autowired
 	ProductService productService;
@@ -65,6 +70,10 @@ public class ProductController {
 	@PostMapping("/save_product")
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		Product savedProduct = productService.createProduct(product);
+		if (savedProduct.getProductQty() <= 3) {
+			sender.send(savedProduct);
+	
+		}
 		return new ResponseEntity<Product>(savedProduct, HttpStatus.CREATED);
 	}
 
@@ -85,7 +94,19 @@ public class ProductController {
 		newProduct.setProductQty(product.getProductQty());
 		newProduct.setShowProduct(product.isShowProduct()); // added
 		productService.update(newProduct);
+		if(newProduct.getProductQty() <= 3) {
+			Product p = new Product();
+			p.setProductId(productId);
+			p.setProductName(newProduct.getProductName());
+			p.setProductQty(newProduct.getProductQty());
+			sender.send(p);
+			/*producer(p.getProductName(), p.getProductQty());*/
+		}
 		return new ResponseEntity<>(newProduct, HttpStatus.OK);
+	}
+	@GetMapping("/api")
+	public String producer(@RequestParam("productName") String productName, @RequestParam("productQty") Integer productQty) {
+		return "Product name: " + productName + " is currently at stock of: " + productQty + " please take necessary actions.";
 	}
 
 	@DeleteMapping("/delete/{id}")
