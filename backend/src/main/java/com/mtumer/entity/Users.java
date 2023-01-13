@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -56,9 +53,10 @@ public class Users {
 	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<UserCart> userCart;
 
-	
 	@JsonIgnore
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<UserRole> role;
+		
+	
 
 }
