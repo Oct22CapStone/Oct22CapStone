@@ -2,52 +2,62 @@ import { useEffect, useState } from "react";
 import AddressService from "../services/AddressService";
 import { Link, useParams } from "react-router-dom";
 import UserService from "../services/UserService";
+import { useOktaAuth } from "@okta/okta-react";
+import useAuthUser from "../hook/getUser";
 
 const Profile = () => {
-
-    const {id} = useParams();        
+    const { oktaAuth, authState } = useOktaAuth();
+    const userInfo = useAuthUser();     
 	const [address, setAddress] = useState([]);
-    const [user, setUser] = useState("");
+    const [filter, setFilter] = useState([]);
+    const [userId, setUserId] = useState(null);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+    
     async function deleteAddress  (id,e){
 		console.log(id);
 		await AddressService.delete(id);
-		setAddress(
+		setFilter(
 			address.filter((address) => {
 			   return address.addressId !== id;
 			})
-		 );
+		);
    };
-
    const fetchAddress = async() => {
-        const res = await AddressService.findAllAddresses();
-        setAddress(res.data);
-        setAddress(
-            address.filter((a)=>{
-                return a.userId === user;
-            })
-        );
-   };
-
-    console.log(user); 
+    setLoading(true);
+    const res = await AddressService.getAddressById(userId);
+    setAddress(res.data);
+    setFilter(address);
+    console.log(filter);
+    // setFilter(address.filter((i)=>{
+    //     console.log(user.userId);
+    //     return i.userId.userId == user.userId;
+    // }))
+    setLoading(false);
+};
+ 
     useEffect(() =>{	
         const fetchData  = async () => {
-            try {
-                const response = await UserService.getUserById(id);                                           
-                setUser(response.data);
+            
+            try {                
+                const response = await UserService.getUserByEmail(authState.idToken.claims.email);                                              
+                setUser(response);
+                setUserId(user.userId);
+                console.log(response);           
             } catch(error) {
                 console.log(error);
             }
-        }; 
+            
+        };         
 
-        if(id && id !=="")
 		fetchData();
         fetchAddress();
-	},[id]);
+	},[]);
 
     
     return (
-        <>
+        <>{!loading &&(
         <section className="bg-light">
     <div className="container">
         <div className="row">
@@ -56,15 +66,18 @@ const Profile = () => {
                     <div className="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                         <div className="row align-items-center">
                             <div className="col-lg-6 mb-4 mb-lg-0">
-                            </div>
-                            <div className="col-lg-6 px-xl-10">
-                                <div className="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
-                                    <h3 className="h2 text-white mb-0">{user.firstName} {user.lastName}</h3>
+                            <div className="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
+                                    <h3 className="h2 text-white mb-0">{userInfo?.given_name} {userInfo?.family_name}</h3>
                                 </div>
                                 <ul className="list-unstyled mb-1-9">
-                                    <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {user.email}</li>
-                                    <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Phone Number:</span> {user.phone}</li>
+                                    <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {userInfo?.email}</li>
                                 </ul>
+                                <ul className="list-unstyled mb-1-9">
+                                    <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Username:</span> {userInfo?.preferred_username}</li>
+                                </ul>
+                            </div>
+                            <div className="col-lg-6 px-xl-10">
+                                <button>Orders</button>
                             </div>
                         </div>
                     </div>
@@ -73,6 +86,7 @@ const Profile = () => {
             <div className="col-lg-12 mb-4 mb-sm-5">
             </div>
             <div className="col-lg-12">
+                <h3>Your Addresses</h3>
                 <div className="row">
                     <div className="col-lg-12 mb-4 mb-sm-5">
                     
@@ -85,12 +99,12 @@ const Profile = () => {
                     <th scope="col">State</th>
                     <th scope="col">Country</th>
                     <th scope="col">Zip Code</th>
+                    <th scope="col">Manage</th>
                     </tr>
                         </thead>
                         <tbody>
-                    {address.map(
-        ({addressId, street, city, state, country, zip}) =>(
-                        
+                    {filter.map(
+        ({addressId, street, city, state, country, zip, userId}) =>(                        
             <tr key={addressId}>
             <td>{street}</td>
             <td>{city}</td>
@@ -116,7 +130,7 @@ const Profile = () => {
             </div>
         </div>
     </div>
-</section>
+</section>)}
 </>
     )
 };

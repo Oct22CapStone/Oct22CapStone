@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import UserService from "../services/UserService";
 const useAuthUser = () => {
+
     const { oktaAuth, authState } = useOktaAuth();
     const [userInfo, setUserInfo] = useState(null);
     useEffect(() => {
