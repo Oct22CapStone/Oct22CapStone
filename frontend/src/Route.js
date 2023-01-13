@@ -8,10 +8,12 @@ import { oktaConfig } from "./config";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import RegistryForm from "./components/RegistryForm";
 import ViewSingleProduct from "./pages/ViewSingleProduct";
+import ViewUser from "./pages/ViewUser";
+import CreateUser from "./pages/CreateUser";
+import EditUser from "./pages/EditUser";
 import ViewProducts from "./pages/ViewProducts";
 import EditProducts from "./pages/EditProducts";
 import AddAddress from "./pages/AddAddress";
-import ViewUser from "./pages/ViewUser";
 import Orders from "./pages/Orders";
 import EditOrders from "./pages/EditOrders";
 import AddProduct from "./pages/AddProduct";
@@ -32,20 +34,27 @@ const Routes = () => {
 
 				<Route path="/" exact={true} component={Home} />
         		<Route path="/register" exact={true} component={RegistryForm} />
-				<SecureRoute path="/viewuser" component={ViewUser} />
+
+
+
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
-				{/* <SecureRoute path='/addtocart' component={AddToCart}/> */}
-
+				<SecureRoute path="/users" component={ViewUser} />
+				<SecureRoute path="/adduser" component={CreateUser} />
+				<SecureRoute path="/edituser" component={EditUser} />
 				<Route path="/login/callback" component={LoginCallback} />	
 				<Route path="/viewsingleproduct/:id" exact={true} component={ViewSingleProduct}/>
 				<SecureRoute path="/viewproducts" component={ViewProducts}/>
 				<SecureRoute path="/addproduct" component={AddProduct}/>	
 				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
+
 				<SecureRoute path="/editorders/:id" exact={true} component={EditOrders}/>
+
+
+
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
-        		<Route path="/addaddress" exact={true} component={AddAddress} />
+        <Route path="/addaddress" exact={true} component={AddAddress} />
 
 
 			</Switch>

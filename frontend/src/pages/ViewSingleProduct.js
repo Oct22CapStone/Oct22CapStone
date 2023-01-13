@@ -6,7 +6,7 @@ const ViewSingleProduct = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState("");
-
+    
     const addToCart = () => {
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
@@ -16,7 +16,7 @@ const ViewSingleProduct = () => {
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
         items.push(data);
         localStorage.setItem("cart", JSON.stringify(items));
-
+        
     }
 
 

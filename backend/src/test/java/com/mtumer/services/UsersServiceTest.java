@@ -46,7 +46,6 @@ public class UsersServiceTest {
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPhone("1234567890");
 		user1.setPassword("js1234");
 
 		Users user2 = new Users();
@@ -54,7 +53,6 @@ public class UsersServiceTest {
 		user2.setFirstName("Bob");
 		user2.setLastName("Clarke");
 		user2.setEmail("bclarke@gmail.com");
-		user2.setPhone("0987654321");
 		user2.setPassword("bc1234");
 
 		users.add(user1);
@@ -79,7 +77,6 @@ public class UsersServiceTest {
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPhone("1234567890");
 		user1.setPassword("js1234");
 
 		when(repo.save(ArgumentMatchers.any(Users.class))).thenReturn(user1);
@@ -102,7 +99,6 @@ public class UsersServiceTest {
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPhone("1234567890");
 		user1.setPassword("js1234");
 		service.createUser(user1);
 		when(repo.findById(user1.getUserId())).thenReturn(Optional.of(user1));
@@ -138,7 +134,6 @@ public class UsersServiceTest {
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPhone("1234567890");
 		user1.setPassword("js1234");
 		service.createUser(user1);
 		// test
@@ -156,17 +151,16 @@ public class UsersServiceTest {
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPhone("1234567890");
 		user1.setPassword("js1234");
 		service.createUser(user1);
 
-		user1.setPhone("1235738456");
+		user1.setPassword("1235");
 
 		// test
 		service.update(user1);
 		verify(repo).saveAndFlush(user1);
 		
 		//Assert 
-		assertEquals("1235738456",user1.getPhone());
+		assertEquals("1235",user1.getPassword());
 	}
 }

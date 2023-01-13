@@ -37,7 +37,6 @@ public class UsersController {
 	@GetMapping("/check/{email}")
 	public Boolean getByEmail(@PathVariable String email) {
 		Boolean user = usersService.userExistsByEmail(email);
-		System.out.println(user);
 		if (user) {
 			
 			return true;			
@@ -46,11 +45,13 @@ public class UsersController {
 		
 	}
 	
-	@GetMapping("/userbyemail/{id}")
+
+	@GetMapping("/userbyemail/{email}")
 	public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
 		Users user = usersService.getUserByEmail(email);
 		if (user.getUserId() != null) {			
 			return new ResponseEntity<>(user, HttpStatus.OK);
+
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -59,7 +60,7 @@ public class UsersController {
 	public ResponseEntity<Users> getById(@PathVariable Long id) {
 		Optional<Users> user = usersService.getUserById(id);
 		if (!user.isPresent()) {
-			
+			return ResponseEntity.notFound().build();
 		}
 		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 
@@ -71,7 +72,7 @@ public class UsersController {
 		return new ResponseEntity<Users>(savedUser, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update/{user_id}")
+	@PutMapping("/update/{userId}")
 	public ResponseEntity<Users> updateUser(@PathVariable("user_id") Long userId, @RequestBody Users user) {
 		Optional<Users> updateUser = usersService.getUserById(userId);
 		if (!updateUser.isPresent()) {
@@ -82,7 +83,6 @@ public class UsersController {
 		newUser.setUserId(userId);
 		newUser.setFirstName(user.getFirstName());
 		newUser.setLastName(user.getLastName());
-		newUser.setPhone(user.getPhone());
 		newUser.setPassword(user.getPassword());
 		newUser.setEmail(user.getEmail());
 		newUser.setUsername(user.getUsername());
@@ -90,7 +90,7 @@ public class UsersController {
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{user_id}")
+	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<Users> deleteUser(@PathVariable("user_id") Long userId) {
 		Optional<Users> userRemoved = usersService.getUserById(userId);
 		if (!userRemoved.isPresent()) {

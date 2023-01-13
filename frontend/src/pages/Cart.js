@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import ProductService from "../services/ProductService";
 
 const Cart = () => {
-  const [price, setPrice] = useState(0);
-  const [product,setProduct] = useState("");
   const [items,setItems] = useState([]);
+  var cartItem = [];
  
   function deleteProduct  (id,e){
-		console.log(id);
 		//similar to delete function in viewProducts.js make sure to remove it from items variable AND local storage
-   };
+   
+    cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
+    localStorage.setItem('cart', JSON.stringify(cartItem));
+    setItems(items.filter(product => product.productId !== id));
+    console.log(items);
+    // setItems(cartItem);
+  };
 
   useEffect(() => {
     if(JSON.parse(localStorage.getItem('cart')) != null){
       setItems(JSON.parse(localStorage.getItem('cart')));
-      
     }
   }, []);
 
