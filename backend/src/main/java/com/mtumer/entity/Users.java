@@ -45,19 +45,19 @@ public class Users {
 	private int acc_status;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade=CascadeType.ALL)//, orphanRemoval = true
 	private List<Address> addresses;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade=CascadeType.ALL)//, orphanRemoval = true
 	private List<UserOrders> userOrder;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade=CascadeType.ALL)//, orphanRemoval = true
 	private List<UserCart> userCart;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)//, orphanRemoval = true
 	private List<UserRole> role;
 		
 	

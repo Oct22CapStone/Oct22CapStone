@@ -69,7 +69,7 @@ public class OrderItemControllerTest {
 
         doReturn(Lists.newArrayList(orderItem1, orderItem2)).when(service).getAllOrderItem();
 
-		mockMvc.perform(get("/order_item")).andExpect(status().isOk())
+		mockMvc.perform(get("/order_item/all")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$[0].orderItemId", is(1)))
 				.andExpect(jsonPath("$[0].productQty", is(3)))

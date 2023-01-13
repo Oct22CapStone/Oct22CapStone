@@ -7,16 +7,15 @@ export default function EditUser() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [role, setRole] = useState('');
   const [userId, setUserId] = useState(null);
+  const history = useHistory();
 
     useEffect(() => {
         setUserId(localStorage.getItem('ID'))
         setFirstName(localStorage.getItem('First Name'));
         setLastName(localStorage.getItem('Last Name'));
         setEmail(localStorage.getItem('Email'));
-        setPhone(localStorage.getItem('Phone'));
         setRole(localStorage.getItem('Role'));
     }, []);
 
@@ -25,9 +24,9 @@ export default function EditUser() {
         firstName,
         lastName,
         email,
-        phone,
         role
         })
+      history.push("/users"); //TOO FAST HOW TO PAUSE BEFORE THE REDIRECT??
     }
 
   return (
@@ -46,10 +45,6 @@ export default function EditUser() {
               <Form.Field>
                   <label>Email</label>
                   <input placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} className="form-control"/>
-              </Form.Field>
-              <Form.Field>
-                  <label>Phone</label>
-                  <input placeholder='Phone' value={phone} onChange={(e) => setPhone(e.target.value)} className="form-control"/>
               </Form.Field>
               <Form.Field>
                   <label>Role</label>

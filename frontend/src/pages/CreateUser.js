@@ -8,9 +8,8 @@ function CreateUser() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [role, setRole] = useState('');
-
+  const history = useHistory();
 
 
   const postData = () => {
@@ -18,9 +17,10 @@ function CreateUser() {
         firstName,
         lastName,
         email,
-        phone,
         role
     })
+    history.push("/users");
+
 }
   return (
     <>
@@ -47,17 +47,11 @@ function CreateUser() {
               </Form.Field>
               <Form.Field>
               <div className="mb-3 form-group">
-                  <label>Phone</label>
-                  <input placeholder='Phone' onChange={(e) => setPhone(e.target.value)} className="form-control"/>
-                  </div>
-              </Form.Field>
-              <Form.Field>
-              <div className="mb-3 form-group">
                   <label>Role</label>
                   <input placeholder='Role' onChange={(e) => setRole(e.target.value)} className="form-control"/>
                 </div>
               </Form.Field>
-              <Button onClick={postData} className="btn btn-primary btn-sm" type='submit'>Submit</Button>
+              <Button onClick={postData} className="btn btn-primary btn-sm" type='submit' redirect="/users">Submit</Button>
           </Form>
       </div>
       </>

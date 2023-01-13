@@ -15,6 +15,11 @@ export default function ViewUser() {
 
   const onDelete = (userId) => {
     axios.delete(`http://localhost:8181/userpage/delete/${userId}`);
+    setAPIData(
+			APIData.filter((usr) => {
+			   return usr.userId !== userId;
+			})
+		 );
   }
 
   // const onSearch = (userId) => {
@@ -23,12 +28,11 @@ export default function ViewUser() {
 
   const setData = (data) => {
     console.log(data);
-    let { userId, firstName, lastName, email, phone, role } = data;
+    let { userId, firstName, lastName, email, role } = data;
     localStorage.setItem('ID', userId);
     localStorage.setItem('First Name', firstName);
     localStorage.setItem('Last Name', lastName);
     localStorage.setItem('Email', email);
-    localStorage.setItem('Phone', phone);
     localStorage.setItem('Role', role)
 }
 
@@ -82,7 +86,6 @@ export default function ViewUser() {
               <Table.HeaderCell>First Name</Table.HeaderCell>
               <Table.HeaderCell>Last Name</Table.HeaderCell>
               <Table.HeaderCell>Email</Table.HeaderCell>
-              <Table.HeaderCell>Phone</Table.HeaderCell>
               <Table.HeaderCell>Role</Table.HeaderCell>
               <Table.HeaderCell>Actions</Table.HeaderCell>
             </Table.Row>
@@ -95,7 +98,6 @@ export default function ViewUser() {
                   <Table.Cell>{data.firstName}</Table.Cell>
                   <Table.Cell>{data.lastName}</Table.Cell>
                   <Table.Cell>{data.email}</Table.Cell>
-                  <Table.Cell>{data.phone}</Table.Cell>
                   <Table.Cell>{data.role}</Table.Cell>
 
                   <Table.Cell>
