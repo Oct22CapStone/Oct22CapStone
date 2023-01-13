@@ -3,8 +3,6 @@ package com.mtumer.entity;
 import lombok.Data;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "address")
 @Data

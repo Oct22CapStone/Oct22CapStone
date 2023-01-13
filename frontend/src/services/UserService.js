@@ -5,13 +5,18 @@ import axios from "axios";
 
 class UserService {
 
-    getUser() {
-        return axios.get("http://localhost:8181/userpage/show");
+    // getUser() {
+    //     return axios.get("http://localhost:8181/userpage/show");
+    // }
+
+    getUserById(userId) {
+        return axios.get(`http://localhost:8181/userpage/show/${userId}`)
     }
 
     deleteUser() {
         return axios.delete("http://localhost:8181/userpage/delete/{user_id}");
     }
+
 
     editUser() {
         return axios.put("http://localhost:8181/userpage/update/{user_id}");
@@ -32,6 +37,7 @@ class UserService {
     getUserByEmail(email){
         return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`).then(response=>response.data);
     }
+
 }
 
 export default new UserService();
