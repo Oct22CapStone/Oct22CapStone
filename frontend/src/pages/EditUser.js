@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form } from 'semantic-ui-react'
 import axios from 'axios';
+import { Link, Route, useHistory } from "react-router-dom";
 
 export default function EditUser() {
   const [firstName, setFirstName] = useState('');
@@ -30,30 +31,33 @@ export default function EditUser() {
     }
 
   return (
-      <div>
+    <>
+    <Link to="/users" className="btn btn-secondary btn-sm">Back</Link>
+      <div className='container mt-5 mbclassName-5'>
           <Form className="create-form">
               <Form.Field>
                   <label>First Name</label>
-                  <input placeholder='First Name' value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                  <input placeholder='First Name' value={firstName} onChange={(e) => setFirstName(e.target.value)} className="form-control"/>
               </Form.Field>
               <Form.Field>
                   <label>Last Name</label>
-                  <input placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                  <input placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)} className="form-control"/>
               </Form.Field>
               <Form.Field>
                   <label>Email</label>
-                  <input placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <input placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} className="form-control"/>
               </Form.Field>
               <Form.Field>
                   <label>Phone</label>
-                  <input placeholder='Phone' value={phone} onChange={(e) => setPhone(e.target.value)}/>
+                  <input placeholder='Phone' value={phone} onChange={(e) => setPhone(e.target.value)} className="form-control"/>
               </Form.Field>
               <Form.Field>
                   <label>Role</label>
-                  <input placeholder='Role' value={role} onChange={(e) => setRole(e.target.value)}/>
+                  <input placeholder='Role' value={role} onChange={(e) => setRole(e.target.value)} className="form-control"/>
               </Form.Field>
-              <Button type='submit' onClick={putData}>Update</Button>
+              <Button onClick={putData} className="btn btn-primary btn-sm" type='submit'>Update</Button>
           </Form>
       </div>
+    </>
   )
 }

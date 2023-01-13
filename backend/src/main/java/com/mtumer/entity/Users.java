@@ -3,7 +3,9 @@ package com.mtumer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
+
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -57,5 +59,7 @@ public class Users {
 	@JsonIgnore
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<UserRole> role;
+		
+	
 
 }

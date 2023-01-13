@@ -25,7 +25,6 @@ import lombok.Data;
 @Table(name="roles")
 @Data
 public class Roles {
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="role_id")
@@ -34,7 +33,7 @@ public class Roles {
 	@Column(name="role_name")
 	private String roleName;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "role")
 	private List<UserRole> user;
 	

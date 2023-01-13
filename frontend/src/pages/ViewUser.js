@@ -2,13 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Table, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import UserRoleService from "../services/UserRoleService";
+import { useParams } from "react-router-dom";
+import UserService from "../services/UserService";
+
 
 export default function ViewUser() {
   //const [user, setUser] = useState([]);
+  const [APIData, setAPIData] = useState([]);
+  const[filterdata, setFilterData]= useState([]);
+  const [query, setQuery] = useState('');
 
   const onDelete = (userId) => {
     axios.delete(`http://localhost:8181/userpage/delete/${userId}`);
   }
+
+  // const onSearch = (userId) => {
+  //   return UserService.getUserById(userId);
+  // }
 
   const setData = (data) => {
     console.log(data);
@@ -21,27 +32,50 @@ export default function ViewUser() {
     localStorage.setItem('Role', role)
 }
 
-const [APIData, setAPIData] = useState([]);
 
-useEffect(() => {
-  axios.get(`http://localhost:8181/userpage/show`)
-  .then((response) => {
-      setAPIData(response.data);
-  })
-}, [])
+// useEffect(() => {
+//   axios.get(`http://localhost:8181/userpage/show`)
+//   .then((response) => {
+//       setAPIData(response.data);
+//   })
+// }, [])
+
+  useEffect(() => {
+    const getUserData= async() => {
+      const reqData= await fetch("http://localhost:8181/userpage/show");
+      const resData= await reqData.json();
+      setAPIData(resData);
+      setFilterData(resData);
+    }
+    getUserData();
+  },[]);
+
+  const handlesearch=(event)=>{
+    const getSearch=event.target.value;
+    if(getSearch.length > 0){
+      const searchdata= APIData.filter( (item)=> item.firstName.toLowerCase().includes(getSearch));
+      setAPIData(searchdata);
+    } else {
+      setAPIData(filterdata);
+    }
+    setQuery(getSearch);
+
+  }
+
 
   return (
-    <div>
+    <>
+    <div className="container mt-5 mbclassName-5">
       <Table singleLine>
-
           <Table.Header>
-            <h1>Manage <b>Users</b></h1> <b> 
-              <h4>
-              <Link to='/adduser'>
-              <Table.Cell> 
-              <Button>Add New User</Button>
-              </Table.Cell>
-            </Link></h4></b>
+            <span>
+              <div className="container">
+              <input type="text" name='name' value={query} placeholder="Search by first name.." onChange={(e)=>handlesearch(e)}></input>
+              </div>
+              <div className="container">
+                <Link to='/adduser' className="btn btn-primary btn-sm rounded-5"> Add New</Link>
+                </div>
+                </span>
 
 
             <Table.Row>
@@ -65,10 +99,10 @@ useEffect(() => {
                   <Table.Cell>{data.role}</Table.Cell>
 
                   <Table.Cell>
-                    <Button onClick={() => onDelete(data.userId)}>Delete</Button>
+                    <Button onClick={() => onDelete(data.userId)} className="btn btn-danger btn-sm rounded-5">Delete</Button>
                     <Link to='/edituser'>
                     <Table.Cell> 
-                    <Button onClick={() => setData(data)}>Update</Button>
+                    <Button onClick={() => setData(data)} className="btn btn-success btn-sm rounded-5">Update</Button>
                     </Table.Cell>
                     </Link>
                   </Table.Cell>
@@ -97,5 +131,6 @@ useEffect(() => {
         </Table.Footer>
       </Table>
     </div>
+    </>
     );
   }
