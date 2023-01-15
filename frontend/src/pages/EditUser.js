@@ -26,6 +26,7 @@ export default function EditUser() {
         email,
         role
         })
+      
       history.push("/users"); //TOO FAST HOW TO PAUSE BEFORE THE REDIRECT??
     }
 

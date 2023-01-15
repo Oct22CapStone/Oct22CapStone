@@ -18,8 +18,8 @@ function CreateUser() {
         lastName,
         email,
         role
-    })
-    history.push("/users");
+    })//ADD A PAUSE HERE. HOW??
+    history.push("/users");//REDIRECT IS TOO FAST.
 
 }
   return (

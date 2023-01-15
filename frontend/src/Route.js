@@ -44,7 +44,7 @@ const Routes = () => {
 				<SecureRoute path="/addproduct" component={AddProduct}/>	
 				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
-        		<Route path="/addaddress" exact={true} component={AddAddress} />
+        		<SecureRoute path="/addaddress" exact={true} component={AddAddress} />
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
 
 
