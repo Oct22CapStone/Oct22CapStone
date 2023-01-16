@@ -14,6 +14,10 @@ const ViewSingleProduct = () => {
         const items = JSON.parse(localStorage.getItem("cart"));
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
+
+        console.log("items"+items);
+        console.log("data"+data);
+
         items.push(data);
         localStorage.setItem("cart", JSON.stringify(items));
         
