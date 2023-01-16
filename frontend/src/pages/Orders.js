@@ -14,6 +14,10 @@ const Orders = () => {
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
 
+	const [APIData, setAPIData] = useState([]);
+	const[filterdata, setFilterData]= useState([]);
+	const [query, setQuery] = useState('');
+
 	useEffect(() =>{
 		const fetchData  = async () => {
 			setLoading(true);
@@ -29,6 +33,18 @@ const Orders = () => {
 		fetchData();
 	}, []);
 
+	const handlesearch=(event)=>{
+		const getSearch=event.target.value;
+		if(getSearch.length > 0){
+		  const searchdata= orders.filterdata( (orders)=> orders.orderID.includes(getSearch));
+		  setAPIData(searchdata);
+		} else {
+		  setAPIData(filterdata);
+		}
+		setQuery(getSearch);
+	
+	  }
+
 
 
 	return (
@@ -39,6 +55,9 @@ const Orders = () => {
 						<><h2 className="text-center">Orders</h2><article>		
 							<table className="table table-bordered">
 								<thead>
+								<div className="container">
+								<input type="text" name='name' value={query} placeholder="Search by order ID:" onChange={(e)=>handlesearch(e)}></input>
+								</div>
 									<tr>
 										<th>Order ID</th>
 										<th>Order Date</th>

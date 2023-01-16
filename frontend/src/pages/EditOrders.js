@@ -55,10 +55,6 @@ const EditOrders = () => {
         <label>Tracking Info:</label>
         <textarea maxLength={255} name="trackingInfo" onChange={handleChange} className="form-control" defaultValue={orders.trackingInfo}></textarea>
       </div>
-      <div className="mb-3 form-group">
-        <label>Order Date:</label>
-        <input name="orderDate" onChange={handleOrderDate} className="form-control" defaultValue={orders.orderDate}/>
-      </div>
       <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>
         Update
       </button>
