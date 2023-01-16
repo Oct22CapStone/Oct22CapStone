@@ -3,49 +3,22 @@ import { Table, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UserRoleService from "../services/UserRoleService";
-import { useParams } from "react-router-dom";
-import UserService from "../services/UserService";
 
 
 export default function ViewUser() {
-  //const [user, setUser] = useState([]);
-  const [APIData, setAPIData] = useState([]);
-  const[filterdata, setFilterData]= useState([]);
+  const[roles, setRoles]= useState([]);
   const [query, setQuery] = useState('');
+  const[filterdata, setFilterData]= useState([]);
 
   const onDelete = (userId) => {
     axios.delete(`http://localhost:8181/userpage/delete/${userId}`);
   }
 
-  // const onSearch = (userId) => {
-  //   return UserService.getUserById(userId);
-  // }
-
-  const setData = (data) => {
-    console.log(data);
-    let { userId, firstName, lastName, email, phone, role } = data;
-    localStorage.setItem('ID', userId);
-    localStorage.setItem('First Name', firstName);
-    localStorage.setItem('Last Name', lastName);
-    localStorage.setItem('Email', email);
-    localStorage.setItem('Phone', phone);
-    localStorage.setItem('Role', role)
-}
-
-
-// useEffect(() => {
-//   axios.get(`http://localhost:8181/userpage/show`)
-//   .then((response) => {
-//       setAPIData(response.data);
-//   })
-// }, [])
-
   useEffect(() => {
     const getUserData= async() => {
-      const reqData= await fetch("http://localhost:8181/userpage/show");
-      const resData= await reqData.json();
-      setAPIData(resData);
-      setFilterData(resData);
+      const req = await UserRoleService.findAllUserRole();
+      setRoles(req.data);
+      setFilterData(req.data);
     }
     getUserData();
   },[]);
@@ -53,10 +26,10 @@ export default function ViewUser() {
   const handlesearch=(event)=>{
     const getSearch=event.target.value;
     if(getSearch.length > 0){
-      const searchdata= APIData.filter( (item)=> item.firstName.toLowerCase().includes(getSearch));
-      setAPIData(searchdata);
+      const searchdata= roles.filter( (item)=> item.user.firstName.toLowerCase().includes(getSearch));
+      setRoles(searchdata);
     } else {
-      setAPIData(filterdata);
+      setRoles(filterdata);
     }
     setQuery(getSearch);
 
@@ -72,12 +45,7 @@ export default function ViewUser() {
               <div className="container">
               <input type="text" name='name' value={query} placeholder="Search by first name.." onChange={(e)=>handlesearch(e)}></input>
               </div>
-              <div className="container">
-                <Link to='/adduser' className="btn btn-primary btn-sm rounded-5"> Add New</Link>
-                </div>
                 </span>
-
-
             <Table.Row>
               <Table.HeaderCell>First Name</Table.HeaderCell>
               <Table.HeaderCell>Last Name</Table.HeaderCell>
@@ -89,22 +57,22 @@ export default function ViewUser() {
           </Table.Header>
 
           <Table.Body>
-            {APIData.map((data) => {
+            {roles.map((data) => {
               return (
-                <Table.Row>
-                  <Table.Cell>{data.firstName}</Table.Cell>
-                  <Table.Cell>{data.lastName}</Table.Cell>
-                  <Table.Cell>{data.email}</Table.Cell>
-                  <Table.Cell>{data.phone}</Table.Cell>
-                  <Table.Cell>{data.role}</Table.Cell>
+                <Table.Row key={data.userRoleId}>
+                  <Table.Cell>{data.user.firstName}</Table.Cell>
+                  <Table.Cell>{data.user.lastName}</Table.Cell>
+                  <Table.Cell>{data.user.email}</Table.Cell>
+                  <Table.Cell>{data.user.phone}</Table.Cell>
+                  <Table.Cell>{data.role.roleName}</Table.Cell>
 
                   <Table.Cell>
-                    <Button onClick={() => onDelete(data.userId)} className="btn btn-danger btn-sm rounded-5">Delete</Button>
-                    <Link to='/edituser'>
-                    <Table.Cell> 
-                    <Button onClick={() => setData(data)} className="btn btn-success btn-sm rounded-5">Update</Button>
-                    </Table.Cell>
+                    <Button onClick={() => onDelete(data.user.userId)} className="btn btn-danger btn-sm rounded-5">Delete</Button>
+                     
+                    <Link to={`/edituser/${data.userRoleId}`}>
+                    <Button className="btn btn-success btn-sm rounded-5">Edit</Button>                    
                     </Link>
+                    
                   </Table.Cell>
 
 
@@ -114,9 +82,9 @@ export default function ViewUser() {
           </Table.Body>
 
         <Table.Footer>
-        <div className="clearfix">
+        <section className="clearfix">
           <div className="hint-text">
-            Showing <b>{APIData.length}</b> out of <b>{APIData.length}</b> entries
+            Showing <b>{roles.length}</b> out of <b>{roles.length}</b> entries
           </div>
           <ul className="pagination">
             <li className="page-item disabled"><a href="#">Previous</a></li>
@@ -127,7 +95,7 @@ export default function ViewUser() {
             <li className="page-item"><a href="#" className="page-link">5</a></li>
             <li className="page-item"><a href="#" className="page-link">Next</a></li>
           </ul>
-        </div>
+        </section>
         </Table.Footer>
       </Table>
     </div>

@@ -7,6 +7,9 @@ class UserOrdersService {
     getAllUserOrders(){
         return axios.get(PRODUCT_API_BASE_URL + "/all");
     }
+    getById(id){
+        return axios.get(`http://localhost:8181/user_orders/orders/${id}`);
+    }
 }
 
 export default new UserOrdersService();

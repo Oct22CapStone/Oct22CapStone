@@ -14,8 +14,8 @@ class UserService {
     }
 
 
-    editUser() {
-        return axios.put("http://localhost:8181/userpage/update/{user_id}");
+    update(id,user){
+        return axios.put(`http://localhost:8181/userpage/update/${id}`, user);
     }
 
     createUser(user){

@@ -1,7 +1,7 @@
 import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
-import Header from '../components/Navbar/Header'; 
-import Footer from '../components/Navbar/Footer'; 
+import Header from '../components/Navbar/Header';
+import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import UserService from "../services/UserService";
@@ -10,89 +10,91 @@ import { Link, Route, useHistory } from "react-router-dom";
 
 
 const Home = () => {
-	
+
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
-	const [products, setProducts] = useState(null);
+	const [products, setProducts] = useState([]);
+	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
-	useEffect(() =>{
-		
-		const fetchData  = async () => {
+	const [itemAdded, setItemAdded] = useState(false);
+
+	useEffect(() => {
+
+		const fetchData = async () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
-			} catch(error) {
+			} catch (error) {
 				console.log(error);
 			}
 			setLoading(false);
 		};
+
 		fetchData();
 	}, []);
 
-		//console.log("inside of products: ", products);
+	async function fetchById(id){
+		setLoading(true);
+		const response = await ProductService.getProductById(id);
+		setFilter(response.data);
+		setLoading(false);
+	};
+
+	function addToCart(id, e) {
+		setItemAdded(true);
+		fetchById(id);
+		if (localStorage.getItem("cart") == null) {
+			localStorage.setItem("cart", "[]");
+		}
+		const items = JSON.parse(localStorage.getItem("cart"));
 		
+		const data = {
+			productId: filter.productId, productName: filter.productName, productDescription: filter.productDescription,
+			productImg: filter.productImg, pricePerUnit: filter.pricePerUnit, showProduct: filter.showProduct
+		};
+		items.push(data);
+		localStorage.setItem("cart", JSON.stringify(items));
+		setItemAdded(false);
+	}
 
-
-	return(
+	return (
 		<>
-		<Header/>
-		<section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 justify-content-center">
-		
-	{!loading &&(
-		<div>
-			
-			{products.map(
-({productId, productName, productImg, pricePerUnit, productDescription}) =>(
-	<div key={productId} className="container py-2">
-	    
-					
-				
-                    <div class="col mb-5">
-                        <div class="card h-100">
-						
-                            <img class="card-img-top" src= {productImg} alt="..." /> 
-                
+			<Header />
+			<section className="py-5">
+				<div className="container mt-3">
+					<div className="row gx-4 gx-lg-5 justify-content-center">
+						{!loading && (
+							<div className="row">
+								{products.map(
+									(productItems, index) => (
+										<div key={index} className="col-lg-4 col-4 d-flex">
+											<div style={{ width: "30rem" }} className="card">
 
-							<div class="card-body p-4">
-                                <div class="text-center">
-									<h5 class = "fw-bolder">
-										<Link to={`/viewsingleproduct/${productId}`}>{productName}</Link>
-									</h5>
-									<h4 class = "mb-1" >${pricePerUnit}</h4>
-									<h6 className="text-success">Free shipping</h6>
-									<button class="btn btn-outline-dark mt-auto" type="button"><i class="bi-cart-fill me-1"></i> Add to cart</button>
-								</div>
+												<Link to={`/viewsingleproduct/${productItems.productId}`}>
+													<img className="card-img-top image-fluid" src={productItems.productImg} alt={productItems.productDescription} />
+												</Link>
 
-							</div>
+												<div className="card-body p-4">
+													<div className="text-center">
+														<h5 className="fw-bolder">
+															<Link to={`/viewsingleproduct/${productItems.productId}`}>{productItems.productName}</Link>
+														</h5>
+														<h4 className="mb-1" >${productItems.pricePerUnit}</h4>
+														<h6 className="text-success">Free shipping</h6>
+														<button onClick={(e) => addToCart(productItems.productId, e)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>
+													</div>
+												</div>
+											</div>
 
-						</div>
+										</div>
+									))}
+							</div>)}
 					</div>
-
-					
-					
-				
-
-	</div>
-
-	
-	))};
-
-	
-
-	</div>)}
-
-	
-
-	</div>
-	</div>
-	</section>
-
-	<Footer/>
-
-	</>
+				</div>
+			</section>
+			<Footer />
+		</>
 	)
 
 };

@@ -23,7 +23,7 @@ public class UserRole {
 	
 
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="userId")
 	private Users user;
 	
 
