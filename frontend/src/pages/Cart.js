@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+
 import ProductService from "../services/ProductService";
+
 const Cart = () => {
   const [price, setPrice] = useState(null);
   const [product,setProduct] = useState("");
@@ -13,12 +15,13 @@ const Cart = () => {
     chosenItems.push(price);
   };
   function deleteProduct  (id,e){
-        console.log(items);
-        cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
+
+    cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
-    //console.log(items);
-   };
+    console.log(items);
+  };
+
   useEffect(() => {
     if(JSON.parse(localStorage.getItem('cart')) != null){
       setItems(JSON.parse(localStorage.getItem('cart')));
@@ -77,6 +80,7 @@ const Cart = () => {
               <div>
               </div>
             </div>
+
           </div>))}
         </div>
         <div className="card mb-5">

@@ -1,5 +1,6 @@
 package com.mtumer.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,13 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
-
-
-
 
 @Entity
 @Table(name="user_role")
@@ -28,14 +23,12 @@ public class UserRole {
 	
 
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="userId")
 	private Users user;
 	
 
 	@ManyToOne
 	@JoinColumn(name="roleId")
 	private Roles role;
-
 	
-
 }

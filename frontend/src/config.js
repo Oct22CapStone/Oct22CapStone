@@ -1,8 +1,8 @@
 export const oktaConfig = {
 
-
     issuer: 'https://dev-09055718.okta.com/oauth2/default',//chinar's issuer
     clientId: "0oa7xvpuowyHQHiwW5d7",   //chinar's clientId
+
 
 
     redirectUri: `${window.location.origin}/login/callback`,
