@@ -21,7 +21,6 @@ class AddressService {
         return axios.post(`http://localhost:8181/addresspage/save_address`, address);
     }
 
-
 }
 
 
