@@ -35,6 +35,8 @@ from 'mdb-react-ui-kit';
 
 
 import { useState } from 'react';
+import UserRoleService from '../services/UserRoleService';
+import UserService from '../services/UserService';
 
 
 
@@ -118,7 +120,7 @@ function RegistryForm() {
 
 
 
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
 
     event.preventDefault();
 
@@ -140,15 +142,15 @@ function RegistryForm() {
 
         email,
 
-        phone,
-
-        password,
-
-        role,
+        password
       };
 
-      axios.post("http://localhost:8181/userpage/save", val);
-
+      await UserService.createUser(val);
+      console.log(val.email);
+      const newUser = await UserService.getUserByEmail(val.email);
+      const role = {roleId: 2};
+      const userRole ={role: role, user: newUser.data};
+      await UserRoleService.createUserRole(userRole);
       clearState();
 
     }
@@ -197,7 +199,7 @@ function RegistryForm() {
 
 
 
-            <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+            <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
 
 
@@ -269,7 +271,7 @@ function RegistryForm() {
 
             </div>
 
-            <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
+            <MDBBtn onClick={handleRegister} className='mb-4' size='lg'>Register</MDBBtn>
 
             
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ProductService from "../services/ProductService";
 import {
   MDBBtn,
   MDBCard,
@@ -16,20 +17,18 @@ import {
   MDBTooltip,
   MDBTypography,
   } from "mdb-react-ui-kit";
-import ProductService from "../services/ProductService";
+
+
 
 const Cart = () => {
   const [items,setItems] = useState([]);
   var cartItem = [];
  
   function deleteProduct  (id,e){
-		//similar to delete function in viewProducts.js make sure to remove it from items variable AND local storage
-   
     cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
     console.log(items);
-    // setItems(cartItem);
   };
 
   useEffect(() => {
@@ -67,13 +66,6 @@ const Cart = () => {
                     <strong>{productName}</strong>
                   </p>
                   <p>{productDescription}</p>
-
-                
-                 
-                 
-
-                
-
                 
               </MDBCol>
 
@@ -101,11 +93,7 @@ const Cart = () => {
             </MDBCardBody>
           )
           )}
-          </MDBCard>
-
-          
-
-
+          </MDBCard>      
         </MDBCol>
       <MDBCol md="4">
         <MDBCard className="mb-4">

@@ -25,7 +25,7 @@ const ViewSingleProduct = () => {
         const fetchData = async () => {
             try {
                 const response = await ProductService.getProductById(id);
-                setProduct(response.data);
+                setProduct(response.data);             
             } catch (error) {
                 console.log(error);
             }
@@ -55,8 +55,7 @@ const ViewSingleProduct = () => {
                     </div>                          
                     <div className="d-flex">
                         <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> 
-                        <br></br>
-                        
+                        <br></br>                       
                     </div>
                 </div>
             </div>
