@@ -20,6 +20,7 @@ const Cart = () => {
         cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
+    //update navbar cart total
     window.parent.updateCartTotal();
    };
   useEffect(() => {
