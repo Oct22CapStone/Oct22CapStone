@@ -9,16 +9,16 @@ class OrderItemService {
         return axios.get(PRODUCT_API_BASE_URL + "/all");
     }
     getById(id){
-        return axios.get(`http://localhost:8181/order_item/show/${id}`);
+        return axios.get(`https://backendecommerce.azurewebsites.net/order_item/show/${id}`);
     }
     delete(id){
-        return axios.delete(`http://localhost:8181/order_item/delete/${id}`);
+        return axios.delete(`https://backendecommerce.azurewebsites.net/order_item/delete/${id}`);
     }
     update(id,orderItem){
-        return axios.put(`http://localhost:8181/order_item/update/${id}`, orderItem);
+        return axios.put(`https://backendecommerce.azurewebsites.net/order_item/update/${id}`, orderItem);
     }
     create(orderItem){
-        return axios.post(`http://localhost:8181/order_item/save_order_item`, orderItem);
+        return axios.post(`https://backendecommerce.azurewebsites.net/order_item/save_order_item`, orderItem);
     }
 
 }
