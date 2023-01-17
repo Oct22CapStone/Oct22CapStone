@@ -4,93 +4,68 @@ import { useParams } from "react-router-dom";
 
 const ViewSingleProduct = () => {
 
-    const listItems = [];
-    const {id} = useParams();        
-	const [product, setProduct] = useState("");
-    const [quantity,setQuantity]= useState("");
+    const { id } = useParams();
+    const [product, setProduct] = useState("");
     
-    const addToCart =()=>{
-        // pull the other items from session
-        const item = JSON.parse(sessionStorage.getItem("cart"));
-        listItems.concat(item);
-        console.log(listItems);
-        const pid = product.productId;
-        const qty = quantity;
-        // creating an object: retrieve these later by using their const names
-        const data = {pid, qty};
-        if(listItems && listItems.length >= 1) {
-            listItems.concat(data);
-            console.log("no items");
+    const addToCart = () => {
+        if(localStorage.getItem("cart") == null){
+            localStorage.setItem("cart","[]");
         }
-        else{
-            listItems.push(data)
-            console.log("here");
-        }  
-        //add session items onto the current items
-        listItems.concat(item);
-        //add all of it back to the session
-        sessionStorage.setItem("cart", JSON.stringify(listItems));
-    }
-
-    const changeQuantity=(event)=>{
-        const value = event.target.value;
-        setQuantity(value);
+        const items = JSON.parse(localStorage.getItem("cart"));
+        const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
+            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
+        items.push(data);
+        localStorage.setItem("cart", JSON.stringify(items));
+        
     }
 
 
-    
-    useEffect(() =>{	
-        const fetchData  = async () => {
+
+    useEffect(() => {
+        const fetchData = async () => {
             try {
-                const response = await ProductService.getProductById(id);                                           
-                setProduct(response.data);
-                setQuantity("1");
-            } catch(error) {
+                const response = await ProductService.getProductById(id);
+                setProduct(response.data);             
+            } catch (error) {
                 console.log(error);
             }
-        }; 
+        };
 
-        if(id && id !=="")
-		fetchData();
-	},[id]);
+        if (id && id !== "")
+            fetchData();
+    }, [id]);
 
-    
+
     return (
         <>
-        <div key={product.productId} className="container mt-5 mbclassName-5">
-            <div className="row d-flex justify-content-center">
-            <div className="col-md-10">
-            <div className="card">
-                <div className="row">
+
+        <section className="py-5">
+            <div key={product.productId} className="container px-4 px-lg-5 my-5">
+                <div className="row gx-4 gx-lg-5 align-items-center">
+                    <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0" src={product.productImg} alt="..." /></div>
                     <div className="col-md-6">
-                        <div className="images p-3">
-                            <div className="text-center p-4"> 
-                            <img src={product.productImg} className="img-fluid w-100" /> </div>                            
-                        </div>
+                        <div className="small mb-1">PID: {product.productId}</div>
+                        <h1 className="display-5 fw-bolder">{product.productName}</h1>
+                        <div className="fs-5 mb-5">
+                            
+                            <span>${product.pricePerUnit} </span>
                     </div>
-                    <div className="col-md-6">
-                        <div className="product p-4">
-                            <div className="mt-4 mb-3">
-                                <h5 className="text-uppercase">{product.productName}</h5>
-                                <div className="price d-flex flex-row align-items-center">
-                                    <span>${product.pricePerUnit}</span>                                  
-                                </div>
-                            </div>
-                            <p className="about">{product.productDescription}</p>                            
-                            <div className="cart mt-4 align-items-center"> 
-                            <button onClick={addToCart} className="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button> 
-                            <br></br>
-                            <label>Quantity:</label>
-                            <input defaultValue={1} onChange={changeQuantity} name="qty" type="number"></input>
-                            <i className="fa fa-heart text-muted"></i> <i className="fa fa-share-alt text-muted"></i> </div>
-                        </div>
+                    <div>
+                        <p className="lead">{product.productDescription}</p> 
+                    </div>                          
+                    <div className="d-flex">
+                        <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> 
+                        <br></br>                       
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</>
+    </section>
+        </>
+
     )
 };
 export default ViewSingleProduct;
+
+
+

@@ -5,27 +5,25 @@ import axios from "axios";
 
 class UserService {
 
-    getUser() {
-        return axios.get("http://localhost:8181/userpage/show");
-    }
+    // getUser() {
+    //     return axios.get("http://localhost:8181/userpage/show");
+    // }
 
     deleteUser() {
         return axios.delete("http://localhost:8181/userpage/delete/{user_id}");
     }
 
-    editUser() {
-        return axios.put("http://localhost:8181/userpage/update/{user_id}");
+
+    update(id,user){
+        return axios.put(`http://localhost:8181/userpage/update/${id}`, user);
     }
 
-    addUser() {
-        return axios.post("http://localhost:8181/userpage/save");
-    }
     createUser(user){
         return axios.post(`http://localhost:8181/userpage/save`, user);
     }
 
     checkUser(email){
-        return axios.get(`http://localhost:8181/userpage/check/${email}`).then(response=>response.data)
+        return axios.get(`http://localhost:8181/userpage/check/${email}`).then(response=>response.data);
     }
 
     getUserById(id){
@@ -35,6 +33,7 @@ class UserService {
     getUserByEmail(email){
         return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`);
     }
+
 }
 
 export default new UserService();

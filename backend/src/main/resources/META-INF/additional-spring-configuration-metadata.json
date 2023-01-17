@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "mtumer.rabbitmq.queue",
+    "type": "java.lang.String",
+    "description": "A description for 'mtumer.rabbitmq.queue'"
+  },
+  {
+    "name": "mtumer.rabbitmq.exchange",
+    "type": "java.lang.String",
+    "description": "A description for 'mtumer.rabbitmq.exchange'"
+  },
+  {
+    "name": "mtumer.rabbitmq.routingkey",
+    "type": "java.lang.String",
+    "description": "A description for 'mtumer.rabbitmq.routingkey'"
+  },
+  {
+    "name": "saran.rabbitmq.queue",
+    "type": "java.lang.String",
+    "description": "A description for 'saran.rabbitmq.queue'"
+  },
+  {
+    "name": "saran.rabbitmq.exchange",
+    "type": "java.lang.String",
+    "description": "A description for 'saran.rabbitmq.exchange'"
+  },
+  {
+    "name": "saran.rabbitmq.routingkey",
+    "type": "java.lang.String",
+    "description": "A description for 'saran.rabbitmq.routingkey'"
+  },
+  {
+    "name": "saran.rabbitmq.queue",
+    "type": "java.lang.String",
+    "description": "A description for 'saran.rabbitmq.queue'"
+  },
+  {
+    "name": "saran.rabbitmq.queue",
+    "type": "java.lang.String",
+    "description": "A description for 'saran.rabbitmq.queue'"
+  }
+]}
