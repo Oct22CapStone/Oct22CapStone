@@ -1,6 +1,7 @@
 import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
 import styled from "styled-components";
+import { Table, Button } from 'semantic-ui-react';
 import { useEffect, useState } from "react";
 import UserOrdersService from "../services/UserOrdersService";
 import { Link, Route, useHistory } from "react-router-dom";
@@ -8,13 +9,10 @@ import { Link, Route, useHistory } from "react-router-dom";
 
 
 const Orders = () => {
-	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
 
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
 
-	const [APIData, setAPIData] = useState([]);
 	const[filterdata, setFilterData]= useState([]);
 	const [query, setQuery] = useState('');
 
@@ -22,9 +20,10 @@ const Orders = () => {
 		const fetchData  = async () => {
 			setLoading(true);
 			try {
-				const ordersResponse = await UserOrdersService.getAllUserOrders();
-				setOrders(ordersResponse.data);
-				console.log(orders);
+				const ordersResponse = await fetch(UserOrdersService.getAllUserOrders());
+				const ordersData = ordersResponse.json();
+				setOrders(ordersData);
+				setFilterData(ordersData)
 			} catch(error) {
 				console.log(error);
 			}
@@ -33,13 +32,22 @@ const Orders = () => {
 		fetchData();
 	}, []);
 
+	const setData = (data) => {
+		console.log(data);
+		let { orderId, orderDate, trackingInfo, totalPrice} = data;
+		localStorage.setItem('Order ID', orderId);
+		localStorage.setItem('Order Date', orderDate);
+		localStorage.setItem('Tracking Info', trackingInfo);
+		localStorage.setItem('Total Price', totalPrice);
+	}
+
 	const handlesearch=(event)=>{
 		const getSearch=event.target.value;
 		if(getSearch.length > 0){
-		  const searchdata= orders.filterdata( (orders)=> orders.orderID.includes(getSearch));
-		  setAPIData(searchdata);
+		  const searchdata= orders.filter((item)=> item.orderId.includes(getSearch));
+		  orders(searchdata);
 		} else {
-		  setAPIData(filterdata);
+		  orders(filterdata);
 		}
 		setQuery(getSearch);
 	
@@ -53,37 +61,62 @@ const Orders = () => {
 				<>
 					{!loading && (
 						<><h2 className="text-center">Orders</h2><article>		
-							<table className="table table-bordered">
-								<thead>
-								<div className="container">
-								<input type="text" name='name' value={query} placeholder="Search by order ID:" onChange={(e)=>handlesearch(e)}></input>
+							<Table singleLine>
+								<Table.Header>
+									<span>
+										<div className="container">
+										<input type="text" name='name' value={query} placeholder="Search by order ID" onChange={(e)=>handlesearch(e)}></input>
+										</div>
+									</span>
+
+									<Table.Row>
+										<Table.HeaderCell>Order ID</Table.HeaderCell>
+										<Table.HeaderCell>Order Date</Table.HeaderCell>
+										<Table.HeaderCell>Tracking Info</Table.HeaderCell>
+										<Table.HeaderCell>Total Price</Table.HeaderCell>
+									</Table.Row>
+								</Table.Header>
+
+								<Table.Body>
+									{orders.map((data) => {
+									return (
+										<Table.Row>
+										<Table.Cell>{data.orderId}</Table.Cell>
+										<Table.Cell>{data.orderDate}</Table.Cell>
+										<Table.Cell>{data.trackingInfo}</Table.Cell>
+										<Table.Cell>{data.totalPrice}</Table.Cell>
+
+											<Table.Cell>
+											<Link to='/editorders'>
+											<Table.Cell> 
+											<Button onClick={() => setData(data)} className="btn btn-success btn-sm rounded-5">Update</Button>
+											</Table.Cell>
+											</Link>
+										</Table.Cell>
+
+
+										</Table.Row>
+									)
+									})}
+								</Table.Body>
+
+								<Table.Footer>
+								<div className="clearfix">
+								<div className="hint-text">
+									Showing <b>{orders.length}</b> out of <b>{orders.length}</b> entries
 								</div>
-									<tr>
-										<th>Order ID</th>
-										<th>Order Date</th>
-										<th>Tracking Info</th>
-										<th>Total Price</th>
-										<th>Edit</th>
-									</tr>
-								</thead>
-								<tbody>
-									{orders.map(
-										orders => <tr key={orders.orderId}>
-											<td>{orders.orderId}</td>
-											<td>{orders.orderDate}</td>
-											<td>{orders.trackingInfo}</td>
-											<td>{orders.totalPrice}</td>
-											<ul className="list-inline m-0">
-												<li className="list-inline-item">
-													<Link to={`/editorders/${orders.orderId}`} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i className="fa fa-edit"></i></Link>
-												</li>
-											</ul>
-										</tr>
-										
-									)}
-									
-								</tbody>
-							</table>
+								<ul className="pagination">
+									<li className="page-item disabled"><a href="#">Previous</a></li>
+									<li className="page-item active"><a href="#" className="page-link">1</a></li>
+									<li className="page-item"><a href="#" className="page-link">2</a></li>
+									<li className="page-item"><a href="#" className="page-link">3</a></li>
+									<li className="page-item"><a href="#" className="page-link">4</a></li>
+									<li className="page-item"><a href="#" className="page-link">5</a></li>
+									<li className="page-item"><a href="#" className="page-link">Next</a></li>
+								</ul>
+								</div>
+								</Table.Footer>
+							</Table>
 						</article></>)}
 				</>
 			}
