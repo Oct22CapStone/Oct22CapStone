@@ -1,5 +1,4 @@
 import axios from 'axios';
-import EmailService from "../services/EmailService";
 import {
   MDBBtn,
   MDBContainer,
@@ -16,7 +15,6 @@ import { useState } from 'react';
 
 function RegistryForm() {
 //destructure here 
-axios.defaults.headers.post['Content-Type'] = 'multipart/form-date';//KENZIE
 
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -26,6 +24,12 @@ axios.defaults.headers.post['Content-Type'] = 'multipart/form-date';//KENZIE
   const [password, setpassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const role='Customer';
+
+  const mailerInfo = {//Kenzie's mail stuff
+    recipient: email,
+    msgBody: `${firstName}, thank you for creating an account. Please enjoy your shopping experience.`,
+    subject: "Welcome to Vehicle Vault!"
+  }
 
   const changeUsername = (event) => {
     setUsername(event.target.value);
@@ -72,6 +76,11 @@ axios.defaults.headers.post['Content-Type'] = 'multipart/form-date';//KENZIE
       };
       axios.post("http://localhost:8181/userpage/save", val);
       clearState();
+      axios({
+        method: "POST",
+        url:"http://localhost:8181/email/send",
+        data:  mailerInfo
+      })
     }
   }
 

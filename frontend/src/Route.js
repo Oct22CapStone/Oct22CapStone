@@ -46,8 +46,6 @@ const Routes = () => {
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
         		<SecureRoute path="/addaddress" exact={true} component={AddAddress} />
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
-
-
 			</Switch>
 		</Security>
 	);

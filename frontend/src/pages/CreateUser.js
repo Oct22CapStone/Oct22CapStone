@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'semantic-ui-react'
 import axios from 'axios';
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 
 function CreateUser() {
@@ -11,6 +11,11 @@ function CreateUser() {
   const [role, setRole] = useState('');
   const history = useHistory();
 
+  const mailerInfo = {
+    recipient: email,
+    msgBody: `${firstName}, thank you for creating an account. Please enjoy your shopping experience.`,
+    subject: "Welcome to Vehicle Vault!"
+  }
 
   const postData = () => {
     axios.post(`http://localhost:8181/userpage/save`, {
@@ -20,10 +25,19 @@ function CreateUser() {
         role
     })//ADD A PAUSE HERE. HOW??
     history.push("/users");//REDIRECT IS TOO FAST.
+    axios({
+      method: "POST",
+      url:"http://localhost:8181/email/send",
+      data:  mailerInfo
+    })
+  }
 
-}
   return (
     <>
+
+<Link to="/kenzie" className="btn btn-secondary btn-sm">Kenzie</Link>
+
+
     <Link to="/users" className="btn btn-secondary btn-sm">Back</Link>
     <div className="container mt-5 mbclassName-5">
           <Form className="create-form">
