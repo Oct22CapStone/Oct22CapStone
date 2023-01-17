@@ -60,7 +60,7 @@ const ViewProducts = () => {
 		<td><img className="rounded-pill" width={50} height={50} src={productImg} /></td>
     	<td><Link to={`/viewsingleproduct/${productId}`}>{productName}</Link></td>
 		<td>${pricePerUnit}</td>
-		<td>{productQty}</td>
+		<td>{productQty}{productQty < 3 ? ' Low On Stock Please Reorder' : ''}</td>
 		<td>
     <ul className="list-inline m-0">
         <li className="list-inline-item">
@@ -72,7 +72,7 @@ const ViewProducts = () => {
         </ul>
         </td>
 	</tr>
-	))};
+	))}
 	</tbody>
 	</table>
 	</div>)}
