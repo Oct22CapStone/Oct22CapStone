@@ -26,7 +26,7 @@ const Nav = () => {
       }, [cartItems]);
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light">
+		<nav className="navbar navbar-expand-lg navbar-light bg-light navbar-collapse">
             <div className="container px-4 px-lg-5">
             <a href="/"><img src="https://i.ibb.co/cg1NqMM/logo3.jpg" class = "float-left" alt="logo3" border="0" width = "400" height = "100" align ="left"></img></a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
