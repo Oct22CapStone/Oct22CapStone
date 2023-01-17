@@ -34,10 +34,6 @@ function CreateUser() {
 
   return (
     <>
-
-<Link to="/kenzie" className="btn btn-secondary btn-sm">Kenzie</Link>
-
-
     <Link to="/users" className="btn btn-secondary btn-sm">Back</Link>
     <div className="container mt-5 mbclassName-5">
           <Form className="create-form">

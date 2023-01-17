@@ -37,7 +37,6 @@ public class UsersController {
 	@GetMapping("/check/{email}")
 	public Boolean getByEmail(@PathVariable String email) {
 		Boolean user = usersService.userExistsByEmail(email);
-		System.out.println(user);
 		if (user) {
 			
 			return true;			
@@ -46,18 +45,18 @@ public class UsersController {
 		
 	}
 	
-	@GetMapping("/showId/{userId}")
-	public Long getUserByEmail(@PathVariable String email) {
-		Long userId = usersService.getUserByEmail(email);
-		System.out.println(userId);
-		if (userId != null) {
-			return userId;
+
+	@GetMapping("/userbyemail/{email}")
+	public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
+		Optional<Users> user = Optional.ofNullable(usersService.getUserByEmail(email));
+		if (!user.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
-		return null;
+		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 	}
 
 	@GetMapping("/show/{id}")
-	public ResponseEntity<Users> getById(@PathVariable Long id) {
+	public ResponseEntity<Users> getById(@PathVariable("id") Long id) {
 		Optional<Users> user = usersService.getUserById(id);
 		if (!user.isPresent()) {
 			return ResponseEntity.notFound().build();
@@ -83,7 +82,6 @@ public class UsersController {
 		newUser.setUserId(userId);
 		newUser.setFirstName(user.getFirstName());
 		newUser.setLastName(user.getLastName());
-		newUser.setPhone(user.getPhone());
 		newUser.setPassword(user.getPassword());
 		newUser.setEmail(user.getEmail());
 		newUser.setUsername(user.getUsername());

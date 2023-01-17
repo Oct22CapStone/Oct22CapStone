@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.mtumer.entity.Address;
 import com.mtumer.entity.Cart;
 import com.mtumer.services.AddressService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/addresspage")
 public class AddressController {
@@ -60,7 +62,7 @@ public class AddressController {
 	}
 	
 	@PutMapping("/updateAddress/{id}")
-	public ResponseEntity<Address> updateAddress(@PathVariable("id") Long addressId, @RequestBody Address address) throws URISyntaxException {
+	public ResponseEntity<Address> updateAddress(@PathVariable("id") Long addressId, @RequestBody Address address) {
 		Optional<Address> existingAddress = addressService.getAddressById(addressId);
 		if(!existingAddress.isPresent()) {
 			return ResponseEntity.notFound().build();
@@ -72,6 +74,7 @@ public class AddressController {
 		newAddress.setState(address.getState());
 		newAddress.setCountry(address.getCountry());
 		newAddress.setZip(address.getZip());
+		newAddress.setUserId(address.getUserId());
 		addressService.update(newAddress);
 		return new ResponseEntity<>(newAddress, HttpStatus.OK);
 	}

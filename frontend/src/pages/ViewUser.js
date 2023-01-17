@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import UserRoleService from "../services/UserRoleService";
 import { useParams } from "react-router-dom";
 import UserService from "../services/UserService";
+import { ServerStyleSheet } from "styled-components";
 
 
 export default function ViewUser() {
@@ -12,6 +13,7 @@ export default function ViewUser() {
   const [APIData, setAPIData] = useState([]);
   const[filterdata, setFilterData]= useState([]);
   const [query, setQuery] = useState('');
+  const[roles, setRoles] = useState([]);
 
   const onDelete = (userId) => {
     axios.delete(`http://localhost:8181/userpage/delete/${userId}`);
@@ -25,14 +27,14 @@ export default function ViewUser() {
   // const onSearch = (userId) => {
   //   return UserService.getUserById(userId);
   // }
-
   const setData = (data) => {
     console.log(data);
-    let { userId, firstName, lastName, email, role } = data;
+    let { userId, firstName, lastName, email, phone, role } = data;
     localStorage.setItem('ID', userId);
     localStorage.setItem('First Name', firstName);
     localStorage.setItem('Last Name', lastName);
     localStorage.setItem('Email', email);
+    localStorage.setItem('Phone', phone);
     localStorage.setItem('Role', role)
 }
 
@@ -44,15 +46,24 @@ export default function ViewUser() {
 //   })
 // }, [])
 
-  useEffect(() => {
-    const getUserData= async() => {
-      const reqData= await fetch("http://localhost:8181/userpage/show");
-      const resData= await reqData.json();
-      setAPIData(resData);
-      setFilterData(resData);
-    }
-    getUserData();
-  },[]);
+useEffect(() => {
+
+  const getUserData= async() => {
+    const reqData= await fetch("http://localhost:8181/userpage/show");
+    const resData= await reqData.json();
+    setAPIData(resData);
+    setFilterData(resData);
+  }
+
+  const getRoleData= async() => {
+    const req = await UserRoleService.findAllUserRole();
+    setRoles(req.data);
+    //setFilterData(req.data);??
+  }
+
+  getUserData();
+  getRoleData();
+},[]);
 
   const handlesearch=(event)=>{
     const getSearch=event.target.value;
@@ -80,8 +91,6 @@ export default function ViewUser() {
                 <Link to='/adduser' className="btn btn-primary btn-sm rounded-5"> Add New</Link>
                 </div>
                 </span>
-
-
             <Table.Row>
               <Table.HeaderCell>First Name</Table.HeaderCell>
               <Table.HeaderCell>Last Name</Table.HeaderCell>
@@ -98,7 +107,7 @@ export default function ViewUser() {
                   <Table.Cell>{data.firstName}</Table.Cell>
                   <Table.Cell>{data.lastName}</Table.Cell>
                   <Table.Cell>{data.email}</Table.Cell>
-                  <Table.Cell>{data.role}</Table.Cell>
+                  <Table.Cell>{data.roleName}</Table.Cell>
 
                   <Table.Cell>
                     <Button onClick={() => onDelete(data.userId)} className="btn btn-danger btn-sm rounded-5">Delete</Button>
