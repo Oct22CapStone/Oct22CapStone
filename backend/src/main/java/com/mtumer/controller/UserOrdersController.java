@@ -19,7 +19,7 @@ import com.mtumer.entity.UserOrders;
 import com.mtumer.services.UserOrdersService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://vehiclevault.azurewebsites.net")
 @RequestMapping("/user_orders")
 public class UserOrdersController {
 
