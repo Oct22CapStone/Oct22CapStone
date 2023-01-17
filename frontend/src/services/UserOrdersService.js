@@ -9,6 +9,10 @@ class UserOrdersService {
     }
     getById(id){
         return axios.get(`http://localhost:8181/user_orders/orders/${id}`);
+
+    update(id,order){
+        return axios.put(`http://localhost:8181/user_orders/update/${id}`, order);
+
     }
 }
 

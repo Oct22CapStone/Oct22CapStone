@@ -14,6 +14,7 @@ import ViewProducts from "./pages/ViewProducts";
 import EditProducts from "./pages/EditProducts";
 import AddAddress from "./pages/AddAddress";
 import Orders from "./pages/Orders";
+import EditOrders from "./pages/EditOrders";
 import AddProduct from "./pages/AddProduct";
 import Cart from "./pages/Cart";
 import EditAddress from "./pages/EditAddress";
@@ -49,8 +50,10 @@ const Routes = () => {
 				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
 				<SecureRoute path="/editaddress/:id" exact={true} component={EditAddress}/>
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
+
 				<SecureRoute path="/userorders" exact={true} component={UserOrders}/>
 				<SecureRoute path="/orderdetails/:id" exact={true} component={OrderDetails}/>
+
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
         		<Route path="/addaddress" exact={true} component={AddAddress} />
 
