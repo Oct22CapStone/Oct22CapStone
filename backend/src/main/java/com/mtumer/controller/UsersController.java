@@ -20,7 +20,7 @@ import com.mtumer.entity.Users;
 
 import com.mtumer.services.UsersService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://vehiclevault.azurewebsites.net")
 @RestController
 @RequestMapping("/userpage")
 public class UsersController {
