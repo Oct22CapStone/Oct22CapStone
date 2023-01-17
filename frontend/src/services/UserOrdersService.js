@@ -8,10 +8,10 @@ class UserOrdersService {
         return axios.get(PRODUCT_API_BASE_URL + "/all");
     }
     getById(id){
-        return axios.get(`http://localhost:8181/user_orders/orders/${id}`);
+        return axios.get(`https://backendecommerce.azurewebsites.net/user_orders/orders/${id}`);
 
     update(id,order){
-        return axios.put(`http://localhost:8181/user_orders/update/${id}`, order);
+        return axios.put(`https://backendecommerce.azurewebsites.net/user_orders/update/${id}`, order);
 
     }
 }
