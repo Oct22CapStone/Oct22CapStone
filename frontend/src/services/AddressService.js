@@ -9,16 +9,16 @@ class AddressService {
         return axios.get(PRODUCT_API_BASE_URL);
     }
     getAddressById(id){
-        return axios.get(`http://localhost:8181/addresspage/showaddress/${id}`);
+        return axios.get(`https://backendecommerce.azurewebsites.net/addresspage/showaddress/${id}`);
     }
     delete(id){
-        return axios.delete(`http://localhost:8181/addresspage/delete/${id}`);
+        return axios.delete(`https://backendecommerce.azurewebsites.net/addresspage/delete/${id}`);
     }
     update(id,address){
-        return axios.put(`http://localhost:8181/addresspage/updateAddress/${id}`, address);
+        return axios.put(`https://backendecommerce.azurewebsites.net/updateAddress/${id}`, address);
     }
     createAddress(address){
-        return axios.post(`http://localhost:8181/addresspage/save_address`, address);
+        return axios.post(`https://backendecommerce.azurewebsites.net/addresspage/save_address`, address);
     }
 
 }
