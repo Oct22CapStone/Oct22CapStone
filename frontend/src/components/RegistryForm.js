@@ -35,6 +35,8 @@ from 'mdb-react-ui-kit';
 
 
 import { useState } from 'react';
+import UserRoleService from '../services/UserRoleService';
+import UserService from '../services/UserService';
 
 
 
@@ -118,7 +120,7 @@ function RegistryForm() {
 
 
 
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
 
     event.preventDefault();
 
@@ -140,15 +142,15 @@ function RegistryForm() {
 
         email,
 
-        phone,
-
-        password,
-
-        role,
+        password
       };
 
-      axios.post("http://localhost:8181/userpage/save", val);
-
+      await UserService.createUser(val);
+      console.log(val.email);
+      const newUser = await UserService.getUserByEmail(val.email);
+      const role = {roleId: 2};
+      const userRole ={role: role, user: newUser.data};
+      await UserRoleService.createUserRole(userRole);
       clearState();
 
     }
@@ -197,7 +199,7 @@ function RegistryForm() {
 
 
 
-            <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+            <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
 
 
@@ -243,7 +245,7 @@ function RegistryForm() {
 
             <div className="d-flex flex-row align-items-center mb-4 ">
 
-               <MDBIcon fas icon="user me-3" size='lg'/>
+               <MDBIcon fas icon="phone me-3" size='lg'/>
 
                <MDBInput label='Phone Number' value={phone} onChange={changePhone} id="phone" type='text' className='w-100'/>
 
@@ -269,17 +271,7 @@ function RegistryForm() {
 
             </div>
 
-
-
-            <div className='mb-4'>
-
-              <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
-
-            </div>
-
-
-
-            <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
+            <MDBBtn onClick={handleRegister} className='mb-4' size='lg'>Register</MDBBtn>
 
             
 
@@ -289,7 +281,7 @@ function RegistryForm() {
 
           <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
 
-            <MDBCardImage src='https://www.logodesign.net/logo/line-art-car-with-swoosh-5986ld.png' fluid/>
+            <MDBCardImage src= "https://i.ibb.co/cg1NqMM/logo3.jpg" fluid/>
 
           </MDBCol>
 

@@ -48,16 +48,15 @@ public class UsersController {
 
 	@GetMapping("/userbyemail/{email}")
 	public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
-		Users user = usersService.getUserByEmail(email);
-		if (user.getUserId() != null) {			
-			return new ResponseEntity<>(user, HttpStatus.OK);
-
+		Optional<Users> user = Optional.ofNullable(usersService.getUserByEmail(email));
+		if (!user.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.notFound().build();
+		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 	}
 
 	@GetMapping("/show/{id}")
-	public ResponseEntity<Users> getById(@PathVariable Long id) {
+	public ResponseEntity<Users> getById(@PathVariable("id") Long id) {
 		Optional<Users> user = usersService.getUserById(id);
 		if (!user.isPresent()) {
 			return ResponseEntity.notFound().build();
@@ -73,7 +72,7 @@ public class UsersController {
 	}
 
 	@PutMapping("/update/{userId}")
-	public ResponseEntity<Users> updateUser(@PathVariable("user_id") Long userId, @RequestBody Users user) {
+	public ResponseEntity<Users> updateUser(@PathVariable("userId") Long userId, @RequestBody Users user) {
 		Optional<Users> updateUser = usersService.getUserById(userId);
 		if (!updateUser.isPresent()) {
 			return ResponseEntity.notFound().build();
@@ -91,7 +90,7 @@ public class UsersController {
 	}
 
 	@DeleteMapping("/delete/{userId}")
-	public ResponseEntity<Users> deleteUser(@PathVariable("user_id") Long userId) {
+	public ResponseEntity<Users> deleteUser(@PathVariable("userId") Long userId) {
 		Optional<Users> userRemoved = usersService.getUserById(userId);
 		if (!userRemoved.isPresent()) {
 			return ResponseEntity.notFound().build();
