@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
+global.change = false;
 
 const Nav = () => {
 	const { oktaAuth, authState } = useOktaAuth();
 	const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
     const [cartItems, setCartItems] = useState(null);
+    const [items,setItems] = useState([]);
     
+    window.updateCartTotal = function(){
+        if(JSON.parse(localStorage.getItem('cart')) != null){
+            setItems((JSON.parse(localStorage.getItem('cart'))).length);
+        }
+    }
     
 	const loggingOut = async () => {
 		oktaAuth.tokenManager.clear();
@@ -17,8 +24,16 @@ const Nav = () => {
         if(JSON.parse(localStorage.getItem('cart')) != null){
             const cart = JSON.parse(localStorage.getItem("cart")).length;
             setCartItems(cart);
-        }
+            }
       }, [cartItems]);
+
+      useEffect(() => {
+        if(JSON.parse(localStorage.getItem('cart')) != null){
+            setItems((JSON.parse(localStorage.getItem('cart'))).length);
+        }
+        }, [global.change]);   
+
+    
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,7 +58,7 @@ const Nav = () => {
                         <Link to="/cart" className="btn btn-outline-dark" type="submit">
                             <i className="bi-cart-fill me-1"></i>
                             Cart
-                            <span className="badge bg-dark text-white ms-1 rounded-pill">{cartItems}</span>
+                            <span className="badge bg-dark text-white ms-1 rounded-pill">{items}</span>
                         </Link>
                     </form>
                     

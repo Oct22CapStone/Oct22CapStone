@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import { useParams } from "react-router-dom";
+import Nav from "../components/Navbar/PageWrapper";
 
 const ViewSingleProduct = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState("");
-    
+
     const addToCart = () => {
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
@@ -16,10 +17,14 @@ const ViewSingleProduct = () => {
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
         items.push(data);
         localStorage.setItem("cart", JSON.stringify(items));
+        //update navbar cart total
+        window.parent.updateCartTotal();
         
     }
+    
+    
 
-
+//console.log("change is ", PageWrapper.changeBool(5));
 
     useEffect(() => {
         const fetchData = async () => {
