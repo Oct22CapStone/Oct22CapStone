@@ -42,7 +42,7 @@ import com.mtumer.services.ProductService;
 //import com.mtumer.services.RabbitSender;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://vehiclevault.azurewebsites.net")
 @RequestMapping("/product")
 public class ProductController {
 	
