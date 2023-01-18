@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const PRODUCT_API_BASE_URL = "https://backendecommerce.azurewebsites.net/user_role";
+const PRODUCT_API_BASE_URL = "http://localhost:8181/user_role";
 
 
 class UserRoleService {
@@ -9,16 +9,16 @@ class UserRoleService {
         return axios.get(PRODUCT_API_BASE_URL + "/show");
     }
     getUserRoleById(id){
-        return axios.get(`https://backendecommerce.azurewebsites.net/user_role/show/${id}`);
+        return axios.get(`http://localhost:8181/user_role/show/${id}`);
     }
     delete(id){
-        return axios.delete(`https://backendecommerce.azurewebsites.net/user_role/delete/${id}`);
+        return axios.delete(`http://localhost:8181/user_role/delete/${id}`);
     }
     update(id,userRole){
-        return axios.put(`https://backendecommerce.azurewebsites.net/user_role/update/${id}`, userRole);
+        return axios.put(`http://localhost:8181/user_role/update/${id}`, userRole);
     }
     createUserRole(userRole){
-        return axios.post(`https://backendecommerce.azurewebsites.net/user_role/save`, userRole);
+        return axios.post(`http://localhost:8181/user_role/save`, userRole);
     }
 
 
