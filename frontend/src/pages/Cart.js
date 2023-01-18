@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductService from "../services/ProductService";
+import Nav from "../components/Navbar/PageWrapper";
+
 import {
   MDBBtn,
   MDBCard,
@@ -21,21 +23,38 @@ import {
 
 
 const Cart = () => {
+  const [price, setPrice] = useState(null);
+
   const [items,setItems] = useState([]);
+  const [product,setProduct] = useState("");
+  var chosenItems = [];
   var cartItem = [];
+  const[totalPrice, setTotalPrice]  = useState(0);
+  const[num, setNum] = useState(0);
+
+  function addToChosenItems(id, price, quantity){
+    chosenItems.push(price);
+  };
  
   function deleteProduct  (id,e){
     cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
-    console.log(items);
+    window.parent.updateCartTotal();
   };
+
 
   useEffect(() => {
     if(JSON.parse(localStorage.getItem('cart')) != null){
       setItems(JSON.parse(localStorage.getItem('cart')));
+      var numTotal = 0;
+      for(const id in items){
+        numTotal = numTotal + parseInt((items[id].pricePerUnit));
+      }
+      setTotalPrice(numTotal);
     }
-  }, []);
+    }, [items.length]);   
+
 
   return (
 
@@ -80,10 +99,12 @@ const Cart = () => {
                   <MDBBtn className="px-3 ms-2">
                     <MDBIcon fas icon="plus" />
                   </MDBBtn>
+
                 </div>
 
                 <p className="text-start text-md-center">
                   <strong>${pricePerUnit}</strong>
+                  <p>{addToChosenItems(productId, pricePerUnit, "1")}</p>
                 </p>
 
                 <button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
@@ -121,8 +142,9 @@ const Cart = () => {
                     <p className="mb-0">(including VAT)</p>
                   </strong>
                 </div>
+
                 <span>
-                  <strong>TOTAL PRICE HERE</strong>
+                  <strong>${totalPrice}</strong>
                 </span>
               </MDBListGroupItem>
             </MDBListGroup>
@@ -168,5 +190,4 @@ const Cart = () => {
     
   )
 };
-
 export default Cart;

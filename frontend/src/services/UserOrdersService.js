@@ -12,7 +12,6 @@ class UserOrdersService {
     }
     update(id,order){
         return axios.put(`http://localhost:8181/user_orders/update/${id}`, order);
-
     }
 }
 
