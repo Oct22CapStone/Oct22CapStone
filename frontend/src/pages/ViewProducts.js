@@ -48,19 +48,20 @@ const ViewProducts = () => {
 			<th scope="col"></th>
       		<th scope="col">Product</th>
       		<th scope="col">Price</th>
-      		<th scope="col">Quantity</th>
+      		<th scope="col">Quantity </th>
       		<th scope="col">Manage</th>
     		</tr>
 				</thead>
 				<tbody>
 			{products.map(
 ({productId, productName, pricePerUnit, productQty, productImg, productDescription}) =>(
+
 				
     <tr key={productId}>
 		<td><img className="rounded-pill" width={50} height={50} src={productImg} /></td>
     	<td><Link to={`/viewsingleproduct/${productId}`}>{productName}</Link></td>
 		<td>${pricePerUnit}</td>
-		<td>{productQty}</td>
+		<td>{productQty}{productQty < 3 ? ' Low On Stock Please Reorder' : ''}</td>
 		<td>
     <ul className="list-inline m-0">
         <li className="list-inline-item">
@@ -72,7 +73,7 @@ const ViewProducts = () => {
         </ul>
         </td>
 	</tr>
-	))};
+	))}
 	</tbody>
 	</table>
 	</div>)}

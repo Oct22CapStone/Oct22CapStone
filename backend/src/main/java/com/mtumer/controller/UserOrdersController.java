@@ -58,6 +58,7 @@ public class UserOrdersController {
 		newUserOrder.setTrackingInfo(userOrders.getTrackingInfo());
 		newUserOrder.setTotalPrice(userOrders.getTotalPrice());
 		newUserOrder.setUserId(userOrders.getUserId());
+		newUserOrder.setAddressId(userOrders.getAddressId());
 		userOrdersService.update(newUserOrder);
 		return new ResponseEntity<>(newUserOrder, HttpStatus.OK);
 	}
