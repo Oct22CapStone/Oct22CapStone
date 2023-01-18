@@ -18,7 +18,7 @@ const Home = () => {
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [itemAdded, setItemAdded] = useState(false);
-	const [num, setNum] = useState();
+	const [num, setNum] = useState(0);
 	let response = 0;
 	// load all page data
 	useEffect(() => {
@@ -38,50 +38,37 @@ const Home = () => {
     const [product, setProduct] = useState("");
 
     const addToCart = () => {
-		console.log("product inside of cart is: ", product);
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
-			console.log("creating new cart");
         }
         const items = JSON.parse(localStorage.getItem("cart"));
-		console.log("initial items: ", items);
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
-		console.log("data is: ", data);
         items.push(data);
-		console.log("items after data push: ", items);
         localStorage.setItem("cart", JSON.stringify(items));
         //update navbar cart total
         window.parent.updateCartTotal();
-        
     } 
 
 	function setId(productId){
 		setNum(productId);
 	};
-
     
     useEffect(() => {
-		console.log("inside useEffect");
-		
-		var str = "http://localhost:8181/product/"+num;
-		console.log("str type: ", typeof str);
-		console.log("str: ", str);
 		fetch(`http://localhost:8181/product/${num}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setProduct(data);
-			})
+			});
+            
+    }, [num]);
 
-		// fetch data into a single product
-        if (num && num != 0){
+	useEffect(() =>{
+		if (num && num != 0){
 			
 			addToCart();
 		}
-	//console.log("product is: ", product);
-	
-            
-    }, [num]);
+	}, [product])
 
 	
 
