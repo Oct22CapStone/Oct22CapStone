@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Nav from "../components/Navbar/PageWrapper";
 import axios from 'axios';
 import {
   MDBBtn,
@@ -18,12 +17,10 @@ import {
   MDBTooltip,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import UserService from "../services/UserService";
-import AddressService from "../services/AddressService";
-import useAuthUser from "../hook/getUser";
 
 
- const Cart = () => {
+
+const Cart = () => {
 
     const [price, setPrice] = useState(null);
 
