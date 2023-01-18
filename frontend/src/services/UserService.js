@@ -9,21 +9,31 @@ class UserService {
     //     return axios.get("http://localhost:8181/userpage/show");
     // }
 
-    getUserById(userId) {
-        return axios.get(`http://localhost:8181/userpage/show/${userId}`)
-    }
-
     deleteUser() {
         return axios.delete("http://localhost:8181/userpage/delete/{user_id}");
     }
 
-    // editUser() {
-    //     return axios.put("http://localhost:8181/userpage/update/{user_id}");
-    // }
 
-    // addUser() {
-    //     return axios.post("http://localhost:8181/userpage/save");
-    // }
+    update(id,user){
+        return axios.put(`http://localhost:8181/userpage/update/${id}`, user);
+    }
+
+    createUser(user){
+        return axios.post(`http://localhost:8181/userpage/save`, user);
+    }
+
+    checkUser(email){
+        return axios.get(`http://localhost:8181/userpage/check/${email}`).then(response=>response.data);
+    }
+
+    getUserById(id){
+        return axios.get(`http://localhost:8181/userpage/show/${id}`);
+    }
+
+    getUserByEmail(email){
+        return axios.get(`http://localhost:8181/userpage/userbyemail/${email}`);
+    }
+
 }
 
 export default new UserService();

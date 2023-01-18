@@ -12,6 +12,8 @@ import {
 } 
 from 'mdb-react-ui-kit';
 import { useState } from 'react';
+import UserRoleService from '../services/UserRoleService';
+import UserService from '../services/UserService';
 
 function RegistryForm() {
 //destructure here 
@@ -23,7 +25,6 @@ function RegistryForm() {
   const [phone, setPhone] = useState('');
   const [password, setpassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
-  const role='Customer';
 
   const mailerInfo = {//Kenzie's mail stuff
     recipient: email,
@@ -59,7 +60,7 @@ function RegistryForm() {
     setPasswordRepeat(event.target.value);
   };
 
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault();
 
     if (password!==passwordRepeat) {
@@ -71,18 +72,27 @@ function RegistryForm() {
         lastName,
         email,
         phone,
-        password,
-        role,
+        password
       };
-      axios.post("http://localhost:8181/userpage/save", val);
-      clearState();
-      axios({
+
+      axios({//More email stuff
         method: "POST",
         url:"http://localhost:8181/email/send",
         data:  mailerInfo
       })
+
+      await UserService.createUser(val);
+      console.log(val.email);
+      const newUser = await UserService.getUserByEmail(val.email);
+      const role = {roleId: 2};
+      const userRole ={role: role, user: newUser.data};
+      await UserRoleService.createUserRole(userRole);
+      clearState();
+      
     }
   }
+
+
 
   const clearState = () => {
     setUsername('');
