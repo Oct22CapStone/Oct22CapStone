@@ -82,7 +82,7 @@ const Nav = () => {
 							<button className = "btn btn-link active" onClick={loggingOut}>Logout</button>
 						) : (
 							<div>
-								<button className = "btn-link btn active" onClick={loggingIn}>Login</button>
+								<Link className = "btn-link btn active" to="/login">Login</Link>
                             </div>
 						)
 					}
