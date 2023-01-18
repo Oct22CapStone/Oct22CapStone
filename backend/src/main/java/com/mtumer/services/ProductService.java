@@ -35,6 +35,7 @@ public class ProductService {
 		newProduct.setProductDescription(product.getProductDescription());
 		newProduct.setShowProduct(product.isShowProduct()); //added
 		newProduct = productRepo.save(newProduct);
+	
 		return newProduct;
 	}
 

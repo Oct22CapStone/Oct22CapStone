@@ -35,8 +35,6 @@ public class AddressService {
 	
 	
 	public Address createAddress(Address address) {
-		
-	
 		Address newAddress = new Address();
 		newAddress.setStreet(address.getStreet());
 		newAddress.setCity(address.getCity());

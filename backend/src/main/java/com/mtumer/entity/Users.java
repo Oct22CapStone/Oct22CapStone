@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -38,9 +35,6 @@ public class Users {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "phone")
-	private String phone;
-
 	@Column(name = "password")
 	private String password;
 	
@@ -48,21 +42,21 @@ public class Users {
 	private int acc_status;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Address> addresses;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<UserOrders> userOrder;
 
 	@JsonIgnore
-
-	@OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "userId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<UserCart> userCart;
 
-	
 	@JsonIgnore
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<UserRole> role;
+		
+	
 
 }
