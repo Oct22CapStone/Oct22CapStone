@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import { useParams } from "react-router-dom";
+import Nav from "../components/Navbar/PageWrapper";
 
 const ViewSingleProduct = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState("");
     var isDupe = 1;
+
     const addToCart = () => {
         console.log("begining "+isDupe);
         if(localStorage.getItem("cart") == null){
@@ -17,6 +19,7 @@ const ViewSingleProduct = () => {
 
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
+
 
         console.log("items"+items);
         console.log("data"+data);
@@ -40,8 +43,10 @@ const ViewSingleProduct = () => {
 
         
     }
+    
+    
 
-
+//console.log("change is ", PageWrapper.changeBool(5));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -76,8 +81,8 @@ const ViewSingleProduct = () => {
                         <p className="lead">{product.productDescription}</p> 
                     </div>                          
                     <div className="d-flex">
-                        <button onClick={addToCart} class="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> 
-                        <br></br>
+                        <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> 
+                        <br></br>                       
                     </div>
                 </div>
             </div>

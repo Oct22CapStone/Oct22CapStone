@@ -5,6 +5,7 @@ export const oktaConfig = {
 
 
 
+
     redirectUri: `${window.location.origin}/login/callback`,
     //redirectUri: 'http://localhost:3000/login/callback',
     endSessionRedirectUri: `${window.location.origin}`,

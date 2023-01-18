@@ -14,12 +14,17 @@ import ViewProducts from "./pages/ViewProducts";
 import EditProducts from "./pages/EditProducts";
 import AddAddress from "./pages/AddAddress";
 import Orders from "./pages/Orders";
+import EditOrders from "./pages/EditOrders";
 import AddProduct from "./pages/AddProduct";
 import Cart from "./pages/Cart";
 import EditAddress from "./pages/EditAddress";
 import UserOrders from "./pages/UserOrders";
 import OrderDetails from "./pages/OrderDetails";
+
 import PopularItems from "./pages/PopularItems";
+
+import Login from "./pages/Login";
+
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -28,17 +33,23 @@ const Routes = () => {
 	const originalUri = async (_oktaAuth, originalUri) => {
 		history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
 	};
+	const onAuthRequired = function() {
+		history.push('/login')
+	  }
 
 	return (
-		<Security oktaAuth={oktaAuth} restoreOriginalUri={originalUri}>
+		<Security oktaAuth={oktaAuth} restoreOriginalUri={originalUri} onAuthRequired={onAuthRequired}>
 			<Nav />
 			<Switch>
-
 				<Route path="/" exact={true} component={Home} />
         		<Route path="/register" exact={true} component={RegistryForm} />
 
 
+
 				<Route path="/popularitems" exact={true} component={PopularItems} />
+
+				<Route path='/login' exact={true} component={Login}/>
+
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
 				<SecureRoute path="/viewuser" component={ViewUser} />
@@ -54,8 +65,7 @@ const Routes = () => {
 				<SecureRoute path="/orderdetails/:id" exact={true} component={OrderDetails}/>
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
         		<Route path="/addaddress" exact={true} component={AddAddress} />
-
-
+				<SecureRoute path="/editorders/:id" exact={true} component={EditOrders}/>
 			</Switch>
 		</Security>
 	);
