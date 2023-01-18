@@ -6,29 +6,19 @@ import { Link, Route, useHistory } from "react-router-dom";
 const EditOrders = () => {
     const {id} = useParams();    
 	  const [orders, setOrders] = useState("");
-    const history = useHistory();
 
     const handleSubmit = async() =>{
-        //
-        //set orders date variable
-        console.log(orders.orderDate);
         await UserOrdersService.update(orders.orderId, orders);
-        console.log(orders.orderDate);
       };
 
     const handleChange = (event) =>{
       setOrders(orders =>({...orders, [event.target.name]: event.target.value}));
     }
 
-    const handleOrderDate = (event) =>{
-      const newOrderDate = event.target.name;
-      console.log(newOrderDate)
-    }
-
     useEffect(() =>{	
         const fetchData  = async () => {
             try {
-                const response = await UserOrdersService.getUserOrderByID(id);                                           
+                const response = await UserOrdersService.getById(id)                                      
                 setOrders(response.data);
             } catch(error) {
                 console.log(error);
