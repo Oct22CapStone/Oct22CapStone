@@ -94,7 +94,7 @@ const Cart = () => {
                     <MDBIcon fas icon="minus" />
                   </MDBBtn>
 
-                  <MDBInput defaultValue={1} min={0} type="number" label="Quantity" />
+                  <MDBInput className = "text-center" defaultValue={1} min={0} type="number" label="Quantity" />
 
                   <MDBBtn className="px-3 ms-2">
                     <MDBIcon fas icon="plus" />
@@ -107,13 +107,24 @@ const Cart = () => {
                   <p>{addToChosenItems(productId, pricePerUnit, "1")}</p>
                 </p>
 
+                <div className = "text-center">
                 <button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
+                </div>
+
+                </MDBCol>
+                <MDBCol>
+                  <MDBBtn href = "/" block size="lg">
+                    Continue Shopping
+                  </MDBBtn>
 
                 </MDBCol>
               </MDBRow>
             </MDBCardBody>
+            
           )
+          
           )}
+         
           </MDBCard>      
         </MDBCol>
       <MDBCol md="4">
@@ -149,7 +160,7 @@ const Cart = () => {
               </MDBListGroupItem>
             </MDBListGroup>
 
-            <MDBBtn block size="lg">
+            <MDBBtn block size="sm">
               CHECKOUT
             </MDBBtn>
           </MDBCardBody>
@@ -163,25 +174,37 @@ const Cart = () => {
             <p className="mb-0">Will be updated after checkout</p>
           </MDBCardBody>
         </MDBCard>
-        <MDBCard className="mb-4 mb-lg-0">
+        
+        <MDBCard className="mb-4 mb-lg-0 text-center">
           <MDBCardBody>
             <p>
               <strong>We accept</strong>
             </p>
-            <MDBCardImage className="me-2" width="45px"
+            <MDBCardImage className="me-2 mb-4" width="65px"
               src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
               alt="Visa" />
-            <MDBCardImage className="me-2" width="45px"
+            <MDBCardImage className="me-2 mb-4" width="65px"
               src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
               alt="American Express" />
-            <MDBCardImage className="me-2" width="45px"
+            <MDBCardImage className="me-2 mb-4" width="65px"
               src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
               alt="Mastercard" />
-            <MDBCardImage className="me-2" width="45px"
+            <MDBCardImage className="me-2 mb-4" width="65px"
               src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
               alt="PayPal acceptance mark" />
+
+              <p>
+                <strong>Powered By</strong>
+              </p>
+              <MDBCardImage className="me-2" width="150"
+              src="https://woocommerce.com/wp-content/uploads/2011/12/stripe-logo-blue.png"
+              alt="Stripe" />
+
           </MDBCardBody>
         </MDBCard>
+
+
+        
       </MDBCol>
     </MDBRow>
   </MDBContainer>
