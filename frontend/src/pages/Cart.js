@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const Cart = () => {
+  const [price, setPrice] = useState(null);
   const [items,setItems] = useState([]);
   var cartItem = [];
  

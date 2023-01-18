@@ -19,6 +19,7 @@ import Cart from "./pages/Cart";
 import EditAddress from "./pages/EditAddress";
 import UserOrders from "./pages/UserOrders";
 import OrderDetails from "./pages/OrderDetails";
+import EditOrders from "./pages/EditOrders";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -53,6 +54,7 @@ const Routes = () => {
 				<SecureRoute path="/orderdetails/:id" exact={true} component={OrderDetails}/>
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
         		<Route path="/addaddress" exact={true} component={AddAddress} />
+				<SecureRoute path="/editorders/:id" exact={true} component={EditOrders}/>
 
 
 			</Switch>

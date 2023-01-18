@@ -1,32 +1,46 @@
 import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
+import { Table, Button } from 'semantic-ui-react';
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import UserOrdersService from "../services/UserOrdersService";
+import { Link, Route, useHistory } from "react-router-dom";
 
 
 
 const Orders = () => {
-	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
-
-	const [orders, setOrders] = useState(null);
+	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [query, setQuery] = useState('');
+	const [filterdata, setFilterData] = useState([]);
 
-	useEffect(() =>{
-		const fetchData  = async () => {
+	useEffect(() => {
+		const fetchData = async () => {
 			setLoading(true);
 			try {
-				const response = await UserOrdersService.getAllUserOrders();
-				setOrders(response.data);
-				console.log(orders);
-			} catch(error) {
+				const ordersResponse = await UserOrdersService.getAllUserOrders();
+				console.log(ordersResponse);
+				setOrders(ordersResponse.data);
+				setFilterData(ordersResponse.data)
+			} catch (error) {
 				console.log(error);
 			}
 			setLoading(false);
 		};
 		fetchData();
 	}, []);
+
+	const handlesearch = (event) => {
+		const getSearch = event.target.value;
+		if (getSearch.length > 0) {
+			const searchdata = orders.filter((order) => order.orderId == getSearch);
+			setOrders(searchdata);
+		} else {
+			setOrders(filterdata);
+		}
+		setQuery(getSearch);
+
+	}
 
 
 
@@ -36,29 +50,66 @@ const Orders = () => {
 				<>
 					{!loading && (
 						<><h2 className="text-center">Orders</h2><article>
-							
-							<table className="table table-bordered">
-								<thead>
-									<tr>
-										<th>Order ID</th>
-										<th>User ID</th>
-										<th>Order Date</th>
-										<th>Tracking Info</th>
-										<th>Total Price</th>
-									</tr>
-								</thead>
-								<tbody>
-									{orders.map(
-										orders => <tr key={orders.order_id}>
-											<td>{orders.order_id}</td>
-											<td>{orders.user_id}</td>
-											<td>{orders.order_date}</td>
-											<td>{orders.tracking_info}</td>
-											<td>{orders.total_price}</td>
-										</tr>
-									)}
-								</tbody>
-							</table>
+							<Table singleLine>
+          <Table.Header>
+            <span>
+              <div className="container">
+              <input type="text" value={query} placeholder="Search by Order ID.." onChange={(e)=>handlesearch(e)}></input>
+              </div>
+                </span>
+            <Table.Row>
+              <Table.HeaderCell>Order ID</Table.HeaderCell>	
+			  <Table.HeaderCell>Order Details</Table.HeaderCell>					  		  
+              <Table.HeaderCell>Address</Table.HeaderCell>	  
+              <Table.HeaderCell>Order Date</Table.HeaderCell>
+              <Table.HeaderCell>Tracking Info</Table.HeaderCell>
+              <Table.HeaderCell>Total</Table.HeaderCell>				  
+              <Table.HeaderCell>Edit</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {orders.map((data) => {
+              return (
+                <Table.Row key={data.orderId}>
+                  <Table.Cell>{data.orderId}</Table.Cell>
+				  <Table.Cell><Link to={`/orderdetails/${data.orderId}`}>Order Details</Link></Table.Cell>
+                  <Table.Cell>{data.addressId.street}<br></br>{data.addressId.city} {data.addressId.state}
+				  	<br></br>{data.addressId.zip} {data.addressId.country}
+				  </Table.Cell>
+                  <Table.Cell>{data.orderDate}</Table.Cell>
+                  <Table.Cell>{data.trackingInfo}</Table.Cell>
+                  <Table.Cell>{data.totalPrice}</Table.Cell>
+
+                  <Table.Cell>                     
+                    <Link to={`/editorders/${data.orderId}`}>
+                    <Button className="btn btn-success btn-sm rounded-5">Edit</Button>                    
+                    </Link>
+                    
+                  </Table.Cell>
+
+
+                </Table.Row>
+              )})}
+          </Table.Body>
+
+        <Table.Footer>
+        <section className="clearfix">
+          <div className="hint-text">
+            Showing <b>{orders.length}</b> out of <b>{orders.length}</b> entries
+          </div>
+          <ul className="pagination">
+            <li className="page-item disabled"><a href="#">Previous</a></li>
+            <li className="page-item active"><a href="#" className="page-link">1</a></li>
+            <li className="page-item"><a href="#" className="page-link">2</a></li>
+            <li className="page-item"><a href="#" className="page-link">3</a></li>
+            <li className="page-item"><a href="#" className="page-link">4</a></li>
+            <li className="page-item"><a href="#" className="page-link">5</a></li>
+            <li className="page-item"><a href="#" className="page-link">Next</a></li>
+          </ul>
+        </section>
+        </Table.Footer>
+      </Table>
 						</article></>)}
 				</>
 			}

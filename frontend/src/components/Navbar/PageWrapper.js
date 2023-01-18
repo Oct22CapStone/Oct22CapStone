@@ -11,7 +11,7 @@ const Nav = () => {
     const [cartItems, setCartItems] = useState(null);
     
 	const loggingOut = async () => {
-		oktaAuth.signOut();     
+		// oktaAuth.signOut();     
 		oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
 		oktaAuth.closeSession();
 	 };
