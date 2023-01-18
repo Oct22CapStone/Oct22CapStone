@@ -19,6 +19,7 @@ import Cart from "./pages/Cart";
 import EditAddress from "./pages/EditAddress";
 import UserOrders from "./pages/UserOrders";
 import OrderDetails from "./pages/OrderDetails";
+import PopularItems from "./pages/PopularItems";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -37,7 +38,7 @@ const Routes = () => {
         		<Route path="/register" exact={true} component={RegistryForm} />
 
 
-
+				<Route path="/popularitems" exact={true} component={PopularItems} />
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
 				<SecureRoute path="/viewuser" component={ViewUser} />

@@ -6,20 +6,38 @@ const ViewSingleProduct = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState("");
-    
+    var isDupe = 1;
     const addToCart = () => {
+        console.log("begining "+isDupe);
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
         }
+
         const items = JSON.parse(localStorage.getItem("cart"));
+
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
 
         console.log("items"+items);
         console.log("data"+data);
 
-        items.push(data);
-        localStorage.setItem("cart", JSON.stringify(items));
+        for(var i in items){
+            if (items[i].productId === data.productId) {
+                window.confirm(data.productName + " is already in your cart.");
+                isDupe = 0;
+                console.log("after if " + isDupe);
+            }else {
+                console.log("after else " + isDupe);
+            }
+
+        }
+        if(isDupe !== 0){
+            items.push(data);
+            localStorage.setItem("cart", JSON.stringify(items));
+            window.confirm(data.productName +" has been added to your cart.");
+            window.location.reload(true);
+        }
+
         
     }
 

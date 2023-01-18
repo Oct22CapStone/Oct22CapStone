@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import ProductService from "../services/ProductService";
 
@@ -94,7 +95,7 @@ const Cart = () => {
           </div>
         </div>
         <div className="d-flex justify-content-end">
-          <button type="button" className="btn btn-light btn-lg me-2">Continue shopping</button>
+          <Link type="button" to="/" className="btn btn-light btn-lg me-2">Continue shopping</Link>
           {/* update total when you click on checkout *** Later: Load when page loads and change upon delete*/}
           <button  type="button" className="btn btn-primary btn-lg">Checkout</button>
         </div>
