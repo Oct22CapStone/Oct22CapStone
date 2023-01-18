@@ -52,8 +52,8 @@ const Nav = () => {
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a className="dropdown-item" href="#!">All Products</a></li>
                                 <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a className="dropdown-item" href="#!">New Arrivals</a></li>
+                                <li><Link className="dropdown-item" to="/popularitems">Highlighted Items</Link></li>
+                                <li><Link className="dropdown-item" to="/latestproducts">Latest Products</Link></li>
                             </ul>
                         </li>
                     </ul>
