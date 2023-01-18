@@ -54,8 +54,8 @@ const ViewSingleProduct = () => {
                         <p className="lead">{product.productDescription}</p> 
                     </div>                          
                     <div className="d-flex">
-                        <button onClick={addToCart} class="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> 
-                        <br></br>
+                        <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> 
+                        <br></br>                       
                     </div>
                 </div>
             </div>

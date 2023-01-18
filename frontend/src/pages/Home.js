@@ -25,7 +25,9 @@ const Home = () => {
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
+
 			} catch (error) {
+
 				console.log(error);
 			}
 			setLoading(false);
