@@ -9,6 +9,7 @@ const ViewSingleProduct = () => {
     const [product, setProduct] = useState("");
 
     const addToCart = () => {
+        console.log("add to cart product: ", product);
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
         }
@@ -20,17 +21,16 @@ const ViewSingleProduct = () => {
         //update navbar cart total
         window.parent.updateCartTotal();
         
-    }
-    
+    } 
     
 
-//console.log("change is ", PageWrapper.changeBool(5));
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await ProductService.getProductById(id);
                 setProduct(response.data);             
+                console.log("product: ", product);
             } catch (error) {
                 console.log(error);
             }

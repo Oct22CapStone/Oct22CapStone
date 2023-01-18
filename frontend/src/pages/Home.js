@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 
@@ -17,48 +18,72 @@ const Home = () => {
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [itemAdded, setItemAdded] = useState(false);
-
+	const [num, setNum] = useState();
+	let response = 0;
+	// load all page data
 	useEffect(() => {
-
 		const fetchData = async () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
-
 			} catch (error) {
-
 				console.log(error);
 			}
 			setLoading(false);
 		};
-
 		fetchData();
 	}, []);
 
-	async function fetchById(id){
-		setLoading(true);
-		const response = await ProductService.getProductById(id);
-		setFilter(response.data);
-		setLoading(false);
+    const [product, setProduct] = useState("");
+
+    const addToCart = () => {
+		console.log("product inside of cart is: ", product);
+        if(localStorage.getItem("cart") == null){
+            localStorage.setItem("cart","[]");
+			console.log("creating new cart");
+        }
+        const items = JSON.parse(localStorage.getItem("cart"));
+		console.log("initial items: ", items);
+        const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
+            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
+		console.log("data is: ", data);
+        items.push(data);
+		console.log("items after data push: ", items);
+        localStorage.setItem("cart", JSON.stringify(items));
+        //update navbar cart total
+        window.parent.updateCartTotal();
+        
+    } 
+
+	function setId(productId){
+		setNum(productId);
 	};
 
-	function addToCart(id, e) {
-		setItemAdded(true);
-		fetchById(id);
-		if (localStorage.getItem("cart") == null) {
-			localStorage.setItem("cart", "[]");
-		}
-		const items = JSON.parse(localStorage.getItem("cart"));
+    
+    useEffect(() => {
+		console.log("inside useEffect");
 		
-		const data = {
-			productId: filter.productId, productName: filter.productName, productDescription: filter.productDescription,
-			productImg: filter.productImg, pricePerUnit: filter.pricePerUnit, showProduct: filter.showProduct
-		};
-		items.push(data);
-		localStorage.setItem("cart", JSON.stringify(items));
-		setItemAdded(false);
-	}
+		var str = "http://localhost:8181/product/"+num;
+		console.log("str type: ", typeof str);
+		console.log("str: ", str);
+		fetch(`http://localhost:8181/product/${num}`)
+			.then((res) => res.json())
+			.then((data) => {
+				setProduct(data);
+			})
+
+		// fetch data into a single product
+        if (num && num != 0){
+			
+			addToCart();
+		}
+	//console.log("product is: ", product);
+	
+            
+    }, [num]);
+
+	
 
 	return (
 		<>
@@ -84,7 +109,7 @@ const Home = () => {
 														</h5>
 														<h4 className="mb-1" >${productItems.pricePerUnit}</h4>
 														<h6 className="text-success">Free shipping</h6>
-														<button onClick={(e) => addToCart(productItems.productId, e)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>
+														<button onClick={(e) => setId(productItems.productId)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>
 													</div>
 												</div>
 											</div>
