@@ -5,36 +5,43 @@ import { Link, Route, useHistory } from "react-router-dom";
 import AddressService from "../services/AddressService";
 
 const EditOrders = () => {
-    const {id} = useParams();    
-	  const [orders, setOrders] = useState("");
+  const { id } = useParams();
+  const [orders, setOrders] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [address, setAddress] = useState([]);
 
-    const handleSubmit = async() =>{
-        //
-        //set orders date variable
-        console.log(orders.orderDate);
-        await UserOrdersService.update(orders.orderId, orders);
-        console.log(orders.orderDate);
-      };
+  const handleSubmit = async () => {
+    await UserOrdersService.update(orders.orderId, orders);
+  };
 
   const handleChange = (event) => {
     if(event.target.name === "totalPrice"){
       orders.totalPrice = event.target.value;
     }
-
-    const handleOrderDate = (event) =>{
-      const newOrderDate = event.target.name;
-      console.log(newOrderDate)
+    if(event.target.name === "trackingInfo"){
+      orders.trackingInfo = event.target.value;
+      console.log(orders);
     }
+    if(event.target.name === "addressId"){
+      orders.addressId.addressId = event.target.value;
+      console.log(orders);
+    }      
+  }
 
-    useEffect(() =>{	
-        const fetchData  = async () => {
-            try {
-                const response = await UserOrdersService.getUserOrderByID(id);                                           
-                setOrders(response.data);
-            } catch(error) {
-                console.log(error);
-            }
-        }; 
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {        
+        const response = await UserOrdersService.getById(id);
+        setOrders(response.data);
+        const result = await AddressService.findAllAddresses();
+        setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId.userId}));
+        console.log(result.data.map(a=>a.addressId));
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
 
 
 
@@ -61,9 +68,7 @@ const EditOrders = () => {
             <label>
               Address
               <br></br>
-              <select defaultValue={orders.addressId.addressId} name='addressId' onChange={handleChange}>
-                {address.map((data)=>{return (  <option value={data.addressId} key={data.addressId}>{data.street} {data.city} {data.state} {data.zip} {data.country}</option>)})}
-              </select>
+              
             </label>
           </div>
           <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>

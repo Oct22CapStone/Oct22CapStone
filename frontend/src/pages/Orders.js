@@ -7,8 +7,6 @@ import AddressService from "../services/AddressService";
 
 
 const Orders = () => {
-	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
 
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -69,7 +67,7 @@ const Orders = () => {
 										orders => <tr key={orders.orderId}>
 											<td>{orders.orderId}</td>
 											<td><Link to={`/orderdetails/${orders.orderId}`}>Order Details</Link></td>
-											<td>{orders.addressId.street} {orders.addressId.city} {orders.addressId.state} {orders.addressId.zip} {orders.addressId.country}</td>
+											
 											<td>{orders.orderDate}</td>
 											<td>{orders.trackingInfo}</td>
 											<td>{orders.totalPrice}</td>
