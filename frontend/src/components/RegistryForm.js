@@ -76,13 +76,6 @@ function RegistryForm() {
         password,
         role,
       };
-      await UserService.createUser(val);
-      console.log(val.email);
-      const newUser = await UserService.getUserByEmail(val.email);
-      const role = {roleId: 2};
-      const userRole ={role: role, user: newUser.data};
-      await UserRoleService.createUserRole(userRole);
-      clearState();
       axios({//More email stuff
 
         method: "POST",
@@ -92,6 +85,14 @@ function RegistryForm() {
         data:  mailerInfo
 
       })
+      await UserService.createUser(val);
+      console.log(val.email);
+      const newUser = await UserService.getUserByEmail(val.email);
+      const role = {roleId: 2};
+      const userRole ={role: role, user: newUser.data};
+      await UserRoleService.createUserRole(userRole);
+      clearState();
+
     }
   }
 
