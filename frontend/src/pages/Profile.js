@@ -27,7 +27,7 @@ const Profile = () => {
         const fetchData  = async () => {        
             try { 
                 setLoading(true);  
-                const email = JSON.parse(localStorage.getItem("userEmail"));           
+                const email = JSON.parse(localStorage.getItem("userEmail"));       
                 const response = await UserService.getUserByEmail(email);  
                 setUsers(response.data);   
                 const result = await AddressService.findAllAddresses();
