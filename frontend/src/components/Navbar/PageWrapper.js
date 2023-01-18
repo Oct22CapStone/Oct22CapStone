@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
 import UserService from '../../services/UserService';
+
 global.change = false;
 
 const Nav = () => {
@@ -27,7 +28,7 @@ const Nav = () => {
         if(JSON.parse(localStorage.getItem('cart')) != null){
             const cart = JSON.parse(localStorage.getItem("cart")).length;
             setCartItems(cart);
-        }
+            }
       }, [cartItems]);
 
       useEffect(() => {
@@ -35,6 +36,7 @@ const Nav = () => {
             setItems((JSON.parse(localStorage.getItem('cart'))).length);
         }
         }, [global.change]); 
+
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light navbar-collapse">

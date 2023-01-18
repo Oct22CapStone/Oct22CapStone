@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductService from "../services/ProductService";
 import Nav from "../components/Navbar/PageWrapper";
+
 import {
   MDBBtn,
   MDBCard,
@@ -23,6 +24,7 @@ import {
 
 const Cart = () => {
   const [price, setPrice] = useState(null);
+
   const [items,setItems] = useState([]);
   const [product,setProduct] = useState("");
   var chosenItems = [];
@@ -41,6 +43,7 @@ const Cart = () => {
     window.parent.updateCartTotal();
   };
 
+
   useEffect(() => {
     if(JSON.parse(localStorage.getItem('cart')) != null){
       setItems(JSON.parse(localStorage.getItem('cart')));
@@ -51,6 +54,7 @@ const Cart = () => {
       setTotalPrice(numTotal);
     }
     }, [items.length]);   
+
 
   return (
 
@@ -95,6 +99,7 @@ const Cart = () => {
                   <MDBBtn className="px-3 ms-2">
                     <MDBIcon fas icon="plus" />
                   </MDBBtn>
+
                 </div>
 
                 <p className="text-start text-md-center">
@@ -137,6 +142,7 @@ const Cart = () => {
                     <p className="mb-0">(including VAT)</p>
                   </strong>
                 </div>
+
                 <span>
                   <strong>${totalPrice}</strong>
                 </span>
@@ -184,5 +190,4 @@ const Cart = () => {
     
   )
 };
-
 export default Cart;

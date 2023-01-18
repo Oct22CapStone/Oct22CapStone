@@ -48,13 +48,14 @@ const ViewProducts = () => {
 			<th scope="col"></th>
       		<th scope="col">Product</th>
       		<th scope="col">Price</th>
-      		<th scope="col">Quantity</th>
+      		<th scope="col">Quantity </th>
       		<th scope="col">Manage</th>
     		</tr>
 				</thead>
 				<tbody>
 			{products.map(
 ({productId, productName, pricePerUnit, productQty, productImg, productDescription}) =>(
+
 				
     <tr key={productId}>
 		<td><img className="rounded-pill" width={50} height={50} src={productImg} /></td>
