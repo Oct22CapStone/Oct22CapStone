@@ -5,10 +5,10 @@ function Header (){
         <div>
 
         <header className="bg-dark py-5">
-            <div className="container px-4 px-lg-5 my-5">
+            <div className="container px-2 px-lg-2 my-2">
                 <div className="text-center text-white">
-                    <h1 className="display-4 fw-bolder">Shop in style</h1>
-                    <p className="lead fw-normal text-white-50 mb-0">Browse the latest trends and essentials</p>
+                    <h3 className="display-4 fw-bolder">Shop our collection</h3>
+                    <p className="lead fw-normal text-white-50 mb-0">From vintage cars to military-grade helicopters</p>
                 </div>
             </div>
         </header>

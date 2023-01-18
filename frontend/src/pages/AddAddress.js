@@ -10,6 +10,8 @@ const AddAddress = () => {
     const [user, setUser] = useState("");
 
     const handleSubmit = async() =>{
+        address.userId = user;
+        console.log(address.userId);
         await AddressService.createAddress(address);
       };
 
@@ -20,29 +22,26 @@ const AddAddress = () => {
      useEffect(() =>{	
         const fetchData  = async () => {
             try {
-                const response = await UserService.getUser();                                                        
+              const email = JSON.parse(localStorage.getItem("userEmail")); 
+                const response = await UserService.getUserByEmail(email);                                                        
                 setUser(response.data);
-                setUser(
-                    user.filter((u)=>{
-                        return u.email === authState.idToken.claims.email;
-                    })
-                )
             } catch(error) {
                 console.log(error);
             }
         }; 
 		  fetchData();
        
-	},[]);
+	},[])
 
     
     return (
-        <>        
+        <>    
+        <Link to="/profile" className="btn btn-secondary btn-sm">Back</Link>       
       <div key={address.addressId} className="container mt-5 mbclassName-5">
          <form>
       <div className="mb-3 form-group">
         <label>Street:</label>
-        <input name="Street" onChange={handleChange} className="form-control" />
+        <input name="street" onChange={handleChange} className="form-control" />
       </div>
       <div className="mb-3 form-group">
         <label>City:</label>

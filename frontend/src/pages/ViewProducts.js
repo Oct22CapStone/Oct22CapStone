@@ -21,6 +21,7 @@ const ViewProducts = () => {
 			} catch(error) {
 				console.log(error);
 			}
+		
 			setLoading(false);
 		};
 		fetchData();
@@ -72,7 +73,7 @@ const ViewProducts = () => {
         </ul>
         </td>
 	</tr>
-	))};
+	))}
 	</tbody>
 	</table>
 	</div>)}
