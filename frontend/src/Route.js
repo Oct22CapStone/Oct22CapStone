@@ -56,6 +56,7 @@ const Routes = () => {
 
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
         		<Route path="/addaddress" exact={true} component={AddAddress} />
+				<SecureRoute path="/editorders/:id" exact={true} component={EditOrders}/>
 
 
 			</Switch>

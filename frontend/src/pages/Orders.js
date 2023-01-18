@@ -4,17 +4,14 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import UserOrdersService from "../services/UserOrdersService";
 import { Link, Route, useHistory } from "react-router-dom";
+import AddressService from "../services/AddressService";
 
 
 
 const Orders = () => {
-	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
 
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
-
-	const [APIData, setAPIData] = useState([]);
 	const[filterdata, setFilterData]= useState([]);
 	const [query, setQuery] = useState('');
 
@@ -24,7 +21,7 @@ const Orders = () => {
 			try {
 				const ordersResponse = await UserOrdersService.getAllUserOrders();
 				setOrders(ordersResponse.data);
-				console.log(orders);
+				setFilterData(ordersResponse.data);
 			} catch(error) {
 				console.log(error);
 			}
@@ -36,10 +33,10 @@ const Orders = () => {
 	const handlesearch=(event)=>{
 		const getSearch=event.target.value;
 		if(getSearch.length > 0){
-		  const searchdata= orders.filterdata( (orders)=> orders.orderID.includes(getSearch));
-		  setAPIData(searchdata);
+		  const searchdata= orders.filter( (orders)=> orders.orderId == getSearch);
+		  setOrders(searchdata);
 		} else {
-		  setAPIData(filterdata);
+		  setOrders(filterdata);
 		}
 		setQuery(getSearch);
 	
@@ -60,6 +57,8 @@ const Orders = () => {
 								</div>
 									<tr>
 										<th>Order ID</th>
+										<th>Order Details</th>
+										<th>Address</th>
 										<th>Order Date</th>
 										<th>Tracking Info</th>
 										<th>Total Price</th>
@@ -70,6 +69,8 @@ const Orders = () => {
 									{orders.map(
 										orders => <tr key={orders.orderId}>
 											<td>{orders.orderId}</td>
+											<td><Link to={`/orderdetails/${orders.orderId}`}>Order Details</Link></td>
+											<td>{orders.addressId.street} {orders.addressId.city} {orders.addressId.state} {orders.addressId.zip} {orders.addressId.country}</td>
 											<td>{orders.orderDate}</td>
 											<td>{orders.trackingInfo}</td>
 											<td>{orders.totalPrice}</td>

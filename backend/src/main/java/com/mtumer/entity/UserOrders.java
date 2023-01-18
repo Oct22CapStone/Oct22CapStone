@@ -1,6 +1,5 @@
 package com.mtumer.entity;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -35,7 +34,7 @@ public class UserOrders {
 	private Users userId;
 
 	@Column(name = "order_date")
-	private Date orderDate;
+	private java.sql.Date orderDate;
 
 	@Column(name = "tracking_info")
 	private String trackingInfo;
@@ -48,7 +47,7 @@ public class UserOrders {
 	private Address addressId;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<OrderItem> OrderItems;
 
 }
