@@ -19,7 +19,7 @@ const useAuthUser = () => {
                 const username = authState.idToken.claims.preferred_username;
                 const user = {email,firstName,lastName,username};
                 if(doesExist !== true){
-                    const role = {roleId: 1};
+                    const role = {roleId: 2};
                     const userRole ={role: role, user: user};
                     UserService.createUser(user);                    
                     await UserRoleService.createUserRole(userRole);
