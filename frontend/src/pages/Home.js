@@ -4,23 +4,19 @@ import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 
 
 const Home = () => {
 
 	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
 	const [products, setProducts] = useState([]);
-	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [itemAdded, setItemAdded] = useState(false);
 	const [num, setNum] = useState(0);
+	const [product, setProduct] = useState("");
 	let response = 0;
-	// load all page data
+
 	useEffect(() => {
 		const fetchData = async () => {
 			setLoading(true);
@@ -35,19 +31,11 @@ const Home = () => {
 		fetchData();
 	}, []);
 
-    const [product, setProduct] = useState("");
-
-	// if(localStorage.getItem("UniqueProductsSet") == null){
-	// 	localStorage.setItem("UniqueProductsSet", "[]");
-	// }
-	// const ps = JSON.parse(localStorage.getItem("UniqueProductsSet"));
-	// const pid = product.productId
-
+    
+	// check to see if current obj already exists inside of cart local storage
 	function containsObject(list, obj) {
-		//console.log(list);
 		if (list != null){
 			var i = 0;
-			console.log("list: ", list);
 			while(i < (list.length)){
 				if( JSON.stringify(list[i]) == JSON.stringify(obj) ){
 					return true;
@@ -55,28 +43,31 @@ const Home = () => {
 				i++;
 			}
 		}
-		return false; // if list is empty or obj is new
+		return false; 
 	}
 
-
+	function localObj(){
+		const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
+            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
+		return data;
+	}
+	
     const addToCart = () => {
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
         }
         const items = JSON.parse(localStorage.getItem("cart"));
-        const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
-            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
+        const data = localObj();
 		// if data is new, add it and display success message
 		if(!containsObject(items, data)){
 			items.push(data);
 			localStorage.setItem("cart", JSON.stringify(items));
 			//update navbar cart total
 			window.parent.updateCartTotal();
-
+			alert("Item added successfully!");
 		}
 		else{
-			// don't add it, display error message
-			console.log("Item already exists in cart");
+			alert("Item already in cart");
 		}
         
     } 
@@ -96,10 +87,11 @@ const Home = () => {
 
 	useEffect(() =>{
 		if (num && num != 0){
-			
 			addToCart();
 		}
 	}, [product])
+
+	
 
 	
 
