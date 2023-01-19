@@ -12,7 +12,11 @@ export default function ViewUser() {
 
   const onDelete = (userId) => {
     axios.delete(`http://localhost:8181/userpage/delete/${userId}`);
+    setRoles(roles.filter((role) => {return role.user.userId !== userId;}));
+    
   }
+
+  
 
   useEffect(() => {
     const getUserData= async() => {

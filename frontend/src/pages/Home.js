@@ -20,6 +20,7 @@ const Home = () => {
 	const [loading, setLoading] = useState(true);
 	const [itemAdded, setItemAdded] = useState(false);
 	const [num, setNum] = useState(0);
+	const [product, setProduct] = useState("");
 	let response = 0;
 	// load all page data
 	useEffect(() => {
@@ -44,19 +45,44 @@ const Home = () => {
 		fetchData();
 	}, []);
 
-    const [product, setProduct] = useState("");
+	function containsObject(list, obj) {
+		if (list != null){
+			var i = 0;
+			while(i < (list.length)){
+				if( JSON.stringify(list[i]) == JSON.stringify(obj) ){
+					return true;
+				}
+				i++;
+			}
+		}
+		return false; 
+	}
+	function localObj(){
+		const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
+            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode:product.priceCode};
+		return data;
+	}
+
+
 
     const addToCart = () => {
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
         }
         const items = JSON.parse(localStorage.getItem("cart"));
-        const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
-            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode: product.priceCode};
-        items.push(data);
-        localStorage.setItem("cart", JSON.stringify(items));
-        //update navbar cart total
-        window.parent.updateCartTotal();
+        const data = localObj();
+		// if data is new, add it and display success message
+		if(!containsObject(items, data)){
+			items.push(data);
+			localStorage.setItem("cart", JSON.stringify(items));
+			//update navbar cart total
+			window.parent.updateCartTotal();
+			alert("Item added successfully!");
+		}
+		else{
+			alert("Item already in cart");
+		}
+        
     } 
 
 	function setId(productId){
@@ -74,12 +100,9 @@ const Home = () => {
 
 	useEffect(() =>{
 		if (num && num != 0){
-			
 			addToCart();
 		}
 	}, [product])
-
-	
 
 	return (
 		<>

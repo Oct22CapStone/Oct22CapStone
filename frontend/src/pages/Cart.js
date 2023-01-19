@@ -35,7 +35,7 @@ const redirectToCheckout = async () => {
   const { error } = await stripe.redirectToCheckout({
     lineItems,
     mode: 'payment',
-    successUrl: `http://localhost:3000/success`,
+    successUrl: `http://localhost:3000/userorders`,
     cancelUrl: `http://localhost:3000/cart`,
     customerEmail: JSON.parse(localStorage.getItem("userEmail")),
   });
@@ -65,6 +65,8 @@ const Cart = () => {
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('cart')) != null) {
       setItems(JSON.parse(localStorage.getItem('cart')));
+      lineItems = items.map(function (item) { return { price: item.priceCode, quantity: 1 } });
+      
       var numTotal = 0;
       for (const id in items) {
         numTotal = numTotal + parseInt((items[id].pricePerUnit));
@@ -111,13 +113,13 @@ const Cart = () => {
     subject: "Thank you for your purchase!"
   }
   //EMAILING FUNCTION
- /* const sendEmail = async (event) => {
+  const sendEmail = async (event) => {
     axios({ //connect to backend mailer
       method: "POST",
       url: "http://localhost:8181/email/send",
       data: mailTemplate
     })
-  }*/
+  }
   return (
     <>{!loading && (
       <section className="h-100 h-custom" style={{ backgroundColor: "#fdddc3" }}>
