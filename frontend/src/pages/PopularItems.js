@@ -14,6 +14,7 @@ const PopularItems = () => {
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
     var tempPrd = [];
+	var prdDisplay = [];
 	const [products, setProducts] = useState([]);
     var randNumber = [];
 	const [filter, setFilter] = useState(null);
@@ -27,26 +28,27 @@ const PopularItems = () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
-                console.log(response.data)
+				for (var i in response.data){
+
+					if ((response.data[i].showProduct == true)){
+						prdDisplay.push(response.data[i]);
+					}
+				}
+
                 const randomNumber = e => {
-                    const len = response.data.length;
+                    const len = prdDisplay.length;
                     for (var i=1;i<=10; i++){
                         randNumber.push(Math.floor(Math.random() * len));}
 
-                    console.log(randNumber);
                 }
                 randomNumber();
-
+ 
                 for (var j in randNumber){
-                    tempPrd.push(response.data[randNumber[j]]);
-                    console.log(response.data[randNumber[j]]);
-
+                    tempPrd.push(prdDisplay[randNumber[j]]);
           
                 }
                 setProducts(tempPrd);
 
-
-                console.log("this is "+products);
 			} catch (error) {
 				console.log(error);
 			}

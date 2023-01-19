@@ -30,4 +30,7 @@ public class Product {
 	@Column(name="productdesc")
 	private String productDescription;
 	
+	@Column(name="price_code")
+    private String priceCode;
+	
 }

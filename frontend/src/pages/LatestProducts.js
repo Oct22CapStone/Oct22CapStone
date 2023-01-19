@@ -9,15 +9,17 @@ import { Link, Route, useHistory } from "react-router-dom";
 
 
 
-const Home = () => {
+const LatestProducts = () => {
 
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
-	var tempPrd = [];
+    var tempPrd = [];
 	const [products, setProducts] = useState([]);
+	var prdDisplay = [];
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [itemAdded, setItemAdded] = useState(false);
+    const [highlightProduct, setHihhlightProduct] = useState(0);
 
 	useEffect(() => {
 
@@ -28,13 +30,16 @@ const Home = () => {
 				for (var i in response.data){
 
 					if ((response.data[i].showProduct == true)){
-					tempPrd.push(response.data[i]);
+					prdDisplay.push(response.data[i]);
 					}
 				}
-				setProducts(tempPrd);
-
+                const latestPrds = prdDisplay.slice(-10);
+                for(var i in latestPrds) {
+                    tempPrd.push(latestPrds[i]);
+                }
+                setProducts(tempPrd);
+     
 			} catch (error) {
-
 				console.log(error);
 			}
 			setLoading(false);
@@ -109,4 +114,4 @@ const Home = () => {
 };
 
 
-export default Home;
+export default LatestProducts;
