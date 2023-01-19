@@ -37,6 +37,28 @@ const Home = () => {
 
     const [product, setProduct] = useState("");
 
+	// if(localStorage.getItem("UniqueProductsSet") == null){
+	// 	localStorage.setItem("UniqueProductsSet", "[]");
+	// }
+	// const ps = JSON.parse(localStorage.getItem("UniqueProductsSet"));
+	// const pid = product.productId
+
+	function containsObject(list, obj) {
+		//console.log(list);
+		if (list != null){
+			var i = 0;
+			console.log("list: ", list);
+			while(i < (list.length)){
+				if( JSON.stringify(list[i]) == JSON.stringify(obj) ){
+					return true;
+				}
+				i++;
+			}
+		}
+		return false; // if list is empty or obj is new
+	}
+
+
     const addToCart = () => {
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
@@ -44,10 +66,19 @@ const Home = () => {
         const items = JSON.parse(localStorage.getItem("cart"));
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
-        items.push(data);
-        localStorage.setItem("cart", JSON.stringify(items));
-        //update navbar cart total
-        window.parent.updateCartTotal();
+		// if data is new, add it and display success message
+		if(!containsObject(items, data)){
+			items.push(data);
+			localStorage.setItem("cart", JSON.stringify(items));
+			//update navbar cart total
+			window.parent.updateCartTotal();
+
+		}
+		else{
+			// don't add it, display error message
+			console.log("Item already exists in cart");
+		}
+        
     } 
 
 	function setId(productId){
