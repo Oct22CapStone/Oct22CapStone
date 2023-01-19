@@ -34,7 +34,7 @@ public class UserOrders {
 	private Users userId;
 
 	@Column(name = "order_date")
-	private java.sql.Date orderDate;
+	private String orderDate;
 
 	@Column(name = "tracking_info")
 	private String trackingInfo;

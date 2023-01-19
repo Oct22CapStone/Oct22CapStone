@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import AddressService from "../services/AddressService";
 import { Link, useParams } from "react-router-dom";
 import UserService from "../services/UserService";
-import { useOktaAuth } from "@okta/okta-react";
 import useAuthUser from "../hook/getUser";
 
 const Profile = () => {
-    const { oktaAuth, authState } = useOktaAuth();
     const userInfo = useAuthUser();
     const [address, setAddress] = useState([]);
     const [users, setUsers] = useState("");
@@ -32,6 +30,7 @@ const Profile = () => {
                 setUsers(response.data);   
                 const result = await AddressService.findAllAddresses();
                 setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId}));
+                console.log(address);
             } catch(error) {
                 console.log(error);
             }   
@@ -138,11 +137,13 @@ const Profile = () => {
                            <div className="card-body text-center">
                                 <h3> Your Addresses</h3>
                                 <div>
+
                                 <Link to="/addaddress" className="btn btn-primary mb-4">Add New Address</Link>
                                 </div>
                                     <div className="row">
                                         <div className="col-lg-12 mb-4 mb-sm-5">
                                             <table className="table table-bordered">
+
                                        <thead className="font-weight-bold">
                                            <tr>
                                                <th scope="col">Street</th>

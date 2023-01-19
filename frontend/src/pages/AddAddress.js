@@ -25,6 +25,7 @@ const AddAddress = () => {
               const email = JSON.parse(localStorage.getItem("userEmail")); 
                 const response = await UserService.getUserByEmail(email);                                                        
                 setUser(response.data);
+                
             } catch(error) {
                 console.log(error);
             }

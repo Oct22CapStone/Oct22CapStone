@@ -6,103 +6,81 @@ import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 
 
-const Home = () => {
+const PopularItems = () => {
 
 	const { authState } = useOktaAuth();
 	const userInfo = useAuthUser();
-	var tempPrd = [];
+    var tempPrd = [];
+	var prdDisplay = [];
 	const [products, setProducts] = useState([]);
+    var randNumber = [];
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [itemAdded, setItemAdded] = useState(false);
-	const [num, setNum] = useState(0);
-	const [product, setProduct] = useState("");
-	let response = 0;
-	// load all page data
+    const [highlightProduct, setHihhlightProduct] = useState(0);
+
 	useEffect(() => {
+
 		const fetchData = async () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
-
 				for (var i in response.data){
 
 					if ((response.data[i].showProduct == true)){
-					tempPrd.push(response.data[i]);
+						prdDisplay.push(response.data[i]);
 					}
 				}
-				setProducts(tempPrd);
+
+                const randomNumber = e => {
+                    const len = prdDisplay.length;
+                    for (var i=1;i<=10; i++){
+                        randNumber.push(Math.floor(Math.random() * len));}
+
+                }
+                randomNumber();
+ 
+                for (var j in randNumber){
+                    tempPrd.push(prdDisplay[randNumber[j]]);
+          
+                }
+                setProducts(tempPrd);
 
 			} catch (error) {
 				console.log(error);
 			}
 			setLoading(false);
 		};
+
 		fetchData();
 	}, []);
 
-	function containsObject(list, obj) {
-		if (list != null){
-			var i = 0;
-			while(i < (list.length)){
-				if( JSON.stringify(list[i]) == JSON.stringify(obj) ){
-					return true;
-				}
-				i++;
-			}
-		}
-		return false; 
-	}
-	function localObj(){
-		const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
-            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode:product.priceCode};
-		return data;
-	}
-
-
-
-    const addToCart = () => {
-        if(localStorage.getItem("cart") == null){
-            localStorage.setItem("cart","[]");
-        }
-        const items = JSON.parse(localStorage.getItem("cart"));
-        const data = localObj();
-		// if data is new, add it and display success message
-		if(!containsObject(items, data)){
-			items.push(data);
-			localStorage.setItem("cart", JSON.stringify(items));
-			//update navbar cart total
-			window.parent.updateCartTotal();
-			alert("Item added successfully!");
-		}
-		else{
-			alert("Item already in cart");
-		}
-        
-    } 
-
-	function setId(productId){
-		setNum(productId);
+	async function fetchById(id){
+		setLoading(true);
+		const response = await ProductService.getProductById(id);
+		setFilter(response.data);
+		setLoading(false);
 	};
-    
-    useEffect(() => {
-		fetch(`http://localhost:8181/product/${num}`)
-			.then((res) => res.json())
-			.then((data) => {
-				setProduct(data);
-			});
-            
-    }, [num]);
 
-	useEffect(() =>{
-		if (num && num != 0){
-			addToCart();
+	function addToCart(id, e) {
+		setItemAdded(true);
+		fetchById(id);
+		if (localStorage.getItem("cart") == null) {
+			localStorage.setItem("cart", "[]");
 		}
-	}, [product])
+		const items = JSON.parse(localStorage.getItem("cart"));
+		
+		const data = {
+			productId: filter.productId, productName: filter.productName, productDescription: filter.productDescription,
+			productImg: filter.productImg, pricePerUnit: filter.pricePerUnit, showProduct: filter.showProduct
+		};
+		items.push(data);
+		localStorage.setItem("cart", JSON.stringify(items));
+		setItemAdded(false);
+	}
 
 	return (
 		<>
@@ -128,7 +106,7 @@ const Home = () => {
 														</h5>
 														<h4 className="mb-1" >${productItems.pricePerUnit}</h4>
 														<h6 className="text-success">Free shipping</h6>
-														<button onClick={(e) => setId(productItems.productId)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>
+														<button onClick={(e) => addToCart(productItems.productId, e)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>
 													</div>
 												</div>
 											</div>
@@ -146,4 +124,4 @@ const Home = () => {
 };
 
 
-export default Home;
+export default PopularItems;
