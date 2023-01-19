@@ -220,6 +220,7 @@ const Cart = () => {
                   <p>
                     <strong>We accept</strong>
                   </p>
+
                   <MDBCardImage className="me-2 mb-4" width="65px"
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
                     alt="Visa" />
@@ -246,6 +247,7 @@ const Cart = () => {
       </section>
     )}
     </>
+
   )
 };
 export default Cart;
