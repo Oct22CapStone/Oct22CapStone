@@ -32,7 +32,6 @@ export default function ViewUser() {
       setRoles(filterdata);
     }
     setQuery(getSearch);
-
   }
 
 

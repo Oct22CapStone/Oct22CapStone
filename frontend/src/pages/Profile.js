@@ -32,6 +32,7 @@ const Profile = () => {
                 setUsers(response.data);   
                 const result = await AddressService.findAllAddresses();
                 setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId}));
+                console.log(address);
             } catch(error) {
                 console.log(error);
             }   

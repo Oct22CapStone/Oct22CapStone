@@ -7,8 +7,6 @@ import ProductService from "../services/ProductService";
 import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
 
-
-
 const Home = () => {
 
 	const { authState } = useOktaAuth();
@@ -17,22 +15,21 @@ const Home = () => {
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [itemAdded, setItemAdded] = useState(false);
+	const[filterdata, setFilterData]= useState([]);//FOR THE SEARCH
+	const [query, setQuery] = useState('');//FOR THE SEARCH
 
 	useEffect(() => {
-
 		const fetchData = async () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
-
+				setFilterData(response.data); //FOR THE SEARCH
 			} catch (error) {
-
 				console.log(error);
 			}
 			setLoading(false);
 		};
-
 		fetchData();
 	}, []);
 
@@ -60,14 +57,36 @@ const Home = () => {
 		setItemAdded(false);
 	}
 
+	//FUNCTION TO SEARCH BY PRODUCT NAME
+	const handlesearch=(event)=>{
+		const getSearch=event.target.value;
+		if(getSearch.length > 0){
+		  const searchdata= products.filter( (item)=> item.productName.toLowerCase().includes(getSearch));
+		  setProducts(searchdata);
+		} else {
+		  setProducts(filterdata);
+		}
+		setQuery(getSearch);
+	  }
+
 	return (
 		<>
 			<Header />
 			<section className="py-5">
+				
 				<div className="container mt-3">
+					
 					<div className="row gx-4 gx-lg-5 justify-content-center">
+
 						{!loading && (
 							<div className="row">
+								{/* SEARCH BAR */}
+								<span>
+								<div className="container">
+									<input type="text" name='productName' value={query} placeholder="Search by product name.." onChange={(e)=>handlesearch(e)}></input>
+								</div>
+								</span>
+								{/* END SEARCH BAR */}
 								{products.map(
 									(productItems, index) => (
 										<div key={index} className="col-lg-4 col-4 d-flex">

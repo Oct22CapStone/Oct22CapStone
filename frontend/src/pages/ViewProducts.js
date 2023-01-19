@@ -10,6 +10,8 @@ const ViewProducts = () => {
 	const { authState } = useOktaAuth();
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [query, setQuery] = useState('');//FOR SEARCH
+	const[filterdata, setFilterData]= useState([]);//FOR SEARCH
 
 
 	useEffect(() =>{
@@ -18,6 +20,7 @@ const ViewProducts = () => {
 			try {
 				const response = await ProductService.getProduct();
 				setProducts(response.data);
+				setFilterData(response.data)//for search
 			} catch(error) {
 				console.log(error);
 			}
@@ -38,9 +41,28 @@ const ViewProducts = () => {
 		 );
    };
 
+   //SEARCH BY PRODUCT NAME FUNCTION
+   const handlesearch=(event)=>{
+    const getSearch=event.target.value;
+    if(getSearch.length > 0){
+      const searchdata= products.filter( (item)=> item.productName.toLowerCase().includes(getSearch));
+      setProducts(searchdata);
+    } else {
+      setProducts(filterdata);
+    }
+    setQuery(getSearch);
+  }
+
 	return (				
 		<>{!loading &&(
 		<div>
+			{/* SEARCH BAR */}
+			<span>
+              <div className="container">
+              	<input type="text" name='productName' value={query} placeholder="Search by product name.." onChange={(e)=>handlesearch(e)}></input>
+              </div>
+            </span>
+			{/* END SEARCH BAR */}
 			<Link to="/addproduct" className="btn btn-primary btn-sm">Add New Product</Link>
 			<table className="table">
 				<thead className="font-weight-bold">
