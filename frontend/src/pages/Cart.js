@@ -112,7 +112,6 @@ const Cart = () => {
       await AddressService.getAddressById(fetchId).then((response) => {
         setShippingAddress(response.data);
         trainData = shippingAddress;
-        console.log(shippingAddress);
         localStorage.setItem("orderAddress",JSON.stringify(shippingAddress));
       }).catch((error) => {
         console.log(error);
