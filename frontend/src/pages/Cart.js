@@ -21,52 +21,26 @@ import UserService from "../services/UserService";
 import AddressService from "../services/AddressService";
 import useAuthUser from "../hook/getUser";
 import { loadStripe } from "@stripe/stripe-js";
-
 var trainData = [];
 let stripePromise;
 let lineItems = [];
-
 const getStripe = () => {
-
   if (!stripePromise) {
-
     stripePromise = loadStripe('pk_test_51MRo02LTsOAchG7BnVUUeC0aspLHGIxkEhR44jO5EKy1m7cgVhKeiPrudWZTQNoYn47dmfXgEhQwfbwuYPEx644i00S2Fn0ocZ');
-
   }
-
   return stripePromise;
-
 };
 const redirectToCheckout = async () => {
-
-
-
   const stripe = await getStripe();
-
-
-
   const { error } = await stripe.redirectToCheckout({
-
     lineItems,
-
     mode: 'payment',
-
     successUrl: `http://localhost:3000/success`,
-
     cancelUrl: `http://localhost:3000/cart`,
-
     customerEmail: JSON.parse(localStorage.getItem("userEmail")),
-
   });
-
   console.warn(error.message);
-
-
-
 };
-
-
-
 const Cart = () => {
   const [items, setItems] = useState([]);
   var chosenItems = []; // to calculate total price. Holds id as key, and total as value
@@ -79,7 +53,6 @@ const Cart = () => {
   const [shippingAddress, setShippingAddress] = useState([]);
   var fetchId;
   // Populate 'chosenItems' with prices for each product
-
   function addToChosenItems(id, price, quantity) {
     chosenItems.push(price);
   };
@@ -111,10 +84,8 @@ const Cart = () => {
       }
       setLoading(false);
     };
-
     fetchData();
   }, [items.length]);
-
   function handleChange (event) {
     fetchId = event.target.value;
     const componentDidMount = async () => {
@@ -129,7 +100,6 @@ const Cart = () => {
     componentDidMount();
     console.log(shippingAddress + " shipping address ");
   }
-
   //MAIL TEMPLATE
   const mailTemplate = {//HOW TO GET THE USER'S ADDRESS HERE?
     recipient: user.email,
@@ -148,8 +118,6 @@ const Cart = () => {
       data: mailTemplate
     })
   }*/
-
-
   return (
     <>{!loading && (
       <section className="h-100 h-custom" style={{ backgroundColor: "#fdddc3" }}>
@@ -203,7 +171,6 @@ const Cart = () => {
                     Order Summary
                   </MDBTypography>
                 </MDBCardHeader>
-
                 <MDBCardBody>
                   <div className="mb-3 form-group">
                     <label>
@@ -245,7 +212,6 @@ const Cart = () => {
                 </MDBCardBody>
               </MDBCard>
               <MDBCard className="mb-4">
-
               </MDBCard>
               <MDBCard className="mb-4 mb-lg-0 text-center">
                 <MDBCardBody>
@@ -253,23 +219,14 @@ const Cart = () => {
                     <strong>We accept</strong>
                   </p>
                   <MDBCardImage className="me-2 mb-4" width="65px"
-
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-
                     alt="Visa" />
-
                   <MDBCardImage className="me-2 mb-4" width="65px"
-
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-
                     alt="American Express" />
-
                   <MDBCardImage className="me-2 mb-4" width="65px"
-
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
-
                     alt="Mastercard" />
-
                   <MDBCardImage className="me-2 mb-4" width="65px"
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
                     alt="PayPal acceptance mark" />

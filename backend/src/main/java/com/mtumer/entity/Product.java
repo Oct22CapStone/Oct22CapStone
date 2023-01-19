@@ -11,7 +11,7 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="product_id")
 	private Long productId;
-	//comment
+	
 	@Column (name="show_product")
 	private boolean showProduct;
 	
@@ -31,6 +31,7 @@ public class Product {
 	private String productDescription;
 	
 	@Column(name="price_code")
-    private String priceCode;
+	private String priceCode;
+
 	
 }

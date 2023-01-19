@@ -18,6 +18,7 @@ const ViewSingleProduct = () => {
         const items = JSON.parse(localStorage.getItem("cart"));
 
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
+
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
 
 
@@ -40,6 +41,7 @@ const ViewSingleProduct = () => {
             window.confirm(data.productName +" has been added to your cart.");
             window.location.reload(true);
         }
+
 
         
     }

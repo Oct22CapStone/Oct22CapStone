@@ -24,7 +24,9 @@ import OrderDetails from "./pages/OrderDetails";
 import PopularItems from "./pages/PopularItems";
 
 import Login from "./pages/Login";
+import Success from "./pages/Success";
 import LatestProducts from "./pages/LatestProducts";
+
 
 
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -54,6 +56,7 @@ const Routes = () => {
 
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
+				<SecureRoute path="/success" exact = {true} component={Success} />
 				<SecureRoute path="/viewuser" component={ViewUser} />
 				<SecureRoute path="/edituser/:id" component={EditUser} />
 				<Route path="/login/callback" component={LoginCallback} />	

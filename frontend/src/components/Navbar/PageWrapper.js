@@ -12,6 +12,10 @@ const Nav = () => {
     const [cartItems, setCartItems] = useState(null);
     const [items,setItems] = useState([]);
     
+    function refreshPage() {
+        window.location.reload(false);
+      }
+
     window.updateCartTotal = function(){
         if(JSON.parse(localStorage.getItem('cart')) != null){
             setItems((JSON.parse(localStorage.getItem('cart'))).length);
@@ -22,6 +26,7 @@ const Nav = () => {
 		// oktaAuth.signOut();     
 		oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
 		oktaAuth.closeSession();
+        refreshPage();
 	 };
 
       useEffect(() => {

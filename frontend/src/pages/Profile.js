@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import AddressService from "../services/AddressService";
 import { Link, useParams } from "react-router-dom";
 import UserService from "../services/UserService";
-import { useOktaAuth } from "@okta/okta-react";
 import useAuthUser from "../hook/getUser";
 
 const Profile = () => {
-    const { oktaAuth, authState } = useOktaAuth();
     const userInfo = useAuthUser();
     const [address, setAddress] = useState([]);
     const [users, setUsers] = useState("");
@@ -32,6 +30,7 @@ const Profile = () => {
                 setUsers(response.data);   
                 const result = await AddressService.findAllAddresses();
                 setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId}));
+                console.log(address);
             } catch(error) {
                 console.log(error);
             }   
