@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import ProductService from "../services/ProductService";
 import Nav from "../components/Navbar/PageWrapper";
 
@@ -20,7 +21,38 @@ import {
   MDBTypography,
   } from "mdb-react-ui-kit";
 
+  let stripePromise;
 
+  const getStripe = () => {
+    if (!stripePromise) {
+      stripePromise = loadStripe('pk_test_51MPWK3Jv0uHgjKbWeXvferEmVAXSnVmKgEOVRsz9SJCSIOxtR72UcN7JUp7MT0ex4DPN6dlmax66XfWcDEotdpUv00Bq2jto1i');
+    }
+    return stripePromise;
+  };
+  
+  const redirectToCheckout = async () => {
+    // setLoading(true);
+    const stripe = await getStripe();
+    // setLoading(false);
+    const { error } = await stripe.redirectToCheckout({
+      lineItems: [
+        {
+          price: 'price_1MRd2xJv0uHgjKbWfDtnz89d',
+          quantity: 2,
+        },
+        {
+          price: 'price_1MQv1VJv0uHgjKbWzP3HjezD',
+          quantity: 2,
+        },
+      ],
+       mode: 'payment',
+      successUrl: `http://localhost:3000/userorders`,
+      cancelUrl: `http://localhost:3000/cart`,
+      customerEmail: JSON.parse(localStorage.getItem("userEmail")),
+    });
+    console.warn(error.message);
+    
+  };
 
 const Cart = () => {
   const [price, setPrice] = useState(null);
@@ -149,7 +181,7 @@ const Cart = () => {
               </MDBListGroupItem>
             </MDBListGroup>
 
-            <MDBBtn block size="lg">
+            <MDBBtn block size="lg" onClick={redirectToCheckout}>
               CHECKOUT
             </MDBBtn>
           </MDBCardBody>
