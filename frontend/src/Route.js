@@ -20,8 +20,14 @@ import Cart from "./pages/Cart";
 import EditAddress from "./pages/EditAddress";
 import UserOrders from "./pages/UserOrders";
 import OrderDetails from "./pages/OrderDetails";
+
+import PopularItems from "./pages/PopularItems";
+
 import Login from "./pages/Login";
 import Success from "./pages/Success";
+import LatestProducts from "./pages/LatestProducts";
+
+
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -40,7 +46,14 @@ const Routes = () => {
 			<Switch>
 				<Route path="/" exact={true} component={Home} />
         		<Route path="/register" exact={true} component={RegistryForm} />
+
+
+
+				<Route path="/popularitems" exact={true} component={PopularItems} />
+				<Route path="/latestproducts" exact={true} component={LatestProducts} />
+
 				<Route path='/login' exact={true} component={Login}/>
+
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
 				<SecureRoute path="/success" exact = {true} component={Success} />
