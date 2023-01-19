@@ -138,11 +138,11 @@ const Profile = () => {
                            <div className="card-body text-center">
                                 <h3> Your Addresses</h3>
                                 <div>
-                                <Link to="/addaddress" className="btn btn-primary btn-sm">Add New Address</Link>
+                                <Link to="/addaddress" className="btn btn-primary mb-4">Add New Address</Link>
                                 </div>
                                     <div className="row">
                                         <div className="col-lg-12 mb-4 mb-sm-5">
-                                            <table className="table">
+                                            <table className="table table-bordered">
                                        <thead className="font-weight-bold">
                                            <tr>
                                                <th scope="col">Street</th>

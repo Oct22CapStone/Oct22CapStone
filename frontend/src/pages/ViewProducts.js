@@ -41,18 +41,28 @@ const ViewProducts = () => {
 	return (				
 		<>{!loading &&(
 		<div>
-			<Link to="/addproduct" className="btn btn-primary btn-sm">Add New Product</Link>
-			<table className="table">
+			<div className = "card">
+				<div className = "card-body text-center">
+					<h2 className = "display-4 text-center fw-bold">Manage Products</h2>
+					<div>
+				<Link to="/addproduct" className="btn btn-primary mb-4">Add New Product</Link>
+				</div>
+				<div className ="row">
+					<div className = "col-lg-12 mb-4 mb-sm-5">
+				
+				<table className="table table-bordered">
 				<thead className="font-weight-bold">
 				<tr>
-			<th scope="col"></th>
-      		<th scope="col">Product</th>
-      		<th scope="col">Price</th>
-      		<th scope="col">Quantity </th>
-      		<th scope="col">Manage</th>
+			<th scope="col">Product Image</th>
+      		<th scope="col">Product Name</th>
+      		<th scope="col">Price Per Unit</th>
+      		<th scope="col">Total Quantity </th>
+      		<th scope="col">Edit & Deactivate Product</th>
     		</tr>
 				</thead>
 				<tbody>
+				
+			
 			{products.map(
 ({productId, productName, pricePerUnit, productQty, productImg, productDescription}) =>(
 
@@ -77,6 +87,10 @@ const ViewProducts = () => {
 	))}
 	</tbody>
 	</table>
+	</div>
+	</div>
+	</div>
+	</div>
 	</div>)}
 	</>
 	)
