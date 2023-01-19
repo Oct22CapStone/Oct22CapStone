@@ -51,7 +51,7 @@ public class UsersController {
 		Optional<Users> user = Optional.ofNullable(usersService.getUserByEmail(email));
 		if (!user.isPresent()) {
 			return ResponseEntity.notFound().build();
-		}
+		}		
 		return new ResponseEntity<>(user.get(), HttpStatus.OK);
 	}
 
@@ -82,9 +82,8 @@ public class UsersController {
 		newUser.setUserId(userId);
 		newUser.setFirstName(user.getFirstName());
 		newUser.setLastName(user.getLastName());
-		newUser.setPassword(user.getPassword());
 		newUser.setEmail(user.getEmail());
-		newUser.setUsername(user.getUsername());
+		newUser.setPhone(user.getPhone());
 		usersService.update(newUser);
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}

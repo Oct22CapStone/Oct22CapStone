@@ -21,6 +21,7 @@ import EditAddress from "./pages/EditAddress";
 import UserOrders from "./pages/UserOrders";
 import OrderDetails from "./pages/OrderDetails";
 import Login from "./pages/Login";
+import Success from "./pages/Success";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -42,6 +43,7 @@ const Routes = () => {
 				<Route path='/login' exact={true} component={Login}/>
 				<Route path="/about" exact={true} component={About} />
 				<SecureRoute path="/profile" component={Profile} />
+				<SecureRoute path="/success" exact = {true} component={Success} />
 				<SecureRoute path="/viewuser" component={ViewUser} />
 				<SecureRoute path="/edituser/:id" component={EditUser} />
 				<Route path="/login/callback" component={LoginCallback} />	

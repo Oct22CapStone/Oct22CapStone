@@ -23,9 +23,6 @@ public class Users {
 	@Column(name = "user_id")
 	private Long userId;
 
-	@Column(name = "uuname")
-	private String username;
-
 	@Column(name = "u_firstname")
 	private String firstName;
 
@@ -35,11 +32,8 @@ public class Users {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "password")
-	private String password;
-	
-	@Column(name="acc_status")
-	private int acc_status;
+	@Column(name = "phone")
+	private String phone;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "userId",cascade=CascadeType.ALL, fetch = FetchType.LAZY)

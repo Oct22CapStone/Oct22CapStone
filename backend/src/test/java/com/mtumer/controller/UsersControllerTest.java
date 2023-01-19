@@ -59,33 +59,27 @@ public class UsersControllerTest {
 	void testGetuserpageSuccess() throws Exception {
 		Users users1 = new Users();
 		users1.setUserId(1l);
-		users1.setUsername("jsmith");
 		users1.setFirstName("John");
 		users1.setLastName("Smith");
 		users1.setEmail("jsmith@gmail.com");
-		users1.setPassword("js1234");
 
 		Users users2 = new Users();
 		users2.setUserId(2l);
-		users2.setUsername("Bobc");
 		users2.setFirstName("Bob");
 		users2.setLastName("Clarke");
 		users2.setEmail("bclarke@gmail.com");
-		users2.setPassword("bc1234");
 
         doReturn(Lists.newArrayList(users1, users2)).when(service).getAllUsers();
 
 		mockMvc.perform(get("/userpage/show")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$[0].userId", is(1))).andExpect(jsonPath("$[0].username", is("jsmith")))				
+				.andExpect(jsonPath("$[0].userId", is(1)))			
 				.andExpect(jsonPath("$[0].firstName", is("John"))).andExpect(jsonPath("$[0].lastName", is("Smith")))
 				.andExpect(jsonPath("$[0].email", is("jsmith@gmail.com")))
-				.andExpect(jsonPath("$[0].password", is("js1234")))
 				
-				.andExpect(jsonPath("$[1].userId", is(2))).andExpect(jsonPath("$[1].username", is("Bobc")))
+				.andExpect(jsonPath("$[1].userId", is(2)))
 				.andExpect(jsonPath("$[1].firstName", is("Bob"))).andExpect(jsonPath("$[1].lastName", is("Clarke")))
-				.andExpect(jsonPath("$[1].email", is("bclarke@gmail.com")))
-				.andExpect(jsonPath("$[1].password", is("bc1234")));
+				.andExpect(jsonPath("$[1].email", is("bclarke@gmail.com")));
 	}
 
 	@Test
@@ -93,19 +87,16 @@ public class UsersControllerTest {
 	void testGetUsersById() throws Exception {
 		Users users1 = new Users();
 		users1.setUserId(1l);
-		users1.setUsername("jsmith");
 		users1.setFirstName("John");
 		users1.setLastName("Smith");
 		users1.setEmail("jsmith@gmail.com");
-		users1.setPassword("js1234");
         doReturn(Optional.of(users1)).when(service).getUserById(1l);
 
 		mockMvc.perform(get("/userpage/show/{id}", 1l)).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.userId", is(1))).andExpect(jsonPath("$.username", is("jsmith")))				
+				.andExpect(jsonPath("$.userId", is(1)))			
 				.andExpect(jsonPath("$.firstName", is("John"))).andExpect(jsonPath("$.lastName", is("Smith")))
-				.andExpect(jsonPath("$.email", is("jsmith@gmail.com")))
-				.andExpect(jsonPath("$.password", is("js1234")));
+				.andExpect(jsonPath("$.email", is("jsmith@gmail.com")));
 
 	}
 
@@ -120,19 +111,15 @@ public class UsersControllerTest {
 	@DisplayName("POST /userpage/save")
 	void testCreateUsers() throws Exception{
 		Users userToPost = new Users();
-		userToPost.setUsername("jsmith");
 		userToPost.setFirstName("John");
 		userToPost.setLastName("Smith");
 		userToPost.setEmail("jsmith@gmail.com");
-		userToPost.setPassword("js1234");
 		
 		Users userToReturn = new Users();
 		userToReturn.setUserId(1l);
-		userToReturn.setUsername("jsmith");
 		userToReturn.setFirstName("John");
 		userToReturn.setLastName("Smith");
 		userToReturn.setEmail("jsmith@gmail.com");
-		userToReturn.setPassword("js1234");
 		when(service.createUser(any())).thenReturn(userToReturn);
 		
 		mockMvc.perform(post("/userpage/save")
@@ -140,10 +127,9 @@ public class UsersControllerTest {
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.userId", is(1))).andExpect(jsonPath("$.username", is("jsmith")))				
+			.andExpect(jsonPath("$.userId", is(1)))		
 			.andExpect(jsonPath("$.firstName", is("John"))).andExpect(jsonPath("$.lastName", is("Smith")))
-			.andExpect(jsonPath("$.email", is("jsmith@gmail.com")))
-			.andExpect(jsonPath("$.password", is("js1234")));
+			.andExpect(jsonPath("$.email", is("jsmith@gmail.com")));
 	}
 	
 	@Test
@@ -151,26 +137,20 @@ public class UsersControllerTest {
 	void testUpdateUsers() throws Exception{
 		Users userToPut = new Users();
 		userToPut.setUserId(1l);
-		userToPut.setUsername("jsmith");
 		userToPut.setFirstName("John");
 		userToPut.setLastName("Smith");
 		userToPut.setEmail("jsmith@gmail.com");
-		userToPut.setPassword("js1234");
 		
 		Users userToReturnFindBy = new Users();
-		userToReturnFindBy.setUsername("jsmith");
 		userToReturnFindBy.setFirstName("John");
 		userToReturnFindBy.setLastName("Smith");
 		userToReturnFindBy.setEmail("jsmith@gmail.com");
-		userToReturnFindBy.setPassword("js1234");
 		service.createUser(userToReturnFindBy);
 		
 		Users userToReturnSave = new Users();
-		userToReturnSave.setUsername("jsmith");
 		userToReturnSave.setFirstName("John");
 		userToReturnSave.setLastName("Smith");
 		userToReturnSave.setEmail("jsmith@gmail.com");
-		userToReturnSave.setPassword("js1234");
 		
 		when(service.getUserById(1l)).thenReturn(Optional.of(userToReturnFindBy));
 		when(service.createUser(any())).thenReturn(userToReturnSave);
@@ -180,10 +160,9 @@ public class UsersControllerTest {
 	        .content(asJsonString(userToPut)))
 		 	.andExpect(status().isOk())
 		 	.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.userId", is(1))).andExpect(jsonPath("$.username", is("jsmith")))				
+			.andExpect(jsonPath("$.userId", is(1)))		
 			.andExpect(jsonPath("$.firstName", is("John"))).andExpect(jsonPath("$.lastName", is("Smith")))
-			.andExpect(jsonPath("$.email", is("jsmith@gmail.com")))
-			.andExpect(jsonPath("$.password", is("js1234")));
+			.andExpect(jsonPath("$.email", is("jsmith@gmail.com")));
 	}
 	
 	
