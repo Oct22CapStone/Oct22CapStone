@@ -28,13 +28,13 @@ jobs:
           cd frontend
           npm install --force
           npm run build
-        working-directory: ./build
+        working-directory: .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: build/
+          path: ./build
 
   deploy:
     runs-on: ubuntu-latest
