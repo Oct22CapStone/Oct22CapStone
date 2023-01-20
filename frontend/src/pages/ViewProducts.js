@@ -7,6 +7,7 @@ import { Link, Route, useHistory } from "react-router-dom";
 
 
 const ViewProducts = () => {
+	var tempPrd = [];
 	const { authState } = useOktaAuth();
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -19,8 +20,15 @@ const ViewProducts = () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
-				setProducts(response.data);
-				setFilterData(response.data)//for search
+
+				for (var i in response.data){
+
+					tempPrd.push(response.data[i]);
+				
+				}
+				setProducts(tempPrd);
+        setFilterData(tempPrd);
+
 			} catch(error) {
 				console.log(error);
 			}
@@ -33,10 +41,19 @@ const ViewProducts = () => {
 
 	async function deleteProduct  (id,e){
 		console.log(id);
-		await ProductService.delete(id);
-		setProducts(
+
+			setProducts(
 			products.filter((product) => {
-			   return product.productId !== id;
+				if (product.productId === id){
+					var flip = product.showProduct;
+					flip = (!flip);
+					product.showProduct = flip;
+					console.log(product);
+					ProductService.update(id,product);
+				}
+				
+
+				return product;
 			})
 		 );
    };
@@ -56,6 +73,7 @@ const ViewProducts = () => {
 	return (				
 		<>{!loading &&(
 		<div>
+
 			{/* SEARCH BAR */}
 			<span>
               <div className="container">
@@ -65,32 +83,58 @@ const ViewProducts = () => {
 			{/* END SEARCH BAR */}
 			<Link to="/addproduct" className="btn btn-primary btn-sm">Add New Product</Link>
 			<table className="table">
+
+			<div className = "card">
+				<div className = "card-body text-center">
+					<h2 className = "display-4 text-center fw-bold">Manage Products</h2>
+					<div>
+				<Link to="/addproduct" className="btn btn-primary mb-4">Add New Product</Link>
+				</div>
+				<div className ="row">
+					<div className = "col-lg-12 mb-4 mb-sm-5">
+				
+				<table className="table table-bordered">
 				<thead className="font-weight-bold">
 				<tr>
-			<th scope="col"></th>
-      		<th scope="col">Product</th>
-      		<th scope="col">Price</th>
-      		<th scope="col">Quantity </th>
+      		<th scope="col">Product Images</th>
+          <th scope="col">Product Name</th>
+      		<th scope="col">Price Per Unit</th>
+      		<th scope="col">Total Quantity</th>
+			    <th scope="col">Visible</th>
       		<th scope="col">Manage</th>
+
     		</tr>
 				</thead>
 				<tbody>
+				
+			
 			{products.map(
-({productId, productName, pricePerUnit, productQty, productImg, productDescription}) =>(
+({productId, productName, pricePerUnit, productQty, productImg, productDescription, showProduct}) =>(
 
 				
     <tr key={productId}>
 		<td><img className="rounded-pill" width={50} height={50} src={productImg} /></td>
     	<td><Link to={`/viewsingleproduct/${productId}`}>{productName}</Link></td>
 		<td>${pricePerUnit}</td>
-		<td>{productQty}{productQty < 3 ? ' Low On Stock Please Reorder' : ''}</td>
+		<td>{productQty}{productQty < 3 ? 
+		<p class="text-danger">Low on Stock Please Reorder</p>: ''}</td>
+
+		<td>
+			{showProduct.toString()}
+		</td>
+
 		<td>
     <ul className="list-inline m-0">
         <li className="list-inline-item">
             <Link to={`/editproducts/${productId}`} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i className="fa fa-edit"></i></Link>
         </li>
         <li className="list-inline-item">
+			{(showProduct) && 
             <button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
+}
+{!(showProduct) &&
+	<button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
+}
         </li>
         </ul>
         </td>
@@ -98,6 +142,10 @@ const ViewProducts = () => {
 	))}
 	</tbody>
 	</table>
+	</div>
+	</div>
+	</div>
+	</div>
 	</div>)}
 	</>
 	)

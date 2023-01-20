@@ -15,6 +15,7 @@ const ViewSingleProduct = () => {
     const { id } = useParams();
 
     const [product, setProduct] = useState("");
+    var isDupe = 1;
 
     var isDupe = 1;
 
@@ -22,32 +23,17 @@ const ViewSingleProduct = () => {
 
     const addToCart = () => {
 
-        console.log("begining "+isDupe);
-
         if(localStorage.getItem("cart") == null){
 
             localStorage.setItem("cart","[]");
 
         }
 
-
-
         const items = JSON.parse(localStorage.getItem("cart"));
-
-
 
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
 
-            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct};
-
-
-
-
-        console.log("items"+items);
-
-        console.log("data"+data);
-
-
+            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode: product.priceCode};
 
         for(var i in items){
 
@@ -56,17 +42,7 @@ const ViewSingleProduct = () => {
                 window.confirm(data.productName + " is already in your cart.");
 
                 isDupe = 0;
-
-                console.log("after if " + isDupe);
-
-            }else {
-
-                console.log("after else " + isDupe);
-
             }
-
-
-
         }
 
         if(isDupe !== 0){
@@ -80,22 +56,7 @@ const ViewSingleProduct = () => {
             window.location.reload(true);
 
         }
-
-
-
-       
-
-    }
-
-   
-
-   
-
-
-
-//console.log("change is ", PageWrapper.changeBool(5));
-
-
+     }
 
     useEffect(() => {
 
@@ -115,22 +76,15 @@ const ViewSingleProduct = () => {
 
         };
 
-
-
         if (id && id !== "")
 
             fetchData();
 
     }, [id]);
-
-
-
-
+    
     return (
 
         <>
-
-
 
         <section className="py-5">
 
@@ -147,8 +101,6 @@ const ViewSingleProduct = () => {
                         <h1 className="display-5 fw-bolder">{product.productName}</h1>
 
                         <div className="fs-5 mb-5">
-
-                           
 
                             <span>${product.pricePerUnit} </span>
 

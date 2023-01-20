@@ -12,7 +12,10 @@ export default function ViewUser() {
 
   const onDelete = (userId) => {
     axios.delete(`https://backendecommerce.azurewebsites.net/userpage/delete/${userId}`);
+    setRoles(roles.filter((role) => {return role.user.userId !== userId;}));
   }
+
+  
 
   useEffect(() => {
     const getUserData= async() => {
@@ -49,7 +52,6 @@ export default function ViewUser() {
               <Table.HeaderCell>First Name</Table.HeaderCell>
               <Table.HeaderCell>Last Name</Table.HeaderCell>
               <Table.HeaderCell>Email</Table.HeaderCell>
-              <Table.HeaderCell>Phone</Table.HeaderCell>
               <Table.HeaderCell>Role</Table.HeaderCell>
               <Table.HeaderCell>Actions</Table.HeaderCell>
             </Table.Row>
@@ -62,7 +64,6 @@ export default function ViewUser() {
                   <Table.Cell>{data.user.firstName}</Table.Cell>
                   <Table.Cell>{data.user.lastName}</Table.Cell>
                   <Table.Cell>{data.user.email}</Table.Cell>
-                  <Table.Cell>{data.user.phone}</Table.Cell>
                   <Table.Cell>{data.role.roleName}</Table.Cell>
 
                   <Table.Cell>

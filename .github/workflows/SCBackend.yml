@@ -2,11 +2,12 @@ name: SonarCloudBackend
 on:
   push:
     branches:
-      - main
+      - CAP-15-RabbitMq-Implementation-to-Products
     paths:
       - 'backend/**'
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_dispatch: 
 jobs:
   build:
     name: Build and analyze

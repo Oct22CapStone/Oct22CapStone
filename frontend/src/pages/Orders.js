@@ -31,30 +31,40 @@ const Orders = () => {
 	}, []);
 
 	const handlesearch=(event)=>{
-		const getSearch=event.target.value;
-		if(getSearch.length > 0){
-		  const searchdata= orders.filter( (orders)=> orders.orderId == getSearch);
-		  setOrders(searchdata);
-		} else {
-		  setOrders(filterdata);
-		}
-		setQuery(getSearch);
-	
-	  }
+        const getSearch=event.target.value;
+        if(getSearch.length > 0){
+          const searchdata= orders.filter( (orders)=> orders.orderId == getSearch);
+          setOrders(searchdata);
+        } else {
+          setOrders(filterdata);
+        }
+        setQuery(getSearch);
 
+      }
 
 
 	return (
-		<Container>
-			{
-				<>
-					{!loading && (
-						<><h2 className="text-center">Orders</h2><article>		
+	
+		<>{!loading &&(
+			<div>
+				
+						
+				<div className=" card">
+				
+					<div className = "card-body text-center">
+						<h2 className = "display-4 text-center fw-bold mb-2">Manage Orders</h2>	
+						<input type="text" name='name' value={query} placeholder="Search by order ID:" onChange={(e)=>handlesearch(e)}></input>
+					
+								
+					
+					</div>
+					
+						
+						<div className = "card-body">
+						<div className = "row">
+							<div className = "col-lg-12 mb-4 mb-sm-5">
 							<table className="table table-bordered">
-								<thead>
-								<div className="container">
-								<input type="text" name='name' value={query} placeholder="Search by order ID:" onChange={(e)=>handlesearch(e)}></input>
-								</div>
+								<thead className = "font-weight-bold">
 									<tr>
 										<th>Order ID</th>
 										<th>Order Details</th>
@@ -85,10 +95,16 @@ const Orders = () => {
 									
 								</tbody>
 							</table>
-						</article></>)}
-				</>
-			}
-		</Container>
+					</div>
+					</div>
+					</div>
+					</div>
+					</div>
+					
+				
+			)}
+			</>
+	
 	);
 };
 

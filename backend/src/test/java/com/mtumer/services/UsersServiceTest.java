@@ -42,18 +42,14 @@ public class UsersServiceTest {
 	void testGetAllUsers() {
 		List<Users> users = new ArrayList<Users>();
 		Users user1 = new Users();
-		user1.setUsername("jsmith");
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPassword("js1234");
 
 		Users user2 = new Users();
-		user2.setUsername("Bobc");
 		user2.setFirstName("Bob");
 		user2.setLastName("Clarke");
 		user2.setEmail("bclarke@gmail.com");
-		user2.setPassword("bc1234");
 
 		users.add(user1);
 		users.add(user2);
@@ -73,11 +69,9 @@ public class UsersServiceTest {
 	@DisplayName("Test createUser and save Success")
 	void testCreateOrSaveUser() {
 		Users user1 = new Users();
-		user1.setUsername("jsmith");
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPassword("js1234");
 
 		when(repo.save(ArgumentMatchers.any(Users.class))).thenReturn(user1);
 
@@ -85,7 +79,7 @@ public class UsersServiceTest {
 		Users created = service.createUser(user1);
 
 		// assert
-		assertThat(created.getUsername()).isSameAs(user1.getUsername());
+		assertThat(created.getEmail()).isSameAs(user1.getEmail());
 		Assertions.assertNotNull(created,"The saved user should not be null");
 		verify(repo, times(1)).save(user1);
 	}
@@ -95,11 +89,9 @@ public class UsersServiceTest {
 	void testGetUserById() {
 		Users user1 = new Users();
 		user1.setUserId(45L);
-		user1.setUsername("jsmith");
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPassword("js1234");
 		service.createUser(user1);
 		when(repo.findById(user1.getUserId())).thenReturn(Optional.of(user1));
 
@@ -130,11 +122,9 @@ public class UsersServiceTest {
 	void testDeleteUser() {
 		Users user1 = new Users();
 		user1.setUserId(45L);
-		user1.setUsername("jsmith");
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPassword("js1234");
 		service.createUser(user1);
 		// test
 		service.deleteUser(user1.getUserId());
@@ -147,20 +137,18 @@ public class UsersServiceTest {
 	void testUpdateUser() {
 		Users user1 = new Users();
 		user1.setUserId(45L);
-		user1.setUsername("jsmith");
 		user1.setFirstName("John");
 		user1.setLastName("Smith");
 		user1.setEmail("jsmith@gmail.com");
-		user1.setPassword("js1234");
 		service.createUser(user1);
 
-		user1.setPassword("1235");
+		user1.setFirstName("Johnathan");
 
 		// test
 		service.update(user1);
 		verify(repo).saveAndFlush(user1);
 		
 		//Assert 
-		assertEquals("1235",user1.getPassword());
+		assertEquals("Johnathan",user1.getFirstName());
 	}
 }
