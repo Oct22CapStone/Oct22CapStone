@@ -25,6 +25,12 @@ function RegistryForm() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message,setMessage] = useState('');
+  
+    const mailerInfo = {//Kenzie's mail stuff
+    recipient: email,
+    msgBody: `${firstName}, thank you for creating an account. Please enjoy your shopping experience.`,
+    subject: "Welcome to Vehicle Vault!"
+  }
 
   const changeFirstName = (event) => {
     setFirstName(event.target.value);
@@ -61,6 +67,7 @@ function RegistryForm() {
         url:"https://backendecommerce.azurewebsites.net/email/send",
 
         data:  mailerInfo
+      })
 
       await UserService.createUser(val);
       console.log(val.email);

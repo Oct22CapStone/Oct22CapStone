@@ -38,8 +38,8 @@ const redirectToCheckout = async () => {
   const { error } = await stripe.redirectToCheckout({
     lineItems,
     mode: 'payment',
-    successUrl: `http://localhost:3000/userorders`,
-    cancelUrl: `http://localhost:3000/cart`,
+    successUrl: `https:/vehiclevault.azurewebsites.net/userorders`,
+    cancelUrl: `https:/vehiclevault.azurewebsites.net/cart`,
     customerEmail: JSON.parse(localStorage.getItem("userEmail")),
   });
   console.warn(error.message);

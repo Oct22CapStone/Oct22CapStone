@@ -146,6 +146,7 @@ const ViewProducts = () => {
 	</div>
 	</div>
 	</div>
+	</table>
 	</div>)}
 	</>
 	)
