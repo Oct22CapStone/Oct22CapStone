@@ -32,5 +32,6 @@ public class Product {
 	
 	@Column(name="price_code")
 	private String priceCode;
+
 	
 }

@@ -21,7 +21,6 @@ class ProductService {
         return axios.post(`http://localhost:8181/product/save_product`, product);
     }
 
-
 }
 
 

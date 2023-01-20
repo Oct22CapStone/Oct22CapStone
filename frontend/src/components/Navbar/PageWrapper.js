@@ -55,10 +55,10 @@ const Nav = () => {
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a className="dropdown-item" href="#!">All Products</a></li>
+                                <li><a className="dropdown-item" href="/">All Products</a></li>
                                 <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a className="dropdown-item" href="#!">New Arrivals</a></li>
+                                <li><Link className="dropdown-item" to="/popularitems">Highlighted Items</Link></li>
+                                <li><Link className="dropdown-item" to="/latestproducts">New Arrivals</Link></li>
                             </ul>
                         </li>
                     </ul>
@@ -85,6 +85,7 @@ const Nav = () => {
 					{
 						authState?.isAuthenticated ? (
 							<button className = "btn btn-link active" onClick={loggingOut}>Logout</button>
+                            
 						) : (
 							<div>
 								<Link className = "btn-link btn active" to="/login">Login</Link>
