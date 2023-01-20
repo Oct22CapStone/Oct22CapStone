@@ -63,11 +63,10 @@ public class UsersService {
 
 
 		Users newUser = new Users();
-		newUser.setUsername(user.getUsername());
 		newUser.setFirstName(user.getFirstName());
 		newUser.setLastName(user.getLastName());
 		newUser.setEmail(user.getEmail());
-		newUser.setPassword(user.getPassword());
+		newUser.setPhone(user.getPhone());
 		newUser = usersRepo.save(newUser);
 		return newUser;
 	}

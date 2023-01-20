@@ -21,7 +21,6 @@ class ProductService {
         return axios.post(`https://backendecommerce.azurewebsites.net/product/save_product`, product);
     }
 
-
 }
 
 

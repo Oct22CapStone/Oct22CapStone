@@ -21,8 +21,29 @@ import UserService from "../services/UserService";
 import AddressService from "../services/AddressService";
 import useAuthUser from "../hook/getUser";
 
-var trainData = [];
 
+import { loadStripe } from "@stripe/stripe-js";
+var trainData = [];
+let stripePromise;
+let lineItems = [];
+//kenzie was here
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe('pk_test_51MRo02LTsOAchG7BnVUUeC0aspLHGIxkEhR44jO5EKy1m7cgVhKeiPrudWZTQNoYn47dmfXgEhQwfbwuYPEx644i00S2Fn0ocZ');
+  }
+  return stripePromise;
+};
+const redirectToCheckout = async () => {
+  const stripe = await getStripe();
+  const { error } = await stripe.redirectToCheckout({
+    lineItems,
+    mode: 'payment',
+    successUrl: `http://localhost:3000/userorders`,
+    cancelUrl: `http://localhost:3000/cart`,
+    customerEmail: JSON.parse(localStorage.getItem("userEmail")),
+  });
+  console.warn(error.message);
+};
 const Cart = () => {
   const [items, setItems] = useState([]);
   var chosenItems = []; // to calculate total price. Holds id as key, and total as value
@@ -48,6 +69,9 @@ const Cart = () => {
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('cart')) != null) {
       setItems(JSON.parse(localStorage.getItem('cart')));
+
+      lineItems = items.map(function (item) { return { price: item.priceCode, quantity: 1 } });
+
       var numTotal = 0;
       for (const id in items) {
         numTotal = numTotal + parseInt((items[id].pricePerUnit));
@@ -67,6 +91,7 @@ const Cart = () => {
       }
       setLoading(false);
     };
+
 
     fetchData();
   }, [items.length]);
@@ -100,11 +125,11 @@ const Cart = () => {
   const sendEmail = async (event) => {
     axios({ //connect to backend mailer
       method: "POST",
+
       url: "https://backendecommerce.azurewebsites.net/email/send",
       data: mailTemplate
     })
   }
-
 
   return (
     <>{!loading && (
@@ -195,7 +220,10 @@ const Cart = () => {
                       </span>
                     </MDBListGroupItem>
                   </MDBListGroup>
-                  <MDBBtn block size="lg" onClick={sendEmail}>
+
+
+                  <MDBBtn block size="lg" onClick={redirectToCheckout}>
+
                     CHECKOUT
                   </MDBBtn>
                 </MDBCardBody>
@@ -245,4 +273,5 @@ const Cart = () => {
     </>
   )
 };
+
 export default Cart;

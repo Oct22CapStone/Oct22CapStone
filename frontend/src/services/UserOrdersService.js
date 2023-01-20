@@ -13,6 +13,9 @@ class UserOrdersService {
     update(id,order){
         return axios.put(`https://backendecommerce.azurewebsites.net/user_orders/update/${id}`, order);
     }
+    create(order){
+        return axios.post(`http://localhost:8181/user_orders/save_user_orders`, order);
+    }
 }
 
 export default new UserOrdersService();

@@ -42,7 +42,9 @@ const AddAddress = () => {
                 const response = await UserService.getUserByEmail(email);                                                        
 
                 setUser(response.data);
+                
                 console.log(response.data.userId);
+
 
             } catch(error) {
 
