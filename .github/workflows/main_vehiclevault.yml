@@ -6,7 +6,7 @@ name: Azure Web App - Frontend
 on:
   push:
     branches:
-      - main
+      - CAP-15-RabbitMq-Implementation-to-Products
     paths:
       - 'frontend/**'
   workflow_dispatch:
