@@ -20,6 +20,8 @@ import {
 import UserService from "../services/UserService";
 import AddressService from "../services/AddressService";
 import useAuthUser from "../hook/getUser";
+
+
 import { loadStripe } from "@stripe/stripe-js";
 var trainData = [];
 let stripePromise;
@@ -54,6 +56,7 @@ const Cart = () => {
   const [shippingAddress, setShippingAddress] = useState([]);
   var fetchId;
   // Populate 'chosenItems' with prices for each product
+
   function addToChosenItems(id, price, quantity) {
     chosenItems.push(price);
   };
@@ -66,8 +69,9 @@ const Cart = () => {
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('cart')) != null) {
       setItems(JSON.parse(localStorage.getItem('cart')));
+
       lineItems = items.map(function (item) { return { price: item.priceCode, quantity: 1 } });
-      
+
       var numTotal = 0;
       for (const id in items) {
         numTotal = numTotal + parseInt((items[id].pricePerUnit));
@@ -87,8 +91,11 @@ const Cart = () => {
       }
       setLoading(false);
     };
+
+
     fetchData();
   }, [items.length]);
+
   function handleChange (event) {
     fetchId = event.target.value;
     const componentDidMount = async () => {
@@ -103,6 +110,7 @@ const Cart = () => {
     componentDidMount();
     console.log(shippingAddress + " shipping address ");
   }
+
   //MAIL TEMPLATE
   const mailTemplate = {//HOW TO GET THE USER'S ADDRESS HERE?
     recipient: user.email,
@@ -117,10 +125,12 @@ const Cart = () => {
   const sendEmail = async (event) => {
     axios({ //connect to backend mailer
       method: "POST",
-      url: "http://localhost:8181/email/send",
+
+      url: "https://backendecommerce.azurewebsites.net/email/send",
       data: mailTemplate
     })
   }
+
   return (
     <>{!loading && (
       <section className="h-100 h-custom" style={{ backgroundColor: "#fdddc3" }}>
@@ -174,6 +184,7 @@ const Cart = () => {
                     Order Summary
                   </MDBTypography>
                 </MDBCardHeader>
+
                 <MDBCardBody>
                   <div className="mb-3 form-group">
                     <label>
@@ -209,28 +220,40 @@ const Cart = () => {
                       </span>
                     </MDBListGroupItem>
                   </MDBListGroup>
+
+
                   <MDBBtn block size="lg" onClick={redirectToCheckout}>
+
                     CHECKOUT
                   </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
               <MDBCard className="mb-4">
+
               </MDBCard>
               <MDBCard className="mb-4 mb-lg-0 text-center">
                 <MDBCardBody>
                   <p>
                     <strong>We accept</strong>
                   </p>
+                  <MDBCardImage className="me-2 mb-4" width="65px"
+
+                    src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+
+                    alt="Visa" />
 
                   <MDBCardImage className="me-2 mb-4" width="65px"
-                    src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-                    alt="Visa" />
-                  <MDBCardImage className="me-2 mb-4" width="65px"
+
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+
                     alt="American Express" />
+
                   <MDBCardImage className="me-2 mb-4" width="65px"
+
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+
                     alt="Mastercard" />
+
                   <MDBCardImage className="me-2 mb-4" width="65px"
                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
                     alt="PayPal acceptance mark" />
@@ -248,7 +271,7 @@ const Cart = () => {
       </section>
     )}
     </>
-
   )
 };
+
 export default Cart;

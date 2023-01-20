@@ -54,6 +54,13 @@ function RegistryForm() {
         email,
         phone
       };
+      axios({//More email stuff
+
+        method: "POST",
+
+        url:"https://backendecommerce.azurewebsites.net/email/send",
+
+        data:  mailerInfo
 
       await UserService.createUser(val);
       console.log(val.email);

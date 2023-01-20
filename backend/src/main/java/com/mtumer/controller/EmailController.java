@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtumer.entity.EmailDetails;
 import com.mtumer.services.EmailService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"https://vehiclevault.azurewebsites.net", "http://localhost:3000"})
 @RestController
 @RequestMapping("/email")
 public class EmailController {

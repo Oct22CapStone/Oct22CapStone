@@ -21,7 +21,7 @@ import com.mtumer.entity.Address;
 import com.mtumer.entity.Cart;
 import com.mtumer.services.AddressService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"https://vehiclevault.azurewebsites.net", "http://localhost:3000"})
 @RestController
 @RequestMapping("/addresspage")
 public class AddressController {

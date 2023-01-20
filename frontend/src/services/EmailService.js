@@ -1,11 +1,11 @@
 import axios from "axios";
 
-//const EMAIL_API_BASE_URL = "http://localhost:8181/email";
+//const EMAIL_API_BASE_URL = "https://backendecommerce.azurewebsites.net/email";
 
 class EmailService {
 
     createEmail(email){
-        return axios.post(`http://localhost:8181/email/send`, email);
+        return axios.post(`https://backendecommerce.azurewebsites.net/email/send`, email);
     }
 }
 
