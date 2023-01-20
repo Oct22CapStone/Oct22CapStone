@@ -9,11 +9,13 @@ function Success() {
     const [user, setUser] = useState([]); 
     const [address, setAddress] = useState([]); 
     const history = useHistory();
+    const [loading,setLoading] = useState(true);
     
 
 useEffect(() => {
     const createOrder = async() => {
         try{
+            setLoading(true);
             const cart = JSON.parse(localStorage.getItem("cart"));
             const current = new Date();
             const tracking = "Pending";
@@ -28,6 +30,7 @@ useEffect(() => {
             console.log("order:");
             console.log(order);
             await UserOrdersService.create(order);
+            setLoading(false);
         }catch(error){
             console.log(error);
         }

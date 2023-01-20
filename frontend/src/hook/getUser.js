@@ -19,9 +19,10 @@ const useAuthUser = () => {
                 const username = authState.idToken.claims.preferred_username;
                 const user = {email,firstName,lastName,username};
                 if(doesExist !== true){
-                    const role = {roleId: 2};
-                    const userRole ={role: role, user: user};
-                    UserService.createUser(user);                    
+                    UserService.createUser(user);        
+                    const newUser = await UserService.getUserByEmail(email);   
+                    const role = {roleId: 1};
+                    const userRole ={role: role, user: newUser.data};         
                     await UserRoleService.createUserRole(userRole);
                 }
             } catch (error) {

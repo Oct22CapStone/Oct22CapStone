@@ -43,7 +43,7 @@ const redirectToCheckout = async () => {
   const { error } = await stripe.redirectToCheckout({
     lineItems,
     mode: 'payment',
-    successUrl: `http://localhost:3000/orderdetails`,
+    successUrl: `http://localhost:3000/success`,
     cancelUrl: `http://localhost:3000/cart`,
     customerEmail: JSON.parse(localStorage.getItem("userEmail")),
   });
