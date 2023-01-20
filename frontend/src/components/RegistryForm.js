@@ -61,6 +61,7 @@ function RegistryForm() {
         url:"https://backendecommerce.azurewebsites.net/email/send",
 
         data:  mailerInfo
+      })
 
       await UserService.createUser(val);
       console.log(val.email);
