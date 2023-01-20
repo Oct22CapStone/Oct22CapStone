@@ -69,7 +69,7 @@ const ViewProducts = () => {
 				<thead className="font-weight-bold">
 				<tr>
 
-			<th scope="col"></th>
+
       		<th scope="col">Product Images</th>
           <th scope="col">Product Name</th>
       		<th scope="col">Price Per Unit</th>

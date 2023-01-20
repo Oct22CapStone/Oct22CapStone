@@ -31,17 +31,16 @@ const Orders = () => {
 	}, []);
 
 	const handlesearch=(event)=>{
-		const getSearch=event.target.value;
-		if(getSearch.length > 0){
-		  const searchdata= orders.filter( (orders)=> orders.orderId == getSearch);
-		  setOrders(searchdata);
-		} else {
-		  setOrders(filterdata);
-		}
-		setQuery(getSearch);
-	
-	  }
+        const getSearch=event.target.value;
+        if(getSearch.length > 0){
+          const searchdata= orders.filter( (orders)=> orders.orderId == getSearch);
+          setOrders(searchdata);
+        } else {
+          setOrders(filterdata);
+        }
+        setQuery(getSearch);
 
+      }
 
 
 	return (
@@ -54,11 +53,9 @@ const Orders = () => {
 				
 					<div className = "card-body text-center">
 						<h2 className = "display-4 text-center fw-bold mb-2">Manage Orders</h2>	
+						<input type="text" name='name' value={query} placeholder="Search by order ID:" onChange={(e)=>handlesearch(e)}></input>
 					
-						<input  type="text" name = "name" value={query} placeholder="OrderID"></input>
-					
-						<button onClick={(e)=>handlesearch(e)} type="submit" className="btn btn-primary">Search Order</button>
-						
+								
 					
 					</div>
 					
