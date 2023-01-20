@@ -100,7 +100,7 @@ const Cart = () => {
   const sendEmail = async (event) => {
     axios({ //connect to backend mailer
       method: "POST",
-      url: "http://localhost:8181/email/send",
+      url: "https://backendecommerce.azurewebsites.net/email/send",
       data: mailTemplate
     })
   }

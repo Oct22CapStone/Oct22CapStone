@@ -80,7 +80,7 @@ function RegistryForm() {
 
         method: "POST",
 
-        url:"http://localhost:8181/email/send",
+        url:"https://backendecommerce.azurewebsites.net/email/send",
 
         data:  mailerInfo
 

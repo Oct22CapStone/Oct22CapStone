@@ -11,7 +11,7 @@ export default function ViewUser() {
   const[filterdata, setFilterData]= useState([]);
 
   const onDelete = (userId) => {
-    axios.delete(`http://localhost:8181/userpage/delete/${userId}`);
+    axios.delete(`https://backendecommerce.azurewebsites.net/userpage/delete/${userId}`);
   }
 
   useEffect(() => {
