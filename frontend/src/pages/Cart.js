@@ -24,6 +24,7 @@ import { loadStripe } from "@stripe/stripe-js";
 var trainData = [];
 let stripePromise;
 let lineItems = [];
+//kenzie was here
 const getStripe = () => {
   if (!stripePromise) {
     stripePromise = loadStripe('pk_test_51MRo02LTsOAchG7BnVUUeC0aspLHGIxkEhR44jO5EKy1m7cgVhKeiPrudWZTQNoYn47dmfXgEhQwfbwuYPEx644i00S2Fn0ocZ');
