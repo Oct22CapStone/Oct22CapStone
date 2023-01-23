@@ -38,14 +38,18 @@ export default function ViewUser() {
 
   return (
     <>
+      <div>
+        <div className = "card">
+          <div className = "card-body text-center">
+            <h2 className = "display-4 text-center fw-bold mb-2">Manage Users</h2>
+            <input type = "text" name = "name" value = {query} placeholder = "UserID" onChange={(e) => handlesearch(e)}></input>
+            
+</div>
+
     <div className="container mt-5 mbclassName-5">
-      <Table singleLine>
-          <Table.Header>
-            <span>
-              <div className="container">
-              <input type="text" name='name' value={query} placeholder="Search by first name.." onChange={(e)=>handlesearch(e)}></input>
-              </div>
-                </span>
+      <Table singleLine table-bordered>
+  
+
             <Table.Row>
               <Table.HeaderCell>First Name</Table.HeaderCell>
               <Table.HeaderCell>Last Name</Table.HeaderCell>
@@ -54,7 +58,7 @@ export default function ViewUser() {
               <Table.HeaderCell>Role</Table.HeaderCell>
               <Table.HeaderCell>Actions</Table.HeaderCell>
             </Table.Row>
-          </Table.Header>
+        
 
           <Table.Body>
             {roles.map((data) => {
@@ -99,6 +103,9 @@ export default function ViewUser() {
         </Table.Footer>
       </Table>
     </div>
+    </div>
+   </div>
+  
     </>
     );
   }

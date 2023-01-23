@@ -68,16 +68,16 @@ const Profile = () => {
                             <h3>Your Information</h3>
                                 <div className="row">
                                 <ul className="list-unstyled mb-1-9">
-                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Full Name:</span> {userInfo?.given_name} {userInfo?.family_name}</li>
+                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">First Name:</span> {userInfo?.given_name}</li>
                                     </ul>
                                     <ul className="list-unstyled mb-1-9">
-                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {users.email}</li>
+                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Last Name:</span> {userInfo?.family_name}</li>
                                     </ul>
                                     <ul className="list-unstyled mb-1-9">
-                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Username:</span> {userInfo?.preferred_username}</li>
+                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Username:</span> {users.email}</li>
                                     </ul>
                                     <ul className="list-unstyled mb-1-9">
-                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Phone Number:</span> Add User Phone Var</li>
+                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {userInfo?.preferred_username}</li>
                                     </ul>
                                    
                                     
@@ -95,25 +95,25 @@ const Profile = () => {
                                 <ul class="list-group list-group-flush rounded-3">
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fas fa-globe fa-lg text-warning" ></i>
-                                        <p class="mb-0">https://{userInfo?.given_name}{userInfo?.family_name}.com</p>
+                                        <p class="mb-0">https://www.{userInfo?.given_name}{userInfo?.family_name}.com</p>
                                     </li>
                                  
 
                                
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fab fa-facebook-f fa-lg" style={{color: "#2239FC" }}></i>
-                                        <p class="mb-0">https://facebook.com/{userInfo?.given_name}{userInfo?.family_name}</p>
+                                        <p class="mb-0">https://www.facebook.com/{userInfo?.given_name}{userInfo?.family_name}</p>
                                     </li>
                                  
 
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fab fa-instagram fa-lg" style={{color: "#8B22FC" }}></i>
-                                        <p class="mb-0">https://instagram.com/{userInfo?.given_name}{userInfo?.family_name}</p>
+                                        <p class="mb-0">https://www.instagram.com/{userInfo?.given_name}{userInfo?.family_name}</p>
                                     </li>
 
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                         <i class="fab fa-twitter fa-lg" style={{color: "#00D1FF" }}></i>
-                                        <p class="mb-0">https://twitter.com/{userInfo?.given_name}{userInfo?.family_name}</p>
+                                        <p class="mb-0">https://www.twitter.com/{userInfo?.given_name}{userInfo?.family_name}</p>
                                     </li>
                                  
 
