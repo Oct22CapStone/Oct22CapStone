@@ -11,6 +11,7 @@ const EditProducts = () => {
 
   const handleSubmit = async () => {
     await ProductService.update(product.productId, product);
+    history.push("/viewproducts");
   };
 
   const handleChange = (event) => {

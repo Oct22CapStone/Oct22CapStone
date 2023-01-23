@@ -8,6 +8,7 @@ export default function EditUser() {
   const { id } = useParams();
   const [roles, setRoles] = useState(null);
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   const handleChange = (event) => {
     if(event.target.name === "role.roleId"){
@@ -26,7 +27,8 @@ export default function EditUser() {
 
   const putData = async () => {
     await UserRoleService.update(roles.userRoleId, roles);
-    await UserService.update(roles.user.userId, roles.user);    
+    await UserService.update(roles.user.userId, roles.user);
+    history.push("/viewuser"); 
   };
 
   useEffect(() => {

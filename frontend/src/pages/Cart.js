@@ -190,7 +190,8 @@ const Cart = () => {
                     <label>
                       Address
                       <br></br>
-                      <select name='addressId' onChange={handleChange}>
+                      <select required name='addressId' onChange={handleChange}>
+                      <option value="" disabled selected hidden>Choose Address...</option>
                         {address.map((data) => { return (<option value={data.addressId} key={data.addressId}>{data.street} {data.city} {data.state} {data.zip} {data.country}</option>) })}
                       </select>
                     </label>

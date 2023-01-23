@@ -6,21 +6,19 @@ import UserRoleService from "../services/UserRoleService";
 
 
 export default function ViewUser() {
-  const[roles, setRoles]= useState([]);
+  const[users, setUsers]= useState([]);
   const [query, setQuery] = useState('');
   const[filterdata, setFilterData]= useState([]);
 
   const onDelete = (userId) => {
     axios.delete(`https://backendecommerce.azurewebsites.net/userpage/delete/${userId}`);
-    setRoles(roles.filter((role) => {return role.user.userId !== userId;}));
+    setUsers(users.filter((usr) => {return usr.user.userId !== userId;}));
   }
-
-  
 
   useEffect(() => {
     const getUserData= async() => {
       const req = await UserRoleService.findAllUserRole();
-      setRoles(req.data);
+      setUsers(req.data);
       setFilterData(req.data);
     }
     getUserData();
@@ -29,10 +27,10 @@ export default function ViewUser() {
   const handlesearch=(event)=>{
     const getSearch=event.target.value;
     if(getSearch.length > 0){
-      const searchdata= roles.filter( (item)=> item.user.firstName.toLowerCase().includes(getSearch));
-      setRoles(searchdata);
+      const searchdata= users.filter( (item)=> item.user.firstName.toLowerCase().includes(getSearch));
+      setUsers(searchdata);
     } else {
-      setRoles(filterdata);
+      setUsers(filterdata);
     }
     setQuery(getSearch);
   }
@@ -58,7 +56,7 @@ export default function ViewUser() {
           </Table.Header>
 
           <Table.Body>
-            {roles.map((data) => {
+            {users.map((data) => {
               return (
                 <Table.Row key={data.userRoleId}>
                   <Table.Cell>{data.user.firstName}</Table.Cell>
@@ -84,7 +82,7 @@ export default function ViewUser() {
         <Table.Footer>
         <section className="clearfix">
           <div className="hint-text">
-            Showing <b>{roles.length}</b> out of <b>{roles.length}</b> entries
+            Showing <b>{users.length}</b> out of <b>{users.length}</b> entries
           </div>
           <ul className="pagination">
             <li className="page-item disabled"><a href="#">Previous</a></li>

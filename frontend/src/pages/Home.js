@@ -23,6 +23,8 @@ const Home = () => {
 
 	const [num, setNum] = useState(0);
 	const [product, setProduct] = useState("");
+	const [canAdd, setCanAdd] = useState(0);
+
 	let response = 0;
 	// load all page data
 
@@ -82,16 +84,17 @@ const Home = () => {
 			localStorage.setItem("cart", JSON.stringify(items));
 			//update navbar cart total
 			window.parent.updateCartTotal();
-			alert("Item added successfully!");
+			setCanAdd(1);
 		}
 		else{
-			alert("Item already in cart");
+			setCanAdd(2);
 		}
         
     } 
 
 	function setId(productId){
 		setNum(productId);
+		setCanAdd(0);
 	};
     
     useEffect(() => {
@@ -156,6 +159,8 @@ const Home = () => {
 														<h4 className="mb-1" >${productItems.pricePerUnit}</h4>
 														<h6 className="text-success">Free shipping</h6>
 														<button onClick={(e) => setId(productItems.productId)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>
+														{(num == productItems.productId) && (canAdd == 1) && <div className="alert alert-success" role="alert">Added Successfully</div>}
+                                                        {(num == productItems.productId) && (canAdd == 2) && <div className="alert alert-danger" role="alert">Item Already in Cart</div>}
 													</div>
 												</div>
 											</div>

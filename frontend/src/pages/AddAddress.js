@@ -8,16 +8,17 @@ const AddAddress = () => {
     const [address, setAddress] = useState("");
     const { oktaAuth, authState } = useOktaAuth();
     const [user, setUser] = useState("");
+    const history = useHistory();
 
-
-
-    async function handleSubmit() {
+    const handleSubmit = async () => {
 
         address.userId = user;
 
         console.log(address.userId);
 
         await AddressService.createAddress(address);
+
+        history.push("/profile");
 
       };
 
