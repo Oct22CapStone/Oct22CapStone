@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import OktaSignIn from '@okta/okta-signin-widget';
-import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
+//import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 
 export default class OktaSignInWidget extends Component {
   constructor(props) {

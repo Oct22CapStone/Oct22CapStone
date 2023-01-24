@@ -11,8 +11,7 @@ function About () {
           <div className="align-items-center">
             
               <h1 className="display-4 text-center fw-bold">About Us</h1>
-              <p className="lead text-muted mb-0 text-center">Get to know more about the history and team behind the leader in selling exotic and vintage automobiles online</p>
-            
+              <p className="lead text-muted mb-0 text-center">Get to know more about the history and team behind the leader in selling exotic and vintage automobiles online</p>            
             </div>
         </div>
       </div>

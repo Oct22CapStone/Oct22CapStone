@@ -28,7 +28,7 @@ import Success from "./pages/Success";
 import LatestProducts from "./pages/LatestProducts";
 
 
-
+var isAdmin = false;
 const oktaAuth = new OktaAuth(oktaConfig);
 
 const Routes = () => {

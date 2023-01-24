@@ -43,6 +43,7 @@ public class OrderItemController {
 
 	@PostMapping("/save_order_item")
 	public ResponseEntity<OrderItem> createOrderItem(@RequestBody OrderItem orderItem) {
+		System.out.println("create item");
 		OrderItem savedOrderItem = orderItemService.createOrderItem(orderItem);
 		return new ResponseEntity<OrderItem>(savedOrderItem, HttpStatus.CREATED);
 	}

@@ -96,3 +96,60 @@ insert  into product(show_product,product_name, productimg, productdesc,price_pe
 (1,'1970 Triumph Spitfire','https://ccnwordpress.blob.core.windows.net/journal/2016/01/unnamed-2.jpg','Features include opening and closing doors. Color: White.',5545.00,91);
 insert  into product(show_product,product_name, productimg, productdesc,price_per_unit, product_qty) values
 (1,'1932 Alfa Romeo 8C2300 Spider Sport','https://www.sportscarmarket.com/wp-content/uploads/2012/10/79dd842ddcab073f72b86c99ae50af76.jpg','This 1:18 scale precision die cast replica features the 6 front headlights of the original, plus a detailed version of the 142 horsepower straight 8 engine, dual spares and their famous comprehensive dashboard. Color black.',6553.00,43);
+
+update product set price_code = "price_1MRoo5LTsOAchG7BbwVxVTR8" where product_id = 1;
+update product set price_code = "price_1MRoobLTsOAchG7B8eJ3CyJT" where product_id = 2;
+update product set price_code = "price_1MRooxLTsOAchG7BdwKCjuRD" where product_id = 3;
+update product set price_code = "price_1MRopELTsOAchG7BtTPH4dxv" where product_id = 4;
+update product set price_code = "price_1MRopbLTsOAchG7BTwezElXw" where product_id = 5;
+update product set price_code = "price_1MRoprLTsOAchG7BKtczURB0" where product_id = 6;
+update product set price_code = "price_1MRoqQLTsOAchG7BUlB4PpGu" where product_id = 7;
+update product set price_code = "price_1MRoqmLTsOAchG7BQY0CjHUB" where product_id = 8;
+update product set price_code = "price_1MRor2LTsOAchG7BwUeFuYC8" where product_id = 9;
+update product set price_code = "price_1MRorJLTsOAchG7BxAe3OQNz" where product_id = 10;
+update product set price_code = "price_1MRorWLTsOAchG7BcoRJWZ6M" where product_id = 11;
+update product set price_code = "price_1MRoriLTsOAchG7B3eiPwkvl" where product_id = 12;
+update product set price_code = "price_1MRorxLTsOAchG7BN5NyGHvR" where product_id = 13;
+update product set price_code = "price_1MRosALTsOAchG7BV6GWH8Fr" where product_id = 14;
+update product set price_code = "price_1MRosNLTsOAchG7BfqodZkZ4" where product_id = 15;
+update product set price_code = "price_1MRosfLTsOAchG7BN4iRpSPF" where product_id = 16;
+update product set price_code = "price_1MRoswLTsOAchG7BYnXxtejj" where product_id = 17;
+update product set price_code = "price_1MRot8LTsOAchG7BuXqgB5aU" where product_id = 18;
+update product set price_code = "price_1MRotLLTsOAchG7B7GbI1YRx" where product_id = 19;
+update product set price_code = "price_1MRotdLTsOAchG7BDEQjj0C4" where product_id = 20;
+update product set price_code = "price_1MRotrLTsOAchG7BbzaitARU" where product_id = 21;
+update product set price_code = "price_1MRou8LTsOAchG7BiYJhe4gF" where product_id = 22;
+update product set price_code = "price_1MRouPLTsOAchG7BpZx3Rx7N" where product_id = 23;
+update product set price_code = "price_1MRouaLTsOAchG7Bry2AKNsM" where product_id = 24;
+update product set price_code = "price_1MRounLTsOAchG7BahrBHfcx" where product_id = 25;
+update product set price_code = "price_1MRouzLTsOAchG7BNiS7YuSS" where product_id = 26;
+update product set price_code = "price_1MRovDLTsOAchG7BjuRlsDmE" where product_id = 27;
+update product set price_code = "price_1MRovTLTsOAchG7BOrinNpjD" where product_id = 28;
+update product set price_code = "price_1MRovgLTsOAchG7BcIqokaxd" where product_id = 29;
+update product set price_code = "price_1MRovxLTsOAchG7BAJQNoKl5" where product_id = 30;
+update product set price_code = "price_1MRowELTsOAchG7BAlVo5NUE" where product_id = 31;
+update product set price_code = "price_1MRowQLTsOAchG7B0F9isp5B" where product_id = 32;
+update product set price_code = "price_1MRowaLTsOAchG7Bkl7eGnfI" where product_id = 33;
+update product set price_code = "price_1MRowwLTsOAchG7BQW8tvlWC" where product_id = 34;
+update product set price_code = "price_1MRoxBLTsOAchG7B4w3AF3Fn" where product_id = 35;
+update product set price_code = "price_1MRoxNLTsOAchG7BJui3v7Ve" where product_id = 36;
+update product set price_code = "price_1MRoxaLTsOAchG7BwO3pBTtJ" where product_id = 37;
+update product set price_code = "price_1MRoy4LTsOAchG7BWJhkzVZn" where product_id = 38;
+update product set price_code = "price_1MRoyFLTsOAchG7BuQY5kKGA" where product_id = 39;
+update product set price_code = "price_1MRoyQLTsOAchG7BkPpkZ7dg" where product_id = 40;
+update product set price_code = "price_1MRoybLTsOAchG7B1niuD2i1" where product_id = 41;
+update product set price_code = "price_1MRoynLTsOAchG7ByT1t8ijO" where product_id = 42;
+update product set price_code = "price_1MRoyzLTsOAchG7B6NKU1bf3" where product_id = 43;
+update product set price_code = "price_1MRozALTsOAchG7BAknabHdI" where product_id = 44;
+update product set price_code = "price_1MRozMLTsOAchG7B2xphwK4C" where product_id = 45;
+update product set price_code = "price_1MRozbLTsOAchG7B9084xuFr" where product_id = 46;
+update product set price_code = "price_1MRoznLTsOAchG7BUjPVihGM" where product_id = 47;
+update product set price_code = "price_1MRp01LTsOAchG7BqpsHDCFA" where product_id = 48;
+update product set price_code = "price_1MRp0JLTsOAchG7BiALFRzE8" where product_id = 49;
+update product set productImg = "https://www.carscoops.com/wp-content/uploads/2012/10/1903-Ford-Model-A-0.jpg" where product_id = 38;
+
+insert into roles(role_name) 
+values("Admin");
+
+insert into roles(role_name) 
+values("Customer");

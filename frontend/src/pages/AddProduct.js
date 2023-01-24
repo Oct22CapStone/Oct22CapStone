@@ -6,7 +6,8 @@ const AddProduct = () => {
 	  const [product, setProduct] = useState("");
     const history = useHistory();
 
-    const handleSubmit = async() =>{
+    const handleSubmit = async(event) =>{
+      event.preventDefault();
         await ProductService.createProduct(product);
         history.push("/viewproducts");
       };
@@ -42,7 +43,7 @@ const AddProduct = () => {
         <label>Image url:</label>
         <input name="productImg" onChange={handleChange} className="form-control"/>
       </div>
-      <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>
+      <button className="btn btn-primary btn-sm" type="submit" onClick={(e)=> handleSubmit(e)}>
         Post
       </button>
     </form>
