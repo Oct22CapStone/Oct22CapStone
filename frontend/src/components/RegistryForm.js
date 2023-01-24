@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
 import Footer from '../components/Navbar/Footer';
-
 import Header from '../components/Navbar/Header';
-
 import {
   MDBContainer,
   MDBIcon
 }
   from 'mdb-react-ui-kit';
 import UserRoleService from '../services/UserRoleService';
-
 import UserService from '../services/UserService';
 
 const validEmailRegex = RegExp(
@@ -127,97 +123,6 @@ export default class RegistryForm extends React.Component {
       this.setState({ eMessage: "Please fill out all fields" });
       this.setState({ isError: true });
     }
-
-        this.setState({ errors, [name]: value });
-
-
-
-
-    }
-
-
-
-
-  handleRegister = async (event) => {
-
-    event.preventDefault();    
-
-    let user = null;
-
-    if(validateForm(this.state.errors)) {
-
-      this.setState({formValid: true});
-
-    }
-
-    if (this.state.formValid) {
-
-      try{
-
-        const newUser = await UserService.getUserByEmail(this.state.email);
-
-        user = newUser.data;
-
-      }catch(error){
-
-        console.log(error);
-
-      }
-
-     
-
-      if (user != "" && this.setState.email != null) {
-
-        this.setState({ eMessage: "Email already exists" })
-
-        this.setState({ isError: true });
-
-      } else {
-
-        console.log("here");
-
-        const val = {
-
-          firstName: this.state.firstName,
-
-          lastName: this.state.lastName,
-
-          email: this.state.email,
-
-          phone: this.state.phone
-
-        };
-
-
-
-        await UserService.createUser(val);
-
-        const newUser = await UserService.getUserByEmail(val.email);
-
-        const role = { roleId: 2 };
-
-        const userRole = { role: role, user: newUser.data };
-
-        await UserRoleService.createUserRole(userRole);
-
-        this.setState({ message: "Thanks for registering! You will get an email shortly to set up your password." })
-
-        this.setState({ isError: false });
-
-        this.setState({formValid: false});
-
-      }
-
-
-
-    } else {
-
-      this.setState({ eMessage: "Please fill out all fields" });
-
-      this.setState({ isError: true });
-
-    }
-
   }
 
   render() {
