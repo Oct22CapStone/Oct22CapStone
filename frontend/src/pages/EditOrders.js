@@ -68,7 +68,9 @@ const EditOrders = () => {
             <label>
               Address
               <br></br>
-              
+              <select defaultValue={orders.addressId.addressId} name='addressId' onChange={handleChange}>
+                {address.map((data)=>{return (  <option value={data.addressId} key={data.addressId}>{data.street} {data.city} {data.state} {data.zip} {data.country}</option>)})}
+              </select>
             </label>
           </div>
           <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>

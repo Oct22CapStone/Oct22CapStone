@@ -169,16 +169,16 @@ const Cart = () => {
               <strong>We accept</strong>
             </p>
             <MDBCardImage className="me-2" width="45px"
-              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+              src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674576615/CapstoneCartImages/visa_dczam2.svg"
               alt="Visa" />
             <MDBCardImage className="me-2" width="45px"
-              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+              src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674576559/CapstoneCartImages/amex_zejs29.svg"
               alt="American Express" />
             <MDBCardImage className="me-2" width="45px"
-              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+              src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674576657/CapstoneCartImages/mastercard_mg5g4i.svg"
               alt="Mastercard" />
             <MDBCardImage className="me-2" width="45px"
-              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
+              src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674151103/CapstoneCartImages/paypal_sxoxgv.png"
               alt="PayPal acceptance mark" />
           </MDBCardBody>
         </MDBCard>

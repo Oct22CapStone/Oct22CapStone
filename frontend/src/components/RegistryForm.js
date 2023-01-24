@@ -153,7 +153,7 @@ function RegistryForm() {
             </MDBCol>
 
             <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
-              <MDBCardImage src='https://th.bing.com/th/id/OIP.fP8ME8Bs6Ndjo50ACPnviwHaFn?pid=ImgDet&rs=1' fluid/>
+              <MDBCardImage src='https://res.cloudinary.com/db5fpphyj/image/upload/v1674150803/CapstoneRegistryFormImages/hcl_img_qiso6f.jpg' fluid/>
             </MDBCol>
 
           </MDBRow>

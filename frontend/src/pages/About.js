@@ -26,10 +26,10 @@ function About () {
         <h2 className="font-weight-light">Our History</h2>
         <p className="font-italic text-muted mb-4">Founded in October of 2022, VehicleVault is on a mission to become the global leaders of this industry. Our founders discovered and jumped on the idea of selling desired vintage vehicles online when they collectively realized that there is no other online platform in this industry. The nine founders remotely came together and created the website you are browsing now.</p>
       </div>
-      <div className="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="https://bootstrapious.com/i/snippets/sn-about/img-2.jpg" alt="" className="img-fluid mb-4 mb-lg-0"></img></div>
+      <div className="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674149698/CapstoneAboutImages/bootstrapious_snippets_img_2_zbpoia.jpg" alt="" className="img-fluid mb-4 mb-lg-0"></img></div>
     </div>
     <div className="row align-items-center">
-      <div className="col-lg-5 px-5 mx-auto"><img src="https://bootstrapious.com/i/snippets/sn-about/img-1.jpg" alt="" className="img-fluid mb-4 mb-lg-0"></img></div>
+      <div className="col-lg-5 px-5 mx-auto"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674149728/CapstoneAboutImages/bootstrapious_snippets_img_1_ox5cyg.jpg" alt="" className="img-fluid mb-4 mb-lg-0"></img></div>
       <div className="col-lg-6"><i className="fa fa-leaf fa-2x mb-3 text-primary"></i>
         <h2 className="font-weight-light">Our Team</h2>
         <p className="font-italic text-muted mb-4">Our current team consists of nine members, all of which were a part of finding the company. Meet the team behind VehicleVault below. </p>
@@ -41,62 +41,62 @@ function About () {
     <div className="row text-center">
      
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://t4.ftcdn.net/jpg/01/71/82/95/360_F_171829504_pbLCGndoTSEg96V2AL6UMDszi6STHIqw.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674149767/CapstoneAboutImages/img_murat_ylvmmo.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Murat Tumer</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://static.vecteezy.com/system/resources/previews/004/857/361/original/letter-am-or-ma-logo-or-icon-design-vector.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674149888/CapstoneAboutImages/img_mackenzie_xrld6y.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Mackenzie Allen</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://cdn4.vectorstock.com/i/1000x1000/10/53/ap-initials-letter-logo-vector-20891053.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674454995/CapstoneAboutImages/img_arogaya_khzttm.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Arogaya Piya</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://st3.depositphotos.com/30226412/36610/v/450/depositphotos_366102894-stock-illustration-initial-letter-logo-logo-vector.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674150226/CapstoneAboutImages/img_tanner_dbpxlo.webp" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Tanner Boyack</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://www.shutterstock.com/image-vector/ph-initial-monogram-logo-260nw-343374779.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674150276/CapstoneAboutImages/img_phuong_ly8ynm.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Phuong Huynh</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://cdn1.vectorstock.com/i/1000x1000/91/45/initial-letter-cs-logo-template-design-vector-21949145.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674454864/CapstoneAboutImages/img_chinar_rbnv6i.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Chinar Shakari</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://image.shutterstock.com/image-vector/initial-text-vp-v-p-260nw-1664115025.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674454859/CapstoneAboutImages/img_vishveshkumar_gxpf2z.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Vishveshkumar Patel</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://www.shutterstock.com/image-vector/czr-letter-original-monogram-logo-260nw-1976752154.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674454832/CapstoneAboutImages/img_cristian_jkdesk.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Cristian Zelaya-Reyes</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://www.shutterstock.com/image-vector/monogram-logo-letter-ps-sliced-260nw-1176191203.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674150401/CapstoneAboutImages/img_param_tb73dh.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Param Shah</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
 
       <div className="col-xl-3 col-sm-6 mb-5">
-        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://www.creativefabrica.com/wp-content/uploads/2021/09/26/Abstract-letter-M-and-MM-logo-Graphics-17876581-1.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
+        <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674150421/CapstoneAboutImages/img_mannatdeep_b0rkbu.jpg" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"></img>
           <h5 className="mb-0">Mannatdeep Mannatdeep</h5><span className="small text-uppercase text-muted">Founder</span>
         </div>
       </div>
