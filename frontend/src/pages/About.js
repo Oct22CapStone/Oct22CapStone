@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../components/Navbar/Header'; 
 import Footer from '../components/Navbar/Footer'; 
 
-function About () {
+const About = () => {
     return (
         <div>
         
