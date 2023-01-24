@@ -21,7 +21,7 @@ const Home = () => {
 	const [itemAdded, setItemAdded] = useState(false);
 	const [num, setNum] = useState(0);
 	const [product, setProduct] = useState("");
-	let response = 0;
+	//let isDupe = 1;
 	// load all page data
 	useEffect(() => {
 		const fetchData = async () => {
@@ -77,10 +77,10 @@ const Home = () => {
 			localStorage.setItem("cart", JSON.stringify(items));
 			//update navbar cart total
 			window.parent.updateCartTotal();
-			alert("Item added successfully!");
+			alert(product.productName + " added successfully!");
 		}
 		else{
-			alert("Item already in cart");
+			alert(product.productName +"Item already in cart");
 		}
         
     } 

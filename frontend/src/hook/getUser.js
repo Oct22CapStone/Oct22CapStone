@@ -3,7 +3,6 @@ import { useOktaAuth } from "@okta/okta-react";
 import UserService from "../services/UserService";
 import UserRoleService from "../services/UserRoleService";
 const useAuthUser = () => {
-
     const { oktaAuth, authState } = useOktaAuth();
     const [userInfo, setUserInfo] = useState(null);
     useEffect(() => {
@@ -14,14 +13,14 @@ const useAuthUser = () => {
                 const email = authState.idToken.claims.email;
                 localStorage.setItem("userEmail",JSON.stringify(authState.idToken.claims.email));
                 const doesExist = await UserService.checkUser(email);
-                const firstName = authState.idToken.claims.given_name;
-                const lastName = authState.idToken.claims.family_name;
-                const username = authState.idToken.claims.preferred_username;
-                const user = {email,firstName,lastName,username};
+                const firstName = authState.idToken.claims.firstName;
+                const lastName = authState.idToken.claims.lastName;
+                const phone = authState.idToken.claims.primaryPhone;
+                const user = {email,firstName,lastName,phone};
                 if(doesExist !== true){
-                    const role = {roleId: 2};
-                    const userRole ={role: role, user: user};
-                    UserService.createUser(user);                    
+                    const newUser = await UserService.createUser(user);       
+                    const role = { roleId: 1 };
+                    const userRole = { role: role, user: newUser.data };        
                     await UserRoleService.createUserRole(userRole);
                 }
             } catch (error) {

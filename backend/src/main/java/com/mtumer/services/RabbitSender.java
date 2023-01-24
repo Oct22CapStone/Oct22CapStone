@@ -21,7 +21,7 @@ public class RabbitSender {
 	
 	public void send(Product prd) {
 		rt.convertAndSend(exchange, routingkey,prd);
-		System.out.println("Send message " +prd);
+		System.out.println("Send message " + prd);
 	}
 
 }

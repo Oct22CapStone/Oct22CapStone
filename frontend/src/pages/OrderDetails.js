@@ -6,28 +6,30 @@ import UserOrdersService from "../services/UserOrdersService";
 const OrderDetails = () => {
 
     const { id } = useParams();
-    const [order, setOrder] = useState(null);
+    const [order, setOrder] = useState([]);
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 setLoading(true);
                 const response = await UserOrdersService.getById(id);
                 setOrder(response.data);
-                console.log(order);
                 const result = await OrderItemService.findAll();
                 setOrderDetails(result.data.filter(o => { return o.orderId.orderId == response.data.orderId }));
-                
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
-            setLoading(false);
+            
         };
 
         if (id && id !== "")
             fetchData();
+
     }, [id]);
 
 

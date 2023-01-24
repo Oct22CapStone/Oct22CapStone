@@ -10,7 +10,9 @@ function Login() {
     if (res.status === 'SUCCESS') {
       return oktaAuth.signInWithRedirect({
         sessionToken: res.session.token
+
       });
+      window.location.reload(true);
     }
   }
 

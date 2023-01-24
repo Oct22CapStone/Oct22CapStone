@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom";
 import UserOrdersService from "../services/UserOrdersService";
 import { Link, Route, useHistory } from "react-router-dom";
 import AddressService from "../services/AddressService";
+import UserService from "../services/UserService";
+import UserRoleService from "../services/UserRoleService";
 
 const EditOrders = () => {
   const { id } = useParams();
   const [orders, setOrders] = useState("");
   const [loading, setLoading] = useState(true);
   const [address, setAddress] = useState([]);
+  const history = useHistory();
 
   const handleSubmit = async () => {
     await UserOrdersService.update(orders.orderId, orders);
@@ -42,6 +45,18 @@ const EditOrders = () => {
       }
       setLoading(false);
     };
+    const fetchRole = async () => {
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      console.log(roles);
+      if (roles != 1) {
+          history.push("/");
+      }
+}
+  fetchRole();
 
 
 

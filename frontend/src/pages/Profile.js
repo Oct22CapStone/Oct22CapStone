@@ -49,7 +49,7 @@ const Profile = () => {
                     <div className="col-lg-4">
                        <div className="card mb-4">
                            <div className="card-body text-center">
-                               <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" alt="Admin" class="rounded-circle" width="150"></img>
+                               <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" alt="Admin" className="rounded-circle" width="150"></img>
                                <h5 className="my-3">{userInfo?.given_name} {userInfo?.family_name}</h5>
                                <p className="text-muted mb-1">Customer</p>
                                <div className = "mb-1">
@@ -76,7 +76,7 @@ const Profile = () => {
                                         <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Username:</span> {userInfo?.preferred_username}</li>
                                     </ul>
                                     <ul className="list-unstyled mb-1-9">
-                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Phone Number:</span> Add User Phone Var</li>
+                                        <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Phone Number:</span>{users.phone}</li>
                                     </ul>
                                    
                                     
@@ -91,28 +91,28 @@ const Profile = () => {
                            <div className="card-body text-center">
                             <h3>Social</h3>
                                 <div className="row">
-                                <ul class="list-group list-group-flush rounded-3">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fas fa-globe fa-lg text-warning" ></i>
-                                        <p class="mb-0">https://{userInfo?.given_name}{userInfo?.family_name}.com</p>
+                                <ul className="list-group list-group-flush rounded-3">
+                                    <li className="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <i className="fas fa-globe fa-lg text-warning" ></i>
+                                        <p className="mb-0">https://{userInfo?.given_name}{userInfo?.family_name}.com</p>
                                     </li>
                                  
 
                                
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-facebook-f fa-lg" style={{color: "#2239FC" }}></i>
-                                        <p class="mb-0">https://facebook.com/{userInfo?.given_name}{userInfo?.family_name}</p>
+                                    <li className="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <i className="fab fa-facebook-f fa-lg" style={{color: "#2239FC" }}></i>
+                                        <p className="mb-0">https://facebook.com/{userInfo?.given_name}{userInfo?.family_name}</p>
                                     </li>
                                  
 
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-instagram fa-lg" style={{color: "#8B22FC" }}></i>
-                                        <p class="mb-0">https://instagram.com/{userInfo?.given_name}{userInfo?.family_name}</p>
+                                    <li className="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <i className="fab fa-instagram fa-lg" style={{color: "#8B22FC" }}></i>
+                                        <p className="mb-0">https://instagram.com/{userInfo?.given_name}{userInfo?.family_name}</p>
                                     </li>
 
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-twitter fa-lg" style={{color: "#00D1FF" }}></i>
-                                        <p class="mb-0">https://twitter.com/{userInfo?.given_name}{userInfo?.family_name}</p>
+                                    <li className="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <i className="fab fa-twitter fa-lg" style={{color: "#00D1FF" }}></i>
+                                        <p className="mb-0">https://twitter.com/{userInfo?.given_name}{userInfo?.family_name}</p>
                                     </li>
                                  
 
@@ -137,13 +137,11 @@ const Profile = () => {
                            <div className="card-body text-center">
                                 <h3> Your Addresses</h3>
                                 <div>
-
-                                <Link to="/addaddress" className="btn btn-primary mb-4">Add New Address</Link>
+                                <Link to="/addaddress" className="btn btn-primary btn-sm">Add New Address</Link>
                                 </div>
                                     <div className="row">
                                         <div className="col-lg-12 mb-4 mb-sm-5">
-                                            <table className="table table-bordered">
-
+                                            <table className="table">
                                        <thead className="font-weight-bold">
                                            <tr>
                                                <th scope="col">Street</th>
