@@ -45,7 +45,7 @@ const Routes = () => {
 			<Nav />
 			<Switch>
 				<Route path="/" exact={true} component={Home} />
-        		<Route path="/register" exact={true} component={RegistryForm} />
+        			<Route path="/register" component={RegistryForm} />
 
 
 
@@ -69,7 +69,7 @@ const Routes = () => {
 				<SecureRoute path="/userorders" exact={true} component={UserOrders}/>
 				<SecureRoute path="/orderdetails/:id" exact={true} component={OrderDetails}/>
 				<SecureRoute path="/cart" exact={true}  component={Cart}/>
-        		<Route path="/addaddress" exact={true} component={AddAddress} />
+        			<Route path="/addaddress" exact={true} component={AddAddress} />
 				<SecureRoute path="/editorders/:id" exact={true} component={EditOrders}/>
 			</Switch>
 		</Security>

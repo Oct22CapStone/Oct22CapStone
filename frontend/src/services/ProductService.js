@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const PRODUCT_API_BASE_URL = "http://localhost:8181/product";
+const PRODUCT_API_BASE_URL = "https://backendecommerce.azurewebsites.net/product";
 
 
 class ProductService {
@@ -9,16 +9,16 @@ class ProductService {
         return axios.get(PRODUCT_API_BASE_URL);
     }
     getProductById(id){
-        return axios.get(`http://localhost:8181/product/${id}`);
+        return axios.get(`https://backendecommerce.azurewebsites.net/product/${id}`);
     }
     delete(id){
-        return axios.delete(`http://localhost:8181/product/delete/${id}`);
+        return axios.delete(`https://backendecommerce.azurewebsites.net/product/delete/${id}`);
     }
     update(id,product){
-        return axios.put(`http://localhost:8181/product/update/${id}`, product);
+        return axios.put(`https://backendecommerce.azurewebsites.net/product/update/${id}`, product);
     }
     createProduct(product){
-        return axios.post(`http://localhost:8181/product/save_product`, product);
+        return axios.post(`https://backendecommerce.azurewebsites.net/product/save_product`, product);
     }
 
 }

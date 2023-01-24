@@ -68,7 +68,7 @@ const Nav = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Home</a></li>
-                    <li className="nav-item"><a className="nav-link active" aria-current="page" href="/about">About</a></li>
+                    <li className="nav-item"><Link to="/about" className="nav-link active" aria-current="page">About</Link></li>
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -88,10 +88,10 @@ const Nav = () => {
 
                                     authState?.isAuthenticated ? (
                                     <div className="ms-auto mb-lg-0"> 
-                                    <li className="nav-item"><a className="nav-link active" aria-current="page" href="/register">Create New Account</a></li>
+                                    <li className="nav-item"><Link to="/register" className="nav-link active" aria-current="page" >Create New Account</Link></li>
                                     </div>) : (
                                         <div className="ms-auto mb-lg-0">
-                                            <li className="nav-item"><a className="nav-link active" aria-current="page" href="/register">Register</a></li>
+                                            <li className="nav-item"><Link to="/register" className="nav-link active" aria-current="page" >Register</Link></li>
                                             </div>)
                                             
             }

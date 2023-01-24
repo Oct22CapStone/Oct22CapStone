@@ -8,8 +8,6 @@ import UserService from "../services/UserService";
 import { Link, Route, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-
-
 const Home = () => {
 
 	const { authState } = useOktaAuth();
@@ -19,10 +17,19 @@ const Home = () => {
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [itemAdded, setItemAdded] = useState(false);
+
+	const[filterdata, setFilterData]= useState([]);//FOR THE SEARCH
+	const [query, setQuery] = useState('');//FOR THE SEARCH
+
 	const [num, setNum] = useState(0);
 	const [product, setProduct] = useState("");
-	//let isDupe = 1;
+
+	const [canAdd, setCanAdd] = useState(0);
+
+	let response = 0;
+
 	// load all page data
+
 	useEffect(() => {
 		const fetchData = async () => {
 			setLoading(true);
@@ -36,6 +43,8 @@ const Home = () => {
 					}
 				}
 				setProducts(tempPrd);
+        setFilterData(tempPrd); //FOR THE SEARCH
+
 
 			} catch (error) {
 				console.log(error);
@@ -77,20 +86,21 @@ const Home = () => {
 			localStorage.setItem("cart", JSON.stringify(items));
 			//update navbar cart total
 			window.parent.updateCartTotal();
-			alert(product.productName + " added successfully!");
+			setCanAdd(1);
 		}
 		else{
-			alert(product.productName +"Item already in cart");
+			setCanAdd(2);
 		}
         
     } 
 
 	function setId(productId){
 		setNum(productId);
+		setCanAdd(0);
 	};
     
     useEffect(() => {
-		fetch(`http://localhost:8181/product/${num}`)
+		fetch(`https://backendecommerce.azurewebsites.net/product/${num}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setProduct(data);
@@ -104,14 +114,36 @@ const Home = () => {
 		}
 	}, [product])
 
+	//FUNCTION TO SEARCH BY PRODUCT NAME
+	const handlesearch=(event)=>{
+		const getSearch=event.target.value;
+		if(getSearch.length > 0){
+		  const searchdata= products.filter( (item)=> item.productName.toLowerCase().includes(getSearch));
+		  setProducts(searchdata);
+		} else {
+		  setProducts(filterdata);
+		}
+		setQuery(getSearch);
+	  }
+
 	return (
 		<>
 			<Header />
 			<section className="py-5">
+				
 				<div className="container mt-3">
+					
 					<div className="row gx-4 gx-lg-5 justify-content-center">
+
 						{!loading && (
 							<div className="row">
+								{/* SEARCH BAR */}
+								<span>
+								<div className="container">
+									<input type="text" name='productName' value={query} placeholder="Search by product name.." onChange={(e)=>handlesearch(e)}></input>
+								</div>
+								</span>
+								{/* END SEARCH BAR */}
 								{products.map(
 									(productItems, index) => (
 										<div key={index} className="col-lg-4 col-4 d-flex">
@@ -129,6 +161,8 @@ const Home = () => {
 														<h4 className="mb-1" >${productItems.pricePerUnit}</h4>
 														<h6 className="text-success">Free shipping</h6>
 														<button onClick={(e) => setId(productItems.productId)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>
+														{(num == productItems.productId) && (canAdd == 1) && <div className="alert alert-success" role="alert">Added Successfully</div>}
+                                                        {(num == productItems.productId) && (canAdd == 2) && <div className="alert alert-danger" role="alert">Item Already in Cart</div>}
 													</div>
 												</div>
 											</div>

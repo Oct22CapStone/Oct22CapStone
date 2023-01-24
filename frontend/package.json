@@ -24,14 +24,14 @@
     "react-native": "^0.71.0",
     "react-native-web": "^0.18.10",
     "react-router-dom": "^5.3.4",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

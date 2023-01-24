@@ -20,6 +20,8 @@ import {
 import UserService from "../services/UserService";
 import AddressService from "../services/AddressService";
 import useAuthUser from "../hook/getUser";
+
+
 import { loadStripe } from "@stripe/stripe-js";
 import { render } from "@testing-library/react";
 var trainData = [];
@@ -40,8 +42,8 @@ const redirectToCheckout = async () => {
     const { error } = await stripe.redirectToCheckout({
       lineItems,
       mode: 'payment',
-      successUrl: `http://localhost:3000/success`,
-      cancelUrl: `http://localhost:3000/cart`,
+      successUrl: `https:/vehiclevault.azurewebsites.net/userorders`,
+      cancelUrl: `https:/vehiclevault.azurewebsites.net/cart`,
       customerEmail: JSON.parse(localStorage.getItem("userEmail")),
     });
     console.warn(error.message);

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtumer.entity.Roles;
 import com.mtumer.services.RoleService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"https://vehiclevault.azurewebsites.net", "http://localhost:3000"})
 @RestController
 @RequestMapping("/roles")
 public class RolesController {
