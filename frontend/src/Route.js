@@ -47,8 +47,6 @@ const Routes = () => {
 				<Route path="/" exact={true} component={Home} />
         		<Route path="/register" exact={true} component={RegistryForm} />
 
-
-
 				<Route path="/popularitems" exact={true} component={PopularItems} />
 				<Route path="/latestproducts" exact={true} component={LatestProducts} />
 
@@ -63,7 +61,7 @@ const Routes = () => {
 				<Route path="/viewsingleproduct/:id" exact={true} component={ViewSingleProduct}/>
 				<SecureRoute path="/viewproducts" component={ViewProducts}/>
 				<SecureRoute path="/addproduct" component={AddProduct}/>	
-				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
+				<SecureRoute path="/editproducts/:id" component={EditProducts}/>
 				<SecureRoute path="/editaddress/:id" exact={true} component={EditAddress}/>
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
 				<SecureRoute path="/userorders" exact={true} component={UserOrders}/>

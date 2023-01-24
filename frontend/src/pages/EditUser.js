@@ -23,12 +23,15 @@ export default function EditUser() {
     if(event.target.name === "user.email"){
       roles.user.email = event.target.value;
     }    
+    if(event.target.name === "user.phone"){
+      roles.user.phone = event.target.value;
+    }  
   }
 
   const putData = async () => {
     await UserRoleService.update(roles.userRoleId, roles);
     await UserService.update(roles.user.userId, roles.user);
-    history.push("/viewuser"); 
+    history.push("/viewuser");
   };
 
   useEffect(() => {
@@ -64,6 +67,10 @@ export default function EditUser() {
             <Form.Field>
               <label>Email</label>
               <input name='user.email' placeholder='Email' defaultValue={roles.user.email} onChange={handleChange} className="form-control" />
+            </Form.Field>
+            <Form.Field>
+              <label>Phone</label>
+              <input name='user.phone' placeholder='Phone' defaultValue={roles.user.phone} onChange={handleChange} className="form-control" />
             </Form.Field>
             <Form.Field>
               <label>

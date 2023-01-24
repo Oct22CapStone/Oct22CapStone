@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 const EditAddress = () => {  
     const {id} = useParams();  
 	const [address, setAddress] = useState("");
+  const history = useHistory();
 
-    const handleSubmit = async() =>{
+
+    const handleSubmit = async(event) =>{
+      event.preventDefault();
         await AddressService.update(address.addressId, address);
+        history.push("/profile");
       };
 
     const handleChange = (event) =>{
@@ -54,7 +58,7 @@ const EditAddress = () => {
         <label>Zip Code:</label>
         <input defaultValue={address.zip} name="zip" onChange={handleChange} className="form-control"/>
       </div>
-      <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>
+      <button className="btn btn-primary btn-sm" type="submit" onClick={(e) => handleSubmit(e)}>
         Update
       </button>
     </form>

@@ -25,7 +25,7 @@ const Nav = () => {
 
     function refreshPage() {
 
-        window.location.reload(false);
+        window.location.reload(true);
 
     }
 
@@ -168,7 +168,7 @@ const Nav = () => {
                         {
                             authState?.isAuthenticated ? (
                                 <div className="ms-auto mb-lg-0">
-                                    <li className="nav-item"><img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" alt="Admin" class="rounded-circle" width="40"></img></li>
+                                    <li className="nav-item"><img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" alt="Admin" className="rounded-circle" width="40"></img></li>
                                 </div>
                             ) : (
                                 <div className="ms-auto mb-4 mb-lg-0 mb-4">

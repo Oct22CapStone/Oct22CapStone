@@ -10,28 +10,17 @@ const AddAddress = () => {
     const [user, setUser] = useState("");
     const history = useHistory();
 
-    const handleSubmit = async () => {
-
+    const handleSubmit = async (event) => {
+      event.preventDefault();
         address.userId = user;
-
         console.log(address.userId);
-
         await AddressService.createAddress(address);
-
         history.push("/profile");
-
       };
 
-
-
     const handleChange = (event) =>{
-
       setAddress(address =>({...address, [event.target.name]: event.target.value}));
-
     }
-
-
-
      useEffect(() =>{
 
         const fetchData  = async () => {
@@ -115,7 +104,7 @@ const AddAddress = () => {
 
       </div>
 
-      <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>
+      <button className="btn btn-primary btn-sm" type="submit" onClick={(e) => handleSubmit(e)}>
 
         Create
 
