@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import UserOrdersService from "../services/UserOrdersService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link, Route, useHistory, useParams} from "react-router-dom";
 import AddressService from "../services/AddressService";
 import UserService from "../services/UserService";
 import UserRoleService from "../services/UserRoleService";
@@ -14,6 +13,7 @@ const EditOrders = () => {
   const history = useHistory();
 
   const handleSubmit = async () => {
+    console.log(orders);
     await UserOrdersService.update(orders.orderId, orders);
   };
 
@@ -26,7 +26,11 @@ const EditOrders = () => {
       console.log(orders);
     }
     if(event.target.name === "addressId"){
-      orders.addressId.addressId = event.target.value;
+      async function check() {
+        const response = await AddressService.getAddressById(event.target.value);
+          orders.addressId = response.data;
+        }
+        check();      
       console.log(orders);
     }      
   }
@@ -39,7 +43,6 @@ const EditOrders = () => {
         setOrders(response.data);
         const result = await AddressService.findAllAddresses();
         setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId.userId}));
-        console.log(result.data.map(a=>a.addressId));
       } catch (error) {
         console.log(error);
       }
@@ -51,7 +54,6 @@ const EditOrders = () => {
       const roleRes = await UserRoleService.findAllUserRole();
       var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
-      console.log(roles);
       if (roles != 1) {
           history.push("/");
       }
