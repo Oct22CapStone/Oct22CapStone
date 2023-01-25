@@ -4,6 +4,7 @@ import ProductService from "../services/ProductService";
 import { Link, Route, useHistory } from "react-router-dom";
 import UserService from "../services/UserService";
 import UserOrdersService from "../services/UserOrdersService";
+import UserRoleService from "../services/UserRoleService";
 
 
 
@@ -11,10 +12,32 @@ const UserOrders = () => {
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState("");
+	const history = useHistory();
 
 
 	useEffect(() =>{
+		const fetchRole = async () => {
+            const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 1) {
+                history.push("/");
+            }
+		}
+
+		fetchRole();
+
 		const fetchData  = async () => {
+			const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 0) {
 			setLoading(true);
 			try {
                 const email = JSON.parse(localStorage.getItem("userEmail"));           
@@ -27,7 +50,9 @@ const UserOrders = () => {
 			}
 		
 			setLoading(false);
-		};
+		}
+	};
+		
 		fetchData();
 		
 	}, []);

@@ -1,24 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from 'semantic-ui-react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Route, useHistory} from 'react-router-dom';
 import UserRoleService from "../services/UserRoleService";
+import UserService from "../services/UserService";
+
+
+
 export default function ViewUser() {
   const [users, setUsers] = useState([]);
+  const history = useHistory();
   const [query, setQuery] = useState('');
   const [filterdata, setFilterData] = useState([]);
   const onDelete = (userId) => {
     axios.delete(`https://backendecommerce.azurewebsites.net/userpage/delete/${userId}`);
     setUsers(users.filter((usr) => { return usr.user.userId !== userId; }));
+    
   }
   useEffect(() => {
+
+    const fetchRole = async () => {
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      console.log(roles);
+      if (roles != 1) {
+          history.push("/");
+      }
+    }
+
     const getUserData = async () => {
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      console.log(roles);
+      if (roles != 0) {
       const req = await UserRoleService.findAllUserRole();
       setUsers(req.data);
       setFilterData(req.data);
     }
-    getUserData();
+  }
+      fetchRole();
+
+      getUserData();
   }, []);
+
   const handlesearch = (event) => {
     const getSearch = event.target.value;
     if (getSearch.length > 0) {
