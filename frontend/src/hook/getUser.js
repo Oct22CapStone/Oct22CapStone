@@ -13,8 +13,9 @@ const useAuthUser = () => {
                 const email = authState.idToken.claims.email;
                 localStorage.setItem("userEmail",JSON.stringify(authState.idToken.claims.email));
                 const doesExist = await UserService.checkUser(email);
-                const firstName = authState.idToken.claims.firstName;
-                const lastName = authState.idToken.claims.lastName;
+                const name = authState.idToken.claims.name;
+                const firstName = name.split(' ').slice(0, -1).join(' ');
+                const lastName = name.split(' ').slice(-1).join(' ');
                 const phone = authState.idToken.claims.primaryPhone;
                 const user = {email,firstName,lastName,phone};
                 if(doesExist !== true){
