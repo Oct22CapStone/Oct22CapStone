@@ -33,6 +33,7 @@ const Nav = () => {
         oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
         oktaAuth.closeSession();
         localStorage.setItem("okta-shared-transaction-storage", "");
+        localStorage.setItem("cart","[]");
         refreshPage();
     };
     useEffect(() => {
