@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import OrderItemService from "../services/OrderItemService";
 import { useParams } from "react-router-dom";
 import UserOrdersService from "../services/UserOrdersService";
+import UserRoleService from "../services/UserRoleService";
+import UserService from "../services/UserService";
+import { useHistory } from "react-router-dom";
 
 const OrderDetails = () => {
 
@@ -9,10 +12,18 @@ const OrderDetails = () => {
     const [order, setOrder] = useState([]);
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true);
-
+	const history = useHistory();
 
     useEffect(() => {
-
+        const fetchOrder = async () => {
+            const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const response = await UserOrdersService.getById(id);
+            if (userRes.data.userId !== response.data.userId.userId) {
+                history.push("/userorders");
+            }
+		}
+        fetchOrder();
         const fetchData = async () => {
             try {
                 setLoading(true);

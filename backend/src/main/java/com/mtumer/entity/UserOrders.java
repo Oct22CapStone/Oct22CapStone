@@ -47,7 +47,7 @@ public class UserOrders {
 	private Address addressId;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY)
 	private List<OrderItem> OrderItems;
 
 }

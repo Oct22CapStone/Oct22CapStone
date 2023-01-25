@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtumer.entity.UserOrders;
 import com.mtumer.services.UserOrdersService;
 
+@CrossOrigin(origins = {"https://vehiclevault.azurewebsites.net", "http://localhost:3000"})
 @RestController
 @RequestMapping("/user_orders")
 public class UserOrdersController {
@@ -45,8 +47,8 @@ public class UserOrdersController {
 		return new ResponseEntity<UserOrders>(savedUserOrders, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update/{order_id}")
-	public ResponseEntity<UserOrders> updateUserOrders(@PathVariable("order_id") Long orderId,
+	@PutMapping("/update/{id}")
+	public ResponseEntity<UserOrders> updateUserOrders(@PathVariable("id") Long orderId,
 			@RequestBody UserOrders userOrders) {
 		Optional<UserOrders> updateuserOrders = userOrdersService.getUserOrdersById(orderId);
 		if (!updateuserOrders.isPresent()) {
