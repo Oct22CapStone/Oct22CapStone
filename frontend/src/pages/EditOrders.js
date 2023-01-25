@@ -15,6 +15,7 @@ const EditOrders = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await UserOrdersService.update(orders.orderId, orders);
+    history.push("/orders");
   };
 
   const handleChange = (event) => {
