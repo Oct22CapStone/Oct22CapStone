@@ -12,8 +12,8 @@ const EditOrders = () => {
   const [address, setAddress] = useState([]);
   const history = useHistory();
 
-  const handleSubmit = async () => {
-    console.log(orders);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     await UserOrdersService.update(orders.orderId, orders);
   };
 
@@ -23,7 +23,6 @@ const EditOrders = () => {
     }
     if(event.target.name === "trackingInfo"){
       orders.trackingInfo = event.target.value;
-      console.log(orders);
     }
     if(event.target.name === "addressId"){
       async function check() {
@@ -31,7 +30,6 @@ const EditOrders = () => {
           orders.addressId = response.data;
         }
         check();      
-      console.log(orders);
     }      
   }
 
@@ -59,9 +57,6 @@ const EditOrders = () => {
       }
 }
   fetchRole();
-
-
-
     if (id && id !== "")
       fetchData();
   }, [id]);
@@ -90,7 +85,7 @@ const EditOrders = () => {
               </select>
             </label>
           </div>
-          <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>
+          <button className="btn btn-primary btn-sm" type="submit" onClick={(e) => handleSubmit(e)}>
             Update
           </button>
         </form>
