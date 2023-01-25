@@ -37,7 +37,7 @@ export default function ViewUser() {
       var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
       console.log(roles);
-      if (roles != 0) {
+      if (roles != 2) {
       const req = await UserRoleService.findAllUserRole();
       setUsers(req.data);
       setFilterData(req.data);

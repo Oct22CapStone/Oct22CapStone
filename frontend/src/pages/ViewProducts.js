@@ -39,7 +39,7 @@ const ViewProducts = () => {
             var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
                 map(function (r) { return r.role.roleId });
             console.log(roles);
-            if (roles != 0) {
+            if (roles != 2) {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
