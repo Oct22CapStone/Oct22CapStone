@@ -4,6 +4,7 @@ import UserOrdersService from "../services/UserOrdersService";
 import UserService from "../services/UserService";
 import { useHistory } from "react-router-dom";
 import OrderItemService from "../services/OrderItemService";
+import axios from "axios";
 
 
 function Success() {
@@ -38,7 +39,22 @@ function Success() {
 
                 setLoading(false);
                 localStorage.setItem("cart","[]");
-
+                const mailTemplate = {
+                    recipient: response.data.email,
+                    msgBody: `
+                        Hello, ${response.data.firstName}, thank you for your purchase. 
+                        Your order will be delivered to ${addr.data.street} ${addr.data.city} ${addr.data.state} ${addr.data.zip} ${addr.data.country}
+                        Tracking info: ${tracking}.
+                      `,
+                    subject: "Thank you for your purchase!"
+                  }
+                  const sendEmail = async (event) => {
+                    axios({
+                      method: "POST",
+                      url: "https://backendecommerce.azurewebsites.net/email/send",
+                      data: mailTemplate
+                    })}
+                    sendEmail();
                 history.push(`/orderdetails/${newOrder.data.orderId}`);
             } catch (error) {
                 console.log(error);
