@@ -31,9 +31,7 @@ const ViewProducts = () => {
                 history.push("/");
             }
 		}
-       
-		
-
+    
 		const fetchData  = async () => {
 			const email = JSON.parse(localStorage.getItem("userEmail"));
             const userRes = await UserService.getUserByEmail(email);

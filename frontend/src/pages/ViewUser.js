@@ -30,7 +30,6 @@ export default function ViewUser() {
           history.push("/");
       }
     }
-
     const getUserData = async () => {
       const email = JSON.parse(localStorage.getItem("userEmail"));
       const userRes = await UserService.getUserByEmail(email);

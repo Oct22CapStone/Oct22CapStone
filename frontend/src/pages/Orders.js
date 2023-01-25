@@ -32,7 +32,6 @@ const Orders = () => {
 		}
 
 		fetchRole();
-
 		const fetchData  = async () => {
 			const email = JSON.parse(localStorage.getItem("userEmail"));
             const userRes = await UserService.getUserByEmail(email);

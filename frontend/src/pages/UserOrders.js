@@ -56,7 +56,6 @@ const UserOrders = () => {
 		fetchData();
 		
 	}, []);
-
 	return (				
 		<>{!loading &&(
 		<div>
