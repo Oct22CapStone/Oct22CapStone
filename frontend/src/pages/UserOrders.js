@@ -11,7 +11,7 @@ const UserOrders = () => {
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState("");
-
+	const history = useHistory();
 
 	useEffect(() =>{
 		const fetchData  = async () => {
