@@ -48,7 +48,7 @@ const Nav = () => {
             const roleRes = await UserRoleService.findAllUserRole();
             var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
                 map(function (r) { return r.role.roleId });
-            console.log(roles);
+            //console.log(roles);
             if (roles == 1) {
                 setIsAdmin(true);
                 //refreshPage();

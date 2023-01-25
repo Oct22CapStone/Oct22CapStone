@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import UserOrdersService from "../services/UserOrdersService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { useParams,Link, Route, useHistory } from "react-router-dom";
 import AddressService from "../services/AddressService";
 
 const EditOrders = () => {
   const { id } = useParams();
   const [orders, setOrders] = useState("");
   const [loading, setLoading] = useState(true);
-  const [address, setAddress] = useState([]);
+  const [address, setAddress] = useState("");
 
   const handleSubmit = async () => {
     await UserOrdersService.update(orders.orderId, orders);
@@ -17,6 +16,7 @@ const EditOrders = () => {
   const handleChange = (event) => {
     if(event.target.name === "totalPrice"){
       orders.totalPrice = event.target.value;
+      console.log(orders);
     }
     if(event.target.name === "trackingInfo"){
       orders.trackingInfo = event.target.value;
@@ -37,13 +37,11 @@ const EditOrders = () => {
         const result = await AddressService.findAllAddresses();
         setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId.userId}));
         console.log(result.data.map(a=>a.addressId));
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+        console.error('EDIT ORDER ERROR'+ e);
       }
       setLoading(false);
     };
-
-
 
     if (id && id !== "")
       fetchData();
