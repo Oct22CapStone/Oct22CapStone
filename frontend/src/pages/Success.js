@@ -44,7 +44,10 @@ function Success() {
                     msgBody: `
                         Hello, ${response.data.firstName}, thank you for your purchase. 
                         Your order will be delivered to ${addr.data.street} ${addr.data.city} ${addr.data.state} ${addr.data.zip} ${addr.data.country}
+                        Order Id: ${newOrder.data.orderId}
                         Tracking info: ${tracking}.
+                        Invoice date: ${date}.
+                        Order Total: $${price}.
                       `,
                     subject: "Thank you for your purchase!"
                   }
