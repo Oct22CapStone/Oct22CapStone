@@ -3,13 +3,15 @@ import AddressService from "../services/AddressService";
 import { Link, useParams } from "react-router-dom";
 import UserService from "../services/UserService";
 import useAuthUser from "../hook/getUser";
+import UserRoleService from "../services/UserRoleService";
 
 const Profile = () => {
     const userInfo = useAuthUser();
     const [address, setAddress] = useState([]);
     const [users, setUsers] = useState("");
     const [loading, setLoading] = useState(true);
-
+    const [isAdmin, setIsAdmin] = useState(false);
+    var roles;
 
     async function deleteAddress(id, e) {
         console.log(id);
@@ -21,29 +23,57 @@ const Profile = () => {
         );
     };
 
+    function GetRole() {
+        if (isAdmin) {
+            return (
+                <p>Admin</p>
+                
+            );
+        } else {
+            return (
+                <p>Customer</p>
+            );
+        }
+    }//kenzie
+
     useEffect(() => {
-        const fetchData  = async () => {        
+        const fetchData  = async () => {
             try { 
                 setLoading(true);  
                 const email = JSON.parse(localStorage.getItem("userEmail"));       
                 const response = await UserService.getUserByEmail(email);  
                 setUsers(response.data);   
+                const roleRes = await UserRoleService.findAllUserRole();
+                roles = roleRes.data.filter(a => { return a.user.userId === response.data.userId }).
+                    map(function (r) { return r.role.roleId });
+                if (roles == 1) {
+                    setIsAdmin(true);
+                } else {
+                    setIsAdmin(false);
+                }
                 const result = await AddressService.findAllAddresses();
                 setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId}));
-                console.log(address);
+                console.log(roles + "<<roles");
             } catch(error) {
                 console.log(error);
-            }   
-            setLoading(false);         
+            }
+
+            setLoading(false);
         }; 
 
-        fetchData();
+        //SET A TIMEOUT FOR PROPER LOADING OF USER'S DATA
+        //see https://reactgo.com/settimeout-in-react-hooks/ for info
+        setTimeout(() => fetchData(), 1000);//KENZIE
+        const timer = setTimeout(() => console.log('Initial timeout!'), 1000);//KENZIE
+        clearTimeout(timer);//KENZIE
     }, []);
-
+    
 
     return (
         <>{!loading && (
+
             <section style={{ backgroundColor: "#fdddc3" }}>
+                
                 <div className="container py-5">
                     <div className="row">
                     <div className="col-lg-4">
@@ -51,7 +81,7 @@ const Profile = () => {
                            <div className="card-body text-center">
                                <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" alt="Admin" className="rounded-circle" width="150"></img>
                                <h5 className="my-3">{userInfo?.given_name} {userInfo?.family_name}</h5>
-                               <p className="text-muted mb-1">Customer</p>
+                               <GetRole/>
                                <div className = "mb-1">
                                     <Link to="/userorders" className = "btn-link btn active">My Orders</Link>
                                 </div>
@@ -116,7 +146,7 @@ const Profile = () => {
                                     </li>
                                  
 
-                                 
+                              
                                     
                                  </ul>
 

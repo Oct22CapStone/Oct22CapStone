@@ -94,8 +94,7 @@ const ViewProducts = () => {
               	<input type="text" name='productName' value={query} placeholder="Search by product name.." onChange={(e)=>handlesearch(e)}></input>
               </div>
             </span>
-			{/* END SEARCH BAR */}
-			<Link to="/addproduct" className="btn btn-primary btn-sm">Add New Product</Link>
+			{/* END SEARCH BAR */}			
 			<table className="table">
 
 			<div className = "card">
