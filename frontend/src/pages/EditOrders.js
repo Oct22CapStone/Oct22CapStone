@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import UserOrdersService from "../services/UserOrdersService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link, Route, useHistory, useParams} from "react-router-dom";
 import AddressService from "../services/AddressService";
 import UserService from "../services/UserService";
 import UserRoleService from "../services/UserRoleService";
@@ -13,8 +12,10 @@ const EditOrders = () => {
   const [address, setAddress] = useState([]);
   const history = useHistory();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     await UserOrdersService.update(orders.orderId, orders);
+    history.push("/orders");
   };
 
   const handleChange = (event) => {
@@ -23,11 +24,13 @@ const EditOrders = () => {
     }
     if(event.target.name === "trackingInfo"){
       orders.trackingInfo = event.target.value;
-      console.log(orders);
     }
     if(event.target.name === "addressId"){
-      orders.addressId.addressId = event.target.value;
-      console.log(orders);
+      async function check() {
+        const response = await AddressService.getAddressById(event.target.value);
+          orders.addressId = response.data;
+        }
+        check();      
     }      
   }
 
@@ -39,7 +42,6 @@ const EditOrders = () => {
         setOrders(response.data);
         const result = await AddressService.findAllAddresses();
         setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId.userId}));
-        console.log(result.data.map(a=>a.addressId));
       } catch (error) {
         console.log(error);
       }
@@ -51,15 +53,11 @@ const EditOrders = () => {
       const roleRes = await UserRoleService.findAllUserRole();
       var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
-      console.log(roles);
       if (roles != 1) {
           history.push("/");
       }
 }
   fetchRole();
-
-
-
     if (id && id !== "")
       fetchData();
   }, [id]);
@@ -88,7 +86,7 @@ const EditOrders = () => {
               </select>
             </label>
           </div>
-          <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>
+          <button className="btn btn-primary btn-sm" type="submit" onClick={(e) => handleSubmit(e)}>
             Update
           </button>
         </form>

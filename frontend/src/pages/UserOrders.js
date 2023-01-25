@@ -14,7 +14,6 @@ const UserOrders = () => {
     const [users, setUsers] = useState("");
 	const history = useHistory();
 
-
 	useEffect(() =>{
 		const fetchRole = async () => {
             const email = JSON.parse(localStorage.getItem("userEmail"));
