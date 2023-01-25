@@ -149,10 +149,10 @@ const ViewProducts = () => {
         </li>
         <li className="list-inline-item">
 			{(showProduct) && 
-            <button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-eye"></i></button>
+            <button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Deactivate"><i className="fa fa-eye"></i></button>
 }
 {!(showProduct) &&
-	<button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-eye-slash"></i></button>
+	<button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Activate"><i className="fa fa-eye-slash"></i></button>
 }
         </li>
         </ul>
