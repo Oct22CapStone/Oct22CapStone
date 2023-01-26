@@ -104,7 +104,7 @@ const Profile = () => {
                                     <h3>Your Information</h3>
                                     <div className="row">
                                         <ul className="list-unstyled mb-1-9">
-                                            <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Full Name:</span> {userInfo?.given_name} {userInfo?.family_name}</li>
+                                            <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Full Name:</span> {users.firstName} {users.lastName}</li>
                                         </ul>
                                         <ul className="list-unstyled mb-1-9">
                                             <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {users.email}</li>
