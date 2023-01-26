@@ -80,6 +80,7 @@ export default class RegistryForm extends React.Component {
   }
 
 
+
   handleRegister = async (event) => {
     event.preventDefault();
     this.setState({ message: "" });
@@ -106,6 +107,16 @@ export default class RegistryForm extends React.Component {
 
         this.setState({ message: "Thanks for registering! You will get an email shortly to set up your password." });
         this.setState({ formValid: false });
+        let mailerInfo ={
+          recipient: this.state.email,
+          msgBody: `${this.state.firstName}, thank you for creating an account. Please enjoy your shopping experience.`,
+          subject: "Welcome to Vehicle Vault!"
+        }
+        axios({//More email stuff
+          method: "POST",
+          url:"https://backendecommerce.azurewebsites.net/email/send",
+          data:  mailerInfo
+        })
       } else {
         this.setState({ message: "Email already exists" });
         this.setState({ isError: true });

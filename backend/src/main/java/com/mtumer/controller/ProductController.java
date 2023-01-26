@@ -96,6 +96,7 @@ public class ProductController {
 		newProduct.setProductName(product.getProductName());
 		newProduct.setProductQty(product.getProductQty());
 		newProduct.setProductQty(product.getProductQty());
+		newProduct.setPriceCode(product.getPriceCode());
 		newProduct.setShowProduct(product.isShowProduct()); // added
 		productService.update(newProduct);
 //		if(newProduct.getProductQty() < 3) {

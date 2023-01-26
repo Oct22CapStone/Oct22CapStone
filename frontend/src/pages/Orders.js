@@ -18,17 +18,7 @@ const Orders = () => {
 	const [query, setQuery] = useState('');
 
 	useEffect(() =>{
-		const fetchData  = async () => {
-			setLoading(true);
-			try {
-				const ordersResponse = await UserOrdersService.getAllUserOrders();
-				setOrders(ordersResponse.data);
-				setFilterData(ordersResponse.data);
-			} catch(error) {
-				console.log(error);
-			}
-			setLoading(false);
-		};
+
 		const fetchRole = async () => {
             const email = JSON.parse(localStorage.getItem("userEmail"));
             const userRes = await UserService.getUserByEmail(email);
@@ -40,7 +30,27 @@ const Orders = () => {
                 history.push("/");
             }
 		}
-        fetchRole();
+
+		fetchRole();
+		const fetchData  = async () => {
+			const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 2) {
+			setLoading(true);
+			try {
+				const ordersResponse = await UserOrdersService.getAllUserOrders();
+				setOrders(ordersResponse.data);
+				setFilterData(ordersResponse.data);
+			} catch(error) {
+				console.log(error);
+			}
+			setLoading(false);
+		}
+	};
 		fetchData();
 	}, []);
 

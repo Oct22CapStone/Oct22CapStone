@@ -26,6 +26,7 @@ import PopularItems from "./pages/PopularItems";
 import Login from "./pages/Login";
 import Success from "./pages/Success";
 import LatestProducts from "./pages/LatestProducts";
+import Help from "./pages/Help";
 
 
 
@@ -65,6 +66,7 @@ const Routes = () => {
 				<SecureRoute path="/addproduct" component={AddProduct}/>	
 				<SecureRoute path="/editproducts/:id" exact={true} component={EditProducts}/>
 				<SecureRoute path="/editaddress/:id" exact={true} component={EditAddress}/>
+				<SecureRoute path="/help/:id" exact={true} component={Help}/>
 				<SecureRoute path="/orders" exact={true} component={Orders}/>
 				<SecureRoute path="/userorders" exact={true} component={UserOrders}/>
 				<SecureRoute path="/orderdetails/:id" exact={true} component={OrderDetails}/>
