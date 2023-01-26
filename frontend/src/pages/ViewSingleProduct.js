@@ -9,78 +9,108 @@ import Nav from "../components/Navbar/PageWrapper";
 
 
 const ViewSingleProduct = () => {
-
-
-
     const { id } = useParams();
-
     const [product, setProduct] = useState("");
+    const [productSet, setProductSet] = useState("");
+    const [canAdd, setCanAdd] = useState(0);
+    const [num, setNum] = useState();
+    const[currentProduct, setCurrentProduct] = useState("");
+    const [buttonClicked, setButtonClicked] = useState(1);
     var isDupe = 1;
+    //var isDupe = 1;
 
-    var isDupe = 1;
+    // const addToCart = () => {
+    //     if(localStorage.getItem("cart") == null){
+    //         localStorage.setItem("cart","[]");
+    //     }
+    //     const items = JSON.parse(localStorage.getItem("cart"));
+    //     const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
+    //         productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode: product.priceCode};
+    //     for(var i in items){
+    //         if (items[i].productId === data.productId) {
+    //             //window.confirm(data.productName + " is already in your cart.");
+    //             setCanAdd(2);
+    //             //window.location.reload(true);
+    //             isDupe = 0;
+    //         }
+    //     }
 
+    //     if(isDupe !== 0){
+    //         items.push(data);
+    //         localStorage.setItem("cart", JSON.stringify(items));
+    //         setCanAdd(1);
+    //         //window.confirm(data.productName +" has been added to your cart.");
+    //         //window.location.reload(true);
+    //     }
+    //  }
+
+    useEffect(() => {
+         const fetchData = async () => {
+            try {
+                setCanAdd(0);   
+                const response = await ProductService.getProductById(id);
+                setProduct(response.data);   
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        if (id && id !== "")
+            fetchData();
+    }, []);
+
+    function containsObject(list, obj) {
+        if (list != null){
+            var i = 0;
+            while(i < (list.length)){
+                if( JSON.stringify(list[i]) == JSON.stringify(obj) ){
+                    return true;
+                }
+                i++;
+            }
+        }
+        return false; 
+    }
+    
+    function localObj(){
+        const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
+            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode:product.priceCode};
+        setCurrentProduct(data);
+        return data;
+    }
 
 
     const addToCart = () => {
-
+        setButtonClicked();
         if(localStorage.getItem("cart") == null){
-
             localStorage.setItem("cart","[]");
-
         }
-
         const items = JSON.parse(localStorage.getItem("cart"));
-
-        const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
-
-            productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode: product.priceCode};
-
-        for(var i in items){
-
-            if (items[i].productId === data.productId) {
-
-                window.confirm(data.productName + " is already in your cart.");
-
-                isDupe = 0;
-            }
-        }
-
-        if(isDupe !== 0){
-
+        const data = localObj();
+        if(!containsObject(items, data)){
             items.push(data);
-
             localStorage.setItem("cart", JSON.stringify(items));
-
-            window.confirm(data.productName +" has been added to your cart.");
-
-            window.location.reload(true);
-
+            window.parent.updateCartTotal();
+            setCanAdd(1);
         }
-     }
-
+        else{
+            setCanAdd(2);
+        }  
+    } 
+	
+    function setId(productId){
+        setNum(productId);
+        setCanAdd(0);
+    };
+    
     useEffect(() => {
+        setProductSet(product);           
+    }, [num]);
 
-        const fetchData = async () => {
-
-            try {
-
-                const response = await ProductService.getProductById(id);
-
-                setProduct(response.data);            
-
-            } catch (error) {
-
-                console.log(error);
-
-            }
-
-        };
-
-        if (id && id !== "")
-
-            fetchData();
-
-    }, [id]);
+    useEffect(() =>{
+        if (num && num != 0){
+            addToCart();
+        }
+    }, [productSet])
     
     return (
 
@@ -114,8 +144,13 @@ const ViewSingleProduct = () => {
 
                     <div className="d-flex">
 
-                        <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button>
+                        {/* <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> */}
+                        <div>
 
+                        {(buttonClicked) && <button onClick={(e) => setId(product.productId)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>}
+                        {(num == product.productId) && (canAdd == 1) && <div className="alert alert-success" role="alert">Added Successfully</div>}
+                        {(num == product.productId) && (canAdd == 2) && <div className="alert alert-danger" role="alert">Item Already in Cart</div>}
+                        </div>                                
                         <br></br>                      
 
                     </div>
