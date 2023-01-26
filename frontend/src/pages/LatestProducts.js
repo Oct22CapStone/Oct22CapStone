@@ -107,9 +107,9 @@ const LatestProducts = () => {
         }
         else{
             setCanAdd(2);
-        }
-        
+        }  
     } 
+	
     function setId(productId){
         setNum(productId);
         setCanAdd(0);
