@@ -116,7 +116,7 @@ const LatestProducts = () => {
     };
     
     useEffect(() => {
-        fetch(`https://backendecommerce.azurewebsites.net/product/${num}`)
+        fetch(`https://vehiclevault.azurewebsites.net/product/${num}`)
             .then((res) => res.json())
             .then((data) => {
                 setProduct(data);

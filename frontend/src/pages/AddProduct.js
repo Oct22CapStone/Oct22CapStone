@@ -1,9 +1,27 @@
 import ProductService from "../services/ProductService";
 import { Link, Route, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
+import UserRoleService from "../services/UserRoleService";
+import UserService from "../services/UserService";
 const AddProduct = () => {   
     const [product, setProduct] = useState("");
     const history = useHistory();
+
+    useEffect(() => {
+      const fetchRole = async () => {
+        const email = JSON.parse(localStorage.getItem("userEmail"));
+        const userRes = await UserService.getUserByEmail(email);
+        const roleRes = await UserRoleService.findAllUserRole();
+        var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+            map(function (r) { return r.role.roleId });
+        if (roles != 1) {
+            history.push("/");
+        }
+      }
+      fetchRole();
+    })
+
+
     const handleSubmit = async (event) =>{
       event.preventDefault();
         await ProductService.createProduct(product);

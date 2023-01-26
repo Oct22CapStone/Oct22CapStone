@@ -139,8 +139,8 @@ const Home = () => {
 							<div className="row">
 								{/* SEARCH BAR */}
 								<span>
-								<div className="container">
-									<input type="text" name='productName' value={query} placeholder="Search by product name.." onChange={(e)=>handlesearch(e)}></input>
+								<div className="container mb-4 text-end">
+									<input type="text" name='productName' value={query} placeholder="Search by product name .." onChange={(e)=>handlesearch(e)}></input>
 								</div>
 								</span>
 								{/* END SEARCH BAR */}
@@ -148,10 +148,11 @@ const Home = () => {
 									(productItems, index) => (
 										<div key={index} className="col-lg-4 col-4 d-flex">
 											<div style={{ width: "30rem" }} className="card">
-
+												
 												<Link to={`/viewsingleproduct/${productItems.productId}`}>
-													<img className="card-img-top image-fluid" src={productItems.productImg} alt={productItems.productDescription} />
+													<img className="card-img-top img-fluid" src={productItems.productImg} alt={productItems.productDescription}/>
 												</Link>
+											
 
 												<div className="card-body p-4">
 													<div className="text-center">
