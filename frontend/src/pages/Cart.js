@@ -164,37 +164,56 @@ return (
                   Cart
                 </MDBTypography>
               </MDBCardHeader>
-              {items.map(
-                ({ productId, productName, pricePerUnit, productImg, productDescription }) => (
-                  <MDBCardBody key={productId}>
+
+              {
+                totalPrice === 0 ?(
+                  <MDBCardBody>
                     <MDBRow>
-                      <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
-                        <MDBRipple rippleTag="div" rippleColor="light"
-                          className="bg-image rounded hover-zoom hover-overlay">
-                          <img src={productImg} className="w-100" />
-                        </MDBRipple>
-                      </MDBCol>
-                      <MDBCol lg="5" md="6" className=" mb-4 mb-lg-0">
-                        <p>
-                          <strong>{productName}</strong>
-                        </p>
-                        <p>{productDescription}</p>
-                      </MDBCol>
-                      <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
-                        <div className="text-start text-md-center">
-                          <strong>${pricePerUnit}</strong>
-                          <p>{addToChosenItems(productId, pricePerUnit, "1")}</p>
-                        </div>
-                        <div className="text-center">
-                          <button onClick={(e) => deleteProduct(productId, e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
-                        </div>
-                      </MDBCol>
                       <MDBCol>
+                      <div class="col-sm-12 empty-cart-cls text-center">
+									      <img src="https://res.cloudinary.com/db5fpphyj/image/upload/v1674748189/CapstoneImages/cart_icon.png" width="130" height="130" class="img-fluid mb-4 mr-3"/>
+									      <h3><strong>Your Cart is Empty</strong></h3>
+									      <h4>Please Select Continue Shopping to Browse Our Products</h4>
+                      </div>
                       </MDBCol>
                     </MDBRow>
                   </MDBCardBody>
+                ) : (
+                  <div>
+                  {items.map(
+                    ({ productId, productName, pricePerUnit, productImg, productDescription }) => (
+                      
+                      <MDBCardBody key={productId}>
+                        <MDBRow>
+                          <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
+                            <MDBRipple rippleTag="div" rippleColor="light"
+                              className="bg-image rounded hover-zoom hover-overlay">
+                              <img src={productImg} className="w-100" />
+                            </MDBRipple>
+                          </MDBCol>
+                          <MDBCol lg="5" md="6" className=" mb-4 mb-lg-0">
+                            <p>
+                              <strong>{productName}</strong>
+                            </p>
+                            <p>{productDescription}</p>
+                          </MDBCol>
+                          <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
+                            <div className="text-start text-md-center">
+                              <strong>${pricePerUnit}</strong>
+                              <p>{addToChosenItems(productId, pricePerUnit, "1")}</p>
+                            </div>
+                            <div className="text-center">
+                              <button onClick={(e) => deleteProduct(productId, e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
+                            </div>
+                          </MDBCol>
+                          <MDBCol>
+                          </MDBCol>
+                        </MDBRow>
+                      </MDBCardBody>
+                    ))}
+                    </div>
                 )
-              )}
+              }
               <MDBBtn href="/" block size="lg">Continue Shopping</MDBBtn>
             </MDBCard>
           </MDBCol>
@@ -202,7 +221,7 @@ return (
             <MDBCard className="mb-4">
               <MDBCardHeader>
                 <MDBTypography tag="h5" className="mb-0">
-                  Order Summary
+                  <strong>Order Summary</strong>
                 </MDBTypography>
               </MDBCardHeader>
 
