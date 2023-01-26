@@ -54,7 +54,8 @@ const UserOrders = () => {
 					<thead className="font-weight-bold">
 						<tr>
 							<th scope="col">Order Id</th>
-							<th scope="col"></th>
+							<th scope="col">Reciept</th>
+							<th scope="col">Address</th>
 							<th scope="col">Order Date</th>
 							<th scope="col">Tracking Info</th>
 							<th scope="col">Total</th>
@@ -63,18 +64,19 @@ const UserOrders = () => {
 					</thead>
 					<tbody>
 						{orders.map(
-							({ orderId, orderDate, trackingInfo, totalPrice }) => (
+							({ orderId, orderDate, trackingInfo, totalPrice , addressId}) => (
 
 								<tr key={orderId}>
-									<td>{orderId}</td>
+									<td>{orderId}</td>									
 									<td><Link to={`/orderdetails/${orderId}`}>Order Details</Link></td>
+									<td><td>{addressId.street} {addressId.city} {addressId.state} {addressId.zip} {addressId.country}</td></td>
 									<td>{orderDate}</td>
 									<td>{trackingInfo}</td>
 									<td>${totalPrice}</td>
 									<td>
 										<ul className="list-inline m-0">
 											<li className="list-inline-item">
-												<Link to={`/help`} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top">Request Help?</Link>
+												<Link to={`/help/${orderId}`} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top">Request Help?</Link>
 											</li>
 										</ul>
 									</td>

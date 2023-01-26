@@ -16,7 +16,7 @@ const useAuthUser = () => {
                 const name = authState.idToken.claims.name;
                 const firstName = name.split(' ').slice(0, -1).join(' ');
                 const lastName = name.split(' ').slice(-1).join(' ');
-                const phone = authState.idToken.claims.primaryPhone;
+                const phone = authState.idToken.claims.phone_number;
                 const user = {email,firstName,lastName,phone};
                 if(doesExist !== true){
                     const newUser = await UserService.createUser(user);       

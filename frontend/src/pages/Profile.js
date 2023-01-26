@@ -110,13 +110,8 @@ const Profile = () => {
                                             <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Email:</span> {users.email}</li>
                                         </ul>
                                         <ul className="list-unstyled mb-1-9">
-                                            <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Username:</span> {userInfo?.preferred_username}</li>
-                                        </ul>
-                                        <ul className="list-unstyled mb-1-9">
                                             <li className="mb-2 mb-xl-3 display-28"><span className="display-26 text-secondary me-2 font-weight-600">Phone Number:</span>{users.phone}</li>
                                         </ul>
-
-
                                     </div>
                                 </div>
 
