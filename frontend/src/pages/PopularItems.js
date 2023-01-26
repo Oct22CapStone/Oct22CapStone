@@ -124,7 +124,7 @@ const PopularItems = () => {
     };
     
     useEffect(() => {
-        fetch(`http://localhost:8181/product/${num}`)
+        fetch(`https://vehiclevault.azurewebsites.net/product/${num}`)
             .then((res) => res.json())
             .then((data) => {
                 setProduct(data);
