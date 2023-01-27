@@ -35,7 +35,7 @@ public class UsersService {
 		
 		for (Users users : userList) {
 			if(users.getEmail() != null) {
-//				System.out.println((users.getEmail().toString()).equals(email));
+
 				if((users.getEmail().toString()).equals(email)) {
 					return true;					
 				}
@@ -49,7 +49,7 @@ public class UsersService {
 		Users user = new Users();
 		for (Users users : userList) {
 			if(users.getEmail() != null) {
-//				System.out.println((users.getEmail().toString()).equals(email));
+
 				if((users.getEmail().toString()).equals(email)) {
 					user = users;
 					return user;					
