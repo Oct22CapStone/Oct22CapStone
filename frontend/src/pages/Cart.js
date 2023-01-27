@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import {
   MDBBtn,
@@ -20,6 +21,7 @@ import {
 import UserService from "../services/UserService";
 import AddressService from "../services/AddressService";
 import useAuthUser from "../hook/getUser";
+import UserRoleService from "../services/UserRoleService";
 
 
 import { loadStripe } from "@stripe/stripe-js";
@@ -29,7 +31,7 @@ let stripePromise;
 let lineItems = [];
 var fetchId = 0;
 var isError = true;
-//kenzie was here
+
 const getStripe = () => {
   if (!stripePromise) {
     stripePromise = loadStripe('pk_test_51MRo02LTsOAchG7BnVUUeC0aspLHGIxkEhR44jO5EKy1m7cgVhKeiPrudWZTQNoYn47dmfXgEhQwfbwuYPEx644i00S2Fn0ocZ');
@@ -63,6 +65,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
   const userInfo = useAuthUser();
   const [shippingAddress, setShippingAddress] = useState([]);
+  const history = useHistory();
   // Populate 'chosenItems' with prices for each product
 
   function addToChosenItems(id, price, quantity) {
@@ -89,9 +92,28 @@ const Cart = () => {
       localStorage.setItem("totalPriceCart", numTotal);
     }
 
-    const fetchData = async () => {//GET CURRENT USER AND THEIR ADDRESS 
+    const fetchRole = async () => {
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      console.log(roles);
+      if (roles != 2) {
+          history.push("/");
+      }
+}
+
+    const fetchData = async () => {//GET CURRENT USER AND THEIR ADDRESS
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      console.log(roles);
+      if (roles != 1) {
+      setLoading(true);
       try {
-        setLoading(true);
         const email = JSON.parse(localStorage.getItem("userEmail"));
         const response = await UserService.getUserByEmail(email);
         setUser(response.data);
@@ -101,10 +123,11 @@ const Cart = () => {
         console.log(error);
       }
       setLoading(false);
-    };
+    }
 
-
+  };
     fetchData();
+    fetchRole();
   }, [items.length]);
 
   function handleChange(event) {
