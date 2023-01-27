@@ -1,2 +1,6 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Oct22CapStone_Oct22CapStone&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Oct22CapStone_Oct22CapStone)
 [![npm version](https://badge.fury.io/js/node.svg)](https://badge.fury.io/js/node)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Oct22CapStone_Oct22CapStone&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Oct22CapStone_Oct22CapStone)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Oct22CapStone_Oct22CapStone&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Oct22CapStone_Oct22CapStone)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Oct22CapStone_Oct22CapStone&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Oct22CapStone_Oct22CapStone)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=oct22capstone_Oct22CapStone&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=oct22capstone_Oct22CapStone)
