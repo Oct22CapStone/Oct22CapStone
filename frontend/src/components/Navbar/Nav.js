@@ -11,8 +11,6 @@ const Nav = () => {
 
 	const loggingOut = async () => {
 		oktaAuth.signOut(); 
-		//oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
-		//oktaAuth.closeSession();
 	 };
 
 	return (

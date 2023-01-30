@@ -8,13 +8,10 @@ import {
   MDBCardImage,
   MDBCol,
   MDBContainer,
-  MDBIcon,
-  MDBInput,
   MDBListGroup,
   MDBListGroupItem,
   MDBRipple,
   MDBRow,
-  MDBTooltip,
   MDBTypography,
 } from "mdb-react-ui-kit";
 import UserService from "../services/UserService";
@@ -23,7 +20,7 @@ import useAuthUser from "../hook/getUser";
 
 
 import { loadStripe } from "@stripe/stripe-js";
-import { render } from "@testing-library/react";
+
 var trainData = [];
 let stripePromise;
 let lineItems = [];
@@ -61,8 +58,7 @@ const Cart = () => {
   const [user, setUser] = useState("");
   const [address, setAddress] = useState([]);
   const [loading, setLoading] = useState(true);
-  const userInfo = useAuthUser();
-  const [shippingAddress, setShippingAddress] = useState([]);
+  const [setShippingAddress] = useState([]);
   // Populate 'chosenItems' with prices for each product
 
   function addToChosenItems(id, price, quantity) {

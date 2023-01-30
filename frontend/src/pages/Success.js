@@ -9,7 +9,7 @@ import OrderItemService from "../services/OrderItemService";
 function Success() {
     const [address, setAddress] = useState(null);
     const history = useHistory();
-    const [loading, setLoading] = useState(true);
+    const [setLoading] = useState(true);
     const [items, setItems] = useState([]);
     var newList = [];
     useEffect(() => {
@@ -17,7 +17,6 @@ function Success() {
             try {
                 setLoading(true);
                 setAddress(JSON.parse(localStorage.getItem('orderAddress')));
-                const cart = JSON.parse(localStorage.getItem("cart"));
                 const current = new Date();
                 const tracking = "Pending";
                 const date = `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}`;

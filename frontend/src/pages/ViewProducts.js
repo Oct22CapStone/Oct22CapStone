@@ -1,16 +1,13 @@
-import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import UserService from "../services/UserService";
 import UserRoleService from "../services/UserRoleService";
 
 
-
 const ViewProducts = () => {
 	var tempPrd = [];
-	const { authState } = useOktaAuth();
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const history = useHistory();

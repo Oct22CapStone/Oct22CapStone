@@ -1,16 +1,13 @@
-import useAuthUser from "../hook/getUser";
 import { useEffect, useState } from "react";
-import ProductService from "../services/ProductService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
 import UserOrdersService from "../services/UserOrdersService";
-
 
 
 const UserOrders = () => {
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
-    const [users, setUsers] = useState("");
+    const [setUsers] = useState("");
 
 
 	useEffect(() =>{

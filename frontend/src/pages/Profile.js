@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AddressService from "../services/AddressService";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
 import useAuthUser from "../hook/getUser";
 import UserRoleService from "../services/UserRoleService";

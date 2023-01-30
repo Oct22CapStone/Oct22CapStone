@@ -4,24 +4,20 @@ import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import UserService from "../services/UserService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
 const PopularItems = () => {
 
-	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
     var tempPrd = [];
 	var prdDisplay = [];
 	const [products, setProducts] = useState([]);
     var randNumber = [];
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [itemAdded, setItemAdded] = useState(false);
-    const [highlightProduct, setHihhlightProduct] = useState(0);
-
+	const [setItemAdded] = useState(false);
+    
 	useEffect(() => {
 
 		const fetchData = async () => {

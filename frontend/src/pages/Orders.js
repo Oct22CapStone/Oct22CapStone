@@ -1,20 +1,16 @@
-import useAuthUser from "../hook/getUser";
-import { useOktaAuth } from "@okta/okta-react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import UserOrdersService from "../services/UserOrdersService";
-import { Link, Route, useHistory } from "react-router-dom";
-import AddressService from "../services/AddressService";
+import { Link, useHistory } from "react-router-dom";
 import UserService from "../services/UserService";
 import UserRoleService from "../services/UserRoleService";
-
 
 
 const Orders = () => {
 	const history = useHistory();
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const[filterdata, setFilterData]= useState([]);
+	const [filterdata, setFilterData]= useState([]);
 	const [query, setQuery] = useState('');
 
 	useEffect(() =>{

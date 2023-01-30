@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form } from 'semantic-ui-react'
-import { Link, Route, useHistory, useParams } from "react-router-dom";
+import { Form } from 'semantic-ui-react'
+import { Link, useHistory, useParams } from "react-router-dom";
 import UserRoleService from '../services/UserRoleService';
 import UserService from '../services/UserService';
 export default function EditUser() {

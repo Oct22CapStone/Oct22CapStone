@@ -1,22 +1,14 @@
-import useAuthUser from "../hook/getUser";
-import { useOktaAuth } from "@okta/okta-react";
 import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import UserService from "../services/UserService";
-import { Link, Route, useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
-	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
 	var tempPrd = [];
 	const [products, setProducts] = useState([]);
-	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [itemAdded, setItemAdded] = useState(false);
 
 	const[filterdata, setFilterData]= useState([]);//FOR THE SEARCH
 	const [query, setQuery] = useState('');//FOR THE SEARCH
@@ -25,8 +17,6 @@ const Home = () => {
 	const [product, setProduct] = useState("");
 
 	const [canAdd, setCanAdd] = useState(0);
-
-	let response = 0;
 
 	// load all page data
 

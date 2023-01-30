@@ -1,11 +1,10 @@
 import AddressService from "../services/AddressService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useOktaAuth } from "@okta/okta-react";
 import UserService from "../services/UserService";
+
 const AddAddress = () => {  
     const [address, setAddress] = useState("");
-    const { oktaAuth, authState } = useOktaAuth();
     const [user, setUser] = useState("");
     const history = useHistory();
     const handleSubmit = async (event) => {
