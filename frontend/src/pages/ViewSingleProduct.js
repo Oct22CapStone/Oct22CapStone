@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-
 import ProductService from "../services/ProductService";
-
 import { useParams } from "react-router-dom";
-
-import Nav from "../components/Navbar/PageWrapper";
-
-
+import UserRoleService from "../services/UserRoleService";
+import UserService from "../services/UserService";
 
 const ViewSingleProduct = () => {
     const { id } = useParams();
@@ -16,7 +12,11 @@ const ViewSingleProduct = () => {
     const [num, setNum] = useState();
     const[currentProduct, setCurrentProduct] = useState("");
     const [buttonClicked, setButtonClicked] = useState(1);
+    const [isAdmin, setIsAdmin] = useState(false);
+	const [users, setUsers] = useState("");
+
     var isDupe = 1;
+    var roles;
     //var isDupe = 1;
 
     // const addToCart = () => {
@@ -47,6 +47,27 @@ const ViewSingleProduct = () => {
     useEffect(() => {
          const fetchData = async () => {
             try {
+
+                //assign role if not logged in
+				if (localStorage.getItem("userEmail") == null ) {
+					setIsAdmin(false);
+				}
+				else {//if logged in...
+                const email = JSON.parse(localStorage.getItem("userEmail"));
+                const emailRes = await UserService.getUserByEmail(email);
+                setUsers(emailRes.data);
+                const roleRes = await UserRoleService.findAllUserRole();
+                roles = roleRes.data.filter(a => { return a.user.userId === emailRes.data.userId }).
+                    map(function (r) { return r.role.roleId });
+					console.log(roles + " roles");
+
+                	if (roles == 1) {
+                    	setIsAdmin(true);
+                	} else {
+                    	setIsAdmin(false);
+                	}
+				}//end
+
                 setCanAdd(0);   
                 const response = await ProductService.getProductById(id);
                 setProduct(response.data);   
@@ -144,13 +165,19 @@ const ViewSingleProduct = () => {
 
                     <div className="d-flex">
 
-                        {/* <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button> */}
-                        <div>
 
-                        {(buttonClicked) && <button onClick={(e) => setId(product.productId)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>}
-                        {(num == product.productId) && (canAdd == 1) && <div className="alert alert-success" role="alert">Added Successfully</div>}
-                        {(num == product.productId) && (canAdd == 2) && <div className="alert alert-danger" role="alert">Item Already in Cart</div>}
-                        </div>                                
+                    {
+                        !isAdmin ? (
+                            <div>
+                                {(buttonClicked) && <button onClick={(e) => setId(product.productId)} className="btn btn-outline-dark mt-auto" type="button"><i className="bi-cart-fill me-1"></i>Add to cart</button>}
+                                {(num == product.productId) && (canAdd == 1) && <div className="alert alert-success" role="alert">Added Successfully</div>}
+                                {(num == product.productId) && (canAdd == 2) && <div className="alert alert-danger" role="alert">Item Already in Cart</div>}
+                            </div>
+                            ) : (
+                                <div >
+                                </div>
+                                )
+                    }                           
                         <br></br>                      
 
                     </div>

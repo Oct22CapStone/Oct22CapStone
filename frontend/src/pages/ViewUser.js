@@ -51,7 +51,7 @@ export default function ViewUser() {
   const handlesearch = (event) => {
     const getSearch = event.target.value;
     if (getSearch.length > 0) {
-      const searchdata = users.filter((item) => item.user.firstName.toLowerCase().includes(getSearch));
+      const searchdata = users.filter((item) => item.user.firstName.toLowerCase().includes(getSearch.toLowerCase()));
       setUsers(searchdata);
     } else {
       setUsers(filterdata);
