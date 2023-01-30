@@ -68,6 +68,7 @@ const Cart = () => {
     chosenItems.push(price);
   };
   function deleteProduct(id, e) {
+    e.preventDefault();
     cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id);
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
@@ -94,7 +95,6 @@ const Cart = () => {
       const roleRes = await UserRoleService.findAllUserRole();
       var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
-      console.log(roles);
       if (roles != 2) {
           history.push("/");
       }
@@ -106,7 +106,6 @@ const Cart = () => {
       const roleRes = await UserRoleService.findAllUserRole();
       var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
-      console.log(roles);
       if (roles != 1) {
       setLoading(true);
       try {
@@ -127,6 +126,7 @@ const Cart = () => {
   }, [items.length]);
 
   function handleChange(event) {
+    event.preventDefault();
     isError = false;
     fetchId = event.target.value;
     localStorage.setItem("orderAddress", fetchId);
