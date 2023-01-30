@@ -41,6 +41,7 @@ const PopularItems = () => {
                 } // Add these 10 products into "products" via setProducts
                 setProducts(tempPrd);
 
+
 			} catch (error) {
 				console.log(error);
 			}

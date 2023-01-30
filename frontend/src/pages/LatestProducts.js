@@ -37,6 +37,7 @@ const LatestProducts = () => {
                 setProducts(tempPrd);
      
 
+
 			} catch (error) {
 				console.log(error);
 			}

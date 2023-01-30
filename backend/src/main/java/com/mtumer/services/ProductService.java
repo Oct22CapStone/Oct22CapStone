@@ -33,6 +33,7 @@ public class ProductService {
 		newProduct.setProductImg(product.getProductImg());
 		newProduct.setPricePerUnit(product.getPricePerUnit());
 		newProduct.setProductDescription(product.getProductDescription());
+		newProduct.setPriceCode(product.getPriceCode());
 		newProduct.setShowProduct(product.isShowProduct()); //added
 		newProduct = productRepo.save(newProduct);
 	

@@ -5,15 +5,18 @@ import { useParams } from "react-router-dom";
 
 const ViewSingleProduct = () => {
 
+
     const { id } = useParams();
     const [product, setProduct] = useState("");
     let isDupe = 1;
 
     const addToCart = () => {
+
         if(localStorage.getItem("cart") == null){
             localStorage.setItem("cart","[]");
         }
         const items = JSON.parse(localStorage.getItem("cart"));
+
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode: product.priceCode};
 
@@ -29,10 +32,20 @@ const ViewSingleProduct = () => {
             localStorage.setItem("cart", JSON.stringify(items));
             window.confirm(data.productName +" has been added to your cart.");
             window.location.reload(true);
-        }
-     }
 
+        }
+        else{
+            setCanAdd(2);
+        }  
+    } 
+	
+    function setId(productId){
+        setNum(productId);
+        setCanAdd(0);
+    };
+    
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const response = await ProductService.getProductById(id);
@@ -45,6 +58,7 @@ const ViewSingleProduct = () => {
         if (id && id !== "")
             fetchData();
     }, [id]);
+
     
     return (
         <>
@@ -62,7 +76,9 @@ const ViewSingleProduct = () => {
                         <p className="lead">{product.productDescription}</p>
                     </div>                          
                     <div className="d-flex">
+
                         <button onClick={addToCart} className="btn btn-outline-dark flex-shrink-0 w-25" type="button"><i className="bi-cart-fill me-1"></i> Add to cart</button>
+
                         <br></br>                      
                     </div>
                 </div>
