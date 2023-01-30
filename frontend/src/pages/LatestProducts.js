@@ -13,7 +13,6 @@ const LatestProducts = () => {
 	let prdDisplay = [];
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [setItemAdded] = useState(false);
     const history = useHistory();
 
 
@@ -62,7 +61,6 @@ const LatestProducts = () => {
 	};
 
 	function addToCart(id, e) {
-		setItemAdded(true);
 		fetchById(id);
 		if (localStorage.getItem("cart") == null) {
 			localStorage.setItem("cart", "[]");
@@ -75,7 +73,6 @@ const LatestProducts = () => {
 		};
 		items.push(data);
 		localStorage.setItem("cart", JSON.stringify(items));
-		setItemAdded(false);
 	}
 
 	return (
