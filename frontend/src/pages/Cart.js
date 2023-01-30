@@ -68,7 +68,6 @@ const Cart = () => {
     chosenItems.push(price);
   };
   function deleteProduct(id, e) {
-    e.preventDefault();
     cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id);
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
