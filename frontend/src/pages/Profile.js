@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AddressService from "../services/AddressService";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
 import useAuthUser from "../hook/getUser";
 import UserRoleService from "../services/UserRoleService";
@@ -11,7 +11,7 @@ const Profile = () => {
     const [users, setUsers] = useState("");
     const [loading, setLoading] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
-    var roles;
+    let roles;
 
     async function deleteAddress(id, e) {
         console.log(id);

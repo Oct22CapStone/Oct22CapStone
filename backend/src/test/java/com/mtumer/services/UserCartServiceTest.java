@@ -27,7 +27,7 @@ import com.mtumer.repo.UserCartRepo;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserCartServiceTest {
+class UserCartServiceTest {
 	@InjectMocks
 	UserCartService service;
 	

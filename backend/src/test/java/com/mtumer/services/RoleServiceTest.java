@@ -26,7 +26,7 @@ import com.mtumer.entity.Users;
 import com.mtumer.repo.RolesRepo;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RoleServiceTest {
+class RoleServiceTest {
 	
 	@InjectMocks
 	RoleService service;

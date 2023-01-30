@@ -20,7 +20,7 @@ public class CartService {
 	public List<Cart> getAllCart(){
 		List<Cart> cartList = cartRepo.findAll();
 		
-		if(cartList.size() > 0) {
+		if(!cartList.isEmpty()) {
 			return cartList;
 		} else {
 			return new ArrayList<Cart>();

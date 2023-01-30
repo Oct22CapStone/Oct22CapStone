@@ -1,7 +1,5 @@
 import axios from "axios";
 
-//const USER_API_BASE_URL = "https://backendecommerce.azurewebsites.net/userpage";
-
 
 class UserService {
 

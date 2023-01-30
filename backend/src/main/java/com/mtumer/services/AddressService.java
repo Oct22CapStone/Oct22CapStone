@@ -22,7 +22,7 @@ public class AddressService {
 
 	public List<Address> getAllAddress() {
 		List<Address> addressList = addressRepo.findAll();
-		if(addressList.size() > 0) {
+		if(!addressList.isEmpty()) {
 			return addressList;
 		}else {
 			return new ArrayList<Address>();

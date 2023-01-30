@@ -9,28 +9,24 @@ import {
   MDBCardImage,
   MDBCol,
   MDBContainer,
-  MDBIcon,
-  MDBInput,
   MDBListGroup,
   MDBListGroupItem,
   MDBRipple,
   MDBRow,
-  MDBTooltip,
   MDBTypography,
 } from "mdb-react-ui-kit";
 import UserService from "../services/UserService";
 import AddressService from "../services/AddressService";
-import useAuthUser from "../hook/getUser";
-import UserRoleService from "../services/UserRoleService";
 
 
 import { loadStripe } from "@stripe/stripe-js";
-import { render } from "@testing-library/react";
-var trainData = [];
+import UserRoleService from "../services/UserRoleService";
+
+let trainData = [];
 let stripePromise;
 let lineItems = [];
-var fetchId = 0;
-var isError = true;
+let fetchId = 0;
+let isError = true;
 
 const getStripe = () => {
   if (!stripePromise) {
@@ -57,22 +53,23 @@ const redirectToCheckout = async () => {
 };
 const Cart = () => {
   const [items, setItems] = useState([]);
-  var chosenItems = []; // to calculate total price. Holds id as key, and total as value
-  var cartItem = [];
+  let chosenItems = []; // to calculate total price. Holds id as key, and total as value
+  let cartItem = [];
   const [totalPrice, setTotalPrice] = useState(0);
   const [user, setUser] = useState("");
   const [address, setAddress] = useState([]);
   const [loading, setLoading] = useState(true);
-  const userInfo = useAuthUser();
-  const [shippingAddress, setShippingAddress] = useState([]);
+  const [setShippingAddress] = useState([]);
   const history = useHistory();
+
   // Populate 'chosenItems' with prices for each product
 
   function addToChosenItems(id, price, quantity) {
     chosenItems.push(price);
   };
   function deleteProduct(id, e) {
-    cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
+    e.preventDefault();
+    cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id);
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
     window.parent.updateCartTotal();
@@ -84,7 +81,7 @@ const Cart = () => {
 
       lineItems = items.map(function (item) { return { price: item.priceCode, quantity: 1 } });
 
-      var numTotal = 0;
+      let numTotal = 0;
       for (const id in items) {
         numTotal = numTotal + parseInt((items[id].pricePerUnit));
       }
@@ -98,7 +95,6 @@ const Cart = () => {
       const roleRes = await UserRoleService.findAllUserRole();
       var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
-      console.log(roles);
       if (roles != 2) {
           history.push("/");
       }
@@ -110,7 +106,6 @@ const Cart = () => {
       const roleRes = await UserRoleService.findAllUserRole();
       var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
-      console.log(roles);
       if (roles != 1) {
       setLoading(true);
       try {
@@ -131,6 +126,7 @@ const Cart = () => {
   }, [items.length]);
 
   function handleChange(event) {
+    event.preventDefault();
     isError = false;
     fetchId = event.target.value;
     localStorage.setItem("orderAddress", fetchId);

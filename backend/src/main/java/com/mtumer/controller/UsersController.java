@@ -37,11 +37,7 @@ public class UsersController {
 	@GetMapping("/check/{email}")
 	public Boolean getByEmail(@PathVariable String email) {
 		Boolean user = usersService.userExistsByEmail(email);
-		if (user) {
-			
-			return true;			
-		}
-		return false;
+		return user;
 		
 	}
 	
