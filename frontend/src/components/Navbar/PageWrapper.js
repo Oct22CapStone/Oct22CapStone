@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { useOktaAuth } from "@okta/okta-react";
 import UserService from '../../services/UserService';
 import useAuthUser from '../../hook/getUser';
@@ -8,11 +7,8 @@ import UserRoleService from '../../services/UserRoleService';
 global.change = false;
 const Nav = () => {
     const { oktaAuth, authState } = useOktaAuth();
-    const loggingIn = async () => oktaAuth.signInWithRedirect({ originalUri: "/" });
-    const [cartItems, setCartItems] = useState(null);
     const [items, setItems] = useState([]);
     const userInfo = useAuthUser();
-    const [loading, setLoading] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
 
     function refreshPage() {
@@ -24,34 +20,27 @@ const Nav = () => {
             setItems((JSON.parse(localStorage.getItem('cart'))).length);
         }
     }
-    const loggingOut = async () => {
-        //oktaAuth.signOut();    
+    const loggingOut = async () => {   
         oktaAuth.tokenManager.clear(oktaAuth.getIdToken());
         oktaAuth.closeSession();
         localStorage.setItem("okta-shared-transaction-storage", "");
         localStorage.clear();
         refreshPage();
     };
-    // useEffect(() => {
-    //     if (JSON.parse(localStorage.getItem('cart')) != null) {
-    //         const cart = JSON.parse(localStorage.getItem("cart")).length;
-    //         setCartItems(cart);
-    //     }
-    // }, [cartItems]);
+
     useEffect(() => {
         const fetchData = async () => {
-            //setLoading(true);
             const email = JSON.parse(localStorage.getItem("userEmail"));
             const userRes = await UserService.getUserByEmail(email);
             const roleRes = await UserRoleService.findAllUserRole();
-            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+            let roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
                 map(function (r) { return r.role.roleId });
             if (roles == 1) {
                 setIsAdmin(true);
             } else {
                 setIsAdmin(false);
             }
-            //setLoading(false);
+
         }
         fetchData();
         if (JSON.parse(localStorage.getItem('cart')) != null) {

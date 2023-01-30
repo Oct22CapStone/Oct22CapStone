@@ -1,22 +1,14 @@
-import useAuthUser from "../hook/getUser";
-import { useOktaAuth } from "@okta/okta-react";
 import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import UserService from "../services/UserService";
-import { Link, Route, useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
-	const { authState } = useOktaAuth();
-	const userInfo = useAuthUser();
-	var tempPrd = [];
+	let tempPrd = [];
 	const [products, setProducts] = useState([]);
-	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [itemAdded, setItemAdded] = useState(false);
 
 	const[filterdata, setFilterData]= useState([]);//FOR THE SEARCH
 	const [query, setQuery] = useState('');//FOR THE SEARCH
@@ -26,8 +18,6 @@ const Home = () => {
 
 	const [canAdd, setCanAdd] = useState(0);
 
-	let response = 0;
-
 	// load all page data
 
 	useEffect(() => {
@@ -36,9 +26,9 @@ const Home = () => {
 			try {
 				const response = await ProductService.getProduct();
 
-				for (var i in response.data){
+				for (let i in response.data){
 
-					if ((response.data[i].showProduct == true)){
+					if ((response.data[i].showProduct)){
 					tempPrd.push(response.data[i]);
 					}
 				}
@@ -56,7 +46,7 @@ const Home = () => {
 
 	function containsObject(list, obj) {
 		if (list != null){
-			var i = 0;
+			let i = 0;
 			while(i < (list.length)){
 				if( JSON.stringify(list[i]) == JSON.stringify(obj) ){
 					return true;
@@ -145,8 +135,8 @@ const Home = () => {
 								</span>
 								{/* END SEARCH BAR */}
 								{products.map(
-									(productItems, index) => (
-										<div key={index} className="col-lg-4 col-4 d-flex">
+									(productItems) => (
+										<div key={productItems.productId} className="col-lg-4 col-4 d-flex">
 											<div style={{ width: "30rem" }} className="card">
 												
 												<Link to={`/viewsingleproduct/${productItems.productId}`}>

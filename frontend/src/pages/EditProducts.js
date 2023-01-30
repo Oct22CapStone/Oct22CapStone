@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import { useParams } from "react-router-dom";
-import { Link, Route, useHistory } from "react-router-dom";
-import UserService from "../services/UserService";
-import UserRoleService from "../services/UserRoleService";
+
+import { Link, useParams, useHistory } from "react-router-dom";
+
 export default function EditProducts() {
   const { id } = useParams();
   const [product, setProduct] = useState("");
-  const [value, setValue] = useState("");
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const submitEdit = async (event) => {

@@ -60,29 +60,30 @@ const OrderDetails = () => {
                                     <div className="card-header px-4 py-5">
                                         <h5 className="text-muted mb-0">Thanks for your Order, <span style={{ color: "#a8729a" }}>{order.userId.firstName}</span>!</h5>
                                     </div>
-                                    <div className="card-body p-4">
-                                        <div className="d-flex justify-content-between align-items-center mb-4">
-                                            <p className="lead fw-normal mb-0" style={{ color: "#a8729a" }}>Receipt</p>
-                                            <p className="small text-muted mb-0">Order Id : {order.orderId}</p>
-                                        </div>
-                                        {orderDetails.map(
-                                            ({ productId }) => (
-                                                <div className="card shadow-0 border mb-4">
-                                                    <div className="card-body">
-                                                        <div className="row">
-                                                            <div className="col-md-2 d-flex justify-content-center align-items-center">
-                                                                <img src={productId.productImg}
-                                                                    className="img-fluid" />
-                                                            </div>
-                                                            <div className="col-lg-4 text-center d-flex justify-content-center align-items-center">
-                                                                <p className="text-muted mb-0">{productId.productName}</p>
-                                                            </div>
-                                                            <div className="col-lg-4 text-center d-flex justify-content-center align-items-center">
-                                                                <p className="text-muted mb-0 small">{productId.productDescription}</p>
-                                                            </div>
-                                                            <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                                <p className="text-muted mb-0 small">${productId.pricePerUnit}</p>
-                                                            </div>
+
+                                    {orderDetails.map(
+                                        ({ productId }) => (
+                                            <div key={productId.productId} className="card shadow-0 border mb-4">
+                                                <div className="card-body">
+                                                    <div className="row">
+                                                        <div className="col-md-2 d-flex justify-content-center align-items-center">
+                                                            <img src={productId.productImg}
+                                                                className="img-fluid"/>
+                                                        </div>
+                                                        <div className="col-lg-4 text-center d-flex justify-content-center align-items-center">
+                                                            <p className="text-muted mb-0">{productId.productName}</p>
+                                                        </div>
+                                                        <div className="col-lg-4 text-center d-flex justify-content-center align-items-center">
+                                                            <p className="text-muted mb-0 small">{productId.productDescription}</p>
+                                                        </div>                                        
+                                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                            <p className="text-muted mb-0 small">${productId.pricePerUnit}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row d-flex align-items-center">
+                                                        <div className="col-md-2">
+                                                            <p className="text-muted mb-0 small">Track Order</p>
+
                                                         </div>
                                                         <div className="row d-flex align-items-center">
                                                             <div className="col-md-2">
