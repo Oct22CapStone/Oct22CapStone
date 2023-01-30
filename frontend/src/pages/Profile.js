@@ -11,7 +11,7 @@ const Profile = () => {
     const [users, setUsers] = useState("");
     const [loading, setLoading] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
-    var roles;
+    let roles;
 
     async function deleteAddress(id, e) {
         console.log(id);

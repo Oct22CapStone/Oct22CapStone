@@ -52,7 +52,7 @@ const EditOrders = () => {
       const email = JSON.parse(localStorage.getItem("userEmail"));
       const userRes = await UserService.getUserByEmail(email);
       const roleRes = await UserRoleService.findAllUserRole();
-      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+      let roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
           map(function (r) { return r.role.roleId });
       if (roles != 1) {
           history.push("/");

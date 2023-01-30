@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 
 const LatestProducts = () => {
 
-    var tempPrd = [];
+    let tempPrd = [];
 	const [products, setProducts] = useState([]);
-	var prdDisplay = [];
+	let prdDisplay = [];
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [setItemAdded] = useState(false);
@@ -22,14 +22,14 @@ const LatestProducts = () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
-				for (var i in response.data){
+				for (let i in response.data){
 
 					if ((response.data[i].showProduct == true)){
 					prdDisplay.push(response.data[i]);
 					}
 				}
                 const latestPrds = prdDisplay.slice(-10);
-                for(var j in latestPrds) {
+                for(let j in latestPrds) {
                     tempPrd.push(latestPrds[j]);
                 }
                 setProducts(tempPrd);
@@ -76,8 +76,8 @@ const LatestProducts = () => {
 						{!loading && (
 							<div className="row">
 								{products.map(
-									(productItems, index) => (
-										<div key={index} className="col-lg-4 col-4 d-flex">
+									(productItems) => (
+										<div key={productItems.productId} className="col-lg-4 col-4 d-flex">
 											<div style={{ width: "30rem" }} className="card">
 
 												<Link to={`/viewsingleproduct/${productItems.productId}`}>

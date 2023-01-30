@@ -51,7 +51,7 @@ const OrderDetails = () => {
                                     </div>
                                     {orderDetails.map(
                                         ({ productId }) => (
-                                            <div className="card shadow-0 border mb-4">
+                                            <div key={productId.productId} className="card shadow-0 border mb-4">
                                                 <div className="card-body">
                                                     <div className="row">
                                                         <div className="col-md-2 d-flex justify-content-center align-items-center">

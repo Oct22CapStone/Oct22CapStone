@@ -7,7 +7,7 @@ const ViewSingleProduct = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState("");
-    var isDupe = 1;
+    let isDupe = 1;
 
     const addToCart = () => {
         if(localStorage.getItem("cart") == null){
@@ -17,7 +17,7 @@ const ViewSingleProduct = () => {
         const data = {productId: product.productId, productName: product.productName, productDescription: product.productDescription,
             productImg: product.productImg, pricePerUnit: product.pricePerUnit, showProduct: product.showProduct, priceCode: product.priceCode};
 
-        for(var i in items){
+        for(let i in items){
             if (items[i].productId === data.productId) {
                 window.confirm(data.productName + " is already in your cart.");
                 isDupe = 0;

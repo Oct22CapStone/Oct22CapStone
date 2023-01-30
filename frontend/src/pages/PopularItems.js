@@ -1,5 +1,3 @@
-import useAuthUser from "../hook/getUser";
-import { useOktaAuth } from "@okta/okta-react";
 import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
@@ -7,13 +5,12 @@ import ProductService from "../services/ProductService";
 import { Link } from "react-router-dom";
 
 
-
 const PopularItems = () => {
 
-    var tempPrd = [];
-	var prdDisplay = [];
+    let tempPrd = [];
+	let prdDisplay = [];
 	const [products, setProducts] = useState([]);
-    var randNumber = [];
+    let randNumber = [];
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [setItemAdded] = useState(false);
@@ -24,7 +21,7 @@ const PopularItems = () => {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
-				for (var i in response.data){
+				for (let i in response.data){
 
 					if ((response.data[i].showProduct == true)){
 						prdDisplay.push(response.data[i]);
@@ -33,13 +30,13 @@ const PopularItems = () => {
 
                 const randomNumber = e => {
                     const len = prdDisplay.length;
-                    for (var i=1;i<=10; i++){
+                    for (let i=1;i<=10; i++){
                         randNumber.push(Math.floor(Math.random() * len));}
 
                 }
                 randomNumber();
  
-                for (var j in randNumber){
+                for (let j in randNumber){
                     tempPrd.push(prdDisplay[randNumber[j]]);
           
                 }
@@ -87,8 +84,8 @@ const PopularItems = () => {
 						{!loading && (
 							<div className="row">
 								{products.map(
-									(productItems, index) => (
-										<div key={index} className="col-lg-4 col-4 d-flex">
+									(productItems) => (
+										<div key={productItems.productId} className="col-lg-4 col-4 d-flex">
 											<div style={{ width: "30rem" }} className="card">
 
 												<Link to={`/viewsingleproduct/${productItems.productId}`}>

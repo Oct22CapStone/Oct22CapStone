@@ -11,7 +11,7 @@ function Success() {
     const history = useHistory();
     const [setLoading] = useState(true);
     const [items, setItems] = useState([]);
-    var newList = [];
+    let newList = [];
     useEffect(() => {
         const createOrder = async () => {
             try {
