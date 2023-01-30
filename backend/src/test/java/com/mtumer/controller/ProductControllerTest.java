@@ -32,7 +32,7 @@ import com.mtumer.repo.ProductRepo;
 import com.mtumer.services.ProductService;
 @AutoConfigureMockMvc
 @SpringBootTest
-public class ProductControllerTest {
+class ProductControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	

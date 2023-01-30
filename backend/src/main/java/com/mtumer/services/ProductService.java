@@ -19,7 +19,7 @@ public class ProductService {
 	public List<Product> getAllProduct() {
 		List<Product> productList = productRepo.findAll();
 
-		if (productList.size() > 0) {
+		if (!productList.isEmpty()) {
 			return productList;
 		} else {
 			return new ArrayList<Product>();

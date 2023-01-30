@@ -18,7 +18,7 @@ public class OrderItemService {
 
 	public List<OrderItem> getAllOrderItem() {
 		List<OrderItem> orderItemList = orderItemRepo.findAll();
-		if (orderItemList.size() > 0) {
+		if (!orderItemList.isEmpty()) {
 			return orderItemList;
 		} else {
 			return new ArrayList<OrderItem>();

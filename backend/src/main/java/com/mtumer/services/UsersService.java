@@ -34,25 +34,24 @@ public class UsersService {
 		List<Users> userList = usersRepo.findAll();
 		
 		for (Users users : userList) {
-			if(users.getEmail() != null) {
+			
 
 				if((users.getEmail().toString()).equals(email)) {
 					return true;					
 				}
-			}
+			
 		}
 		return false;
 	}
 	
 	public Users getUserByEmail(String email) {
 		List<Users> userList = usersRepo.findAll();
-		Users user = new Users();
 		for (Users users : userList) {
 			if(users.getEmail() != null) {
 
 				if((users.getEmail().toString()).equals(email)) {
-					user = users;
-					return user;					
+					
+					return users;					
 				}
 			}
 		}

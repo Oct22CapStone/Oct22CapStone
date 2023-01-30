@@ -31,7 +31,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class AddressControllerTest {
+class AddressControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;

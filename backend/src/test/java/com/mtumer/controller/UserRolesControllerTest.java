@@ -31,7 +31,7 @@ import com.mtumer.services.UserRoleService;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class UserRolesControllerTest {
+class UserRolesControllerTest {
 
 	private static final Object UserRoleToReturnFindBy = null;
 
