@@ -12,7 +12,7 @@ const ViewSingleProduct = () => {
     const { id } = useParams();
     const [product, setProduct] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
-    
+    const [buttonClicked, setButtonClicked] = useState(1);
     let isDupe = 1;
 
     const addToCart = () => {
@@ -60,9 +60,8 @@ useEffect(() => {
 				else {//if logged in...
                 const email = JSON.parse(localStorage.getItem("userEmail"));
                 const emailRes = await UserService.getUserByEmail(email);
-                setUsers(emailRes.data);
                 const roleRes = await UserRoleService.findAllUserRole();
-                roles = roleRes.data.filter(a => { return a.user.userId === emailRes.data.userId }).
+                let roles = roleRes.data.filter(a => { return a.user.userId === emailRes.data.userId }).
                     map(function (r) { return r.role.roleId });
 					console.log(roles + " roles");
 
