@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 
 const ViewSingleProduct = () => {
 
-
+    const [num,setNum] = useState();
+    const [canAdd,setCanAdd] = useState(0);
     const { id } = useParams();
     const [product, setProduct] = useState("");
     let isDupe = 1;

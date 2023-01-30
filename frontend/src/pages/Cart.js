@@ -20,6 +20,7 @@ import AddressService from "../services/AddressService";
 
 
 import { loadStripe } from "@stripe/stripe-js";
+import UserRoleService from "../services/UserRoleService";
 
 let trainData = [];
 let stripePromise;
@@ -59,6 +60,7 @@ const Cart = () => {
   const [address, setAddress] = useState([]);
   const [loading, setLoading] = useState(true);
   const [setShippingAddress] = useState([]);
+  const history = useHistory();
 
   // Populate 'chosenItems' with prices for each product
 
@@ -66,7 +68,8 @@ const Cart = () => {
     chosenItems.push(price);
   };
   function deleteProduct(id, e) {
-    cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id)
+    e.preventDefault();
+    cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id);
     localStorage.setItem('cart', JSON.stringify(cartItem));
     setItems(items.filter(product => product.productId !== id));
     window.parent.updateCartTotal();

@@ -8,6 +8,7 @@ import {
   from 'mdb-react-ui-kit';
 import UserRoleService from '../services/UserRoleService';
 import UserService from '../services/UserService';
+import axios from 'axios';
 
 
 const validEmailRegex = RegExp(
