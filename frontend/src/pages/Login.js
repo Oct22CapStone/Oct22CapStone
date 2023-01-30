@@ -12,7 +12,9 @@ function Login() {
         sessionToken: res.session.token
 
       });
-      window.location.reload(true);
+      // This was placed here but is bugged code, 
+      // labled as "unreachable code":
+      // window.location.reload(true);
     }
   }
 

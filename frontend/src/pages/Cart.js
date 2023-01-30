@@ -9,28 +9,23 @@ import {
   MDBCardImage,
   MDBCol,
   MDBContainer,
-  MDBIcon,
-  MDBInput,
   MDBListGroup,
   MDBListGroupItem,
   MDBRipple,
   MDBRow,
-  MDBTooltip,
   MDBTypography,
 } from "mdb-react-ui-kit";
 import UserService from "../services/UserService";
 import AddressService from "../services/AddressService";
-import useAuthUser from "../hook/getUser";
-import UserRoleService from "../services/UserRoleService";
 
 
 import { loadStripe } from "@stripe/stripe-js";
-import { render } from "@testing-library/react";
-var trainData = [];
+
+let trainData = [];
 let stripePromise;
 let lineItems = [];
-var fetchId = 0;
-var isError = true;
+let fetchId = 0;
+let isError = true;
 
 const getStripe = () => {
   if (!stripePromise) {
@@ -57,15 +52,14 @@ const redirectToCheckout = async () => {
 };
 const Cart = () => {
   const [items, setItems] = useState([]);
-  var chosenItems = []; // to calculate total price. Holds id as key, and total as value
-  var cartItem = [];
+  let chosenItems = []; // to calculate total price. Holds id as key, and total as value
+  let cartItem = [];
   const [totalPrice, setTotalPrice] = useState(0);
   const [user, setUser] = useState("");
   const [address, setAddress] = useState([]);
   const [loading, setLoading] = useState(true);
-  const userInfo = useAuthUser();
-  const [shippingAddress, setShippingAddress] = useState([]);
-  const history = useHistory();
+  const [setShippingAddress] = useState([]);
+
   // Populate 'chosenItems' with prices for each product
 
   function addToChosenItems(id, price, quantity) {
@@ -84,7 +78,7 @@ const Cart = () => {
 
       lineItems = items.map(function (item) { return { price: item.priceCode, quantity: 1 } });
 
-      var numTotal = 0;
+      let numTotal = 0;
       for (const id in items) {
         numTotal = numTotal + parseInt((items[id].pricePerUnit));
       }

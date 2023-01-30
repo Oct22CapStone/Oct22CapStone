@@ -30,7 +30,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class UsersControllerTest {
+class UsersControllerTest {
 	
 	@Mock
 	UserRepo repo;

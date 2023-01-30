@@ -24,7 +24,7 @@ import com.mtumer.entity.Cart;
 import com.mtumer.repo.CartRepo;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CartServiceTest {
+class CartServiceTest {
 	@InjectMocks
 	CartService service;
 	

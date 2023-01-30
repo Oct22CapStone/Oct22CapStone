@@ -49,14 +49,14 @@ public class UserRoleController {
 	}
 
 	@PutMapping("/update/{user_role_id}")
-	public ResponseEntity<UserRole> updateUser(@PathVariable("user_role_id") Long user_role_id,
+	public ResponseEntity<UserRole> updateUser(@PathVariable("user_role_id") Long id,
 			@RequestBody UserRole userRole) {
-		Optional<UserRole> updateUserRole = userRoleService.getUserRoleById(user_role_id);
+		Optional<UserRole> updateUserRole = userRoleService.getUserRoleById(id);
 		if (!updateUserRole.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		UserRole newUserRole = new UserRole();
-		newUserRole.setUserRoleId(user_role_id);
+		newUserRole.setUserRoleId(id);
 		newUserRole.setRole(userRole.getRole());
 		newUserRole.setUser(userRole.getUser());
 		userRoleService.update(newUserRole);
@@ -64,12 +64,12 @@ public class UserRoleController {
 	}
 
 	@DeleteMapping("/delete/{user_role_id}")
-	public ResponseEntity<UserRole> deleteUserRole(@PathVariable("user_role_id") Long user_role_id) {
-		Optional<UserRole> userRoleRemoved = userRoleService.getUserRoleById(user_role_id);
+	public ResponseEntity<UserRole> deleteUserRole(@PathVariable("user_role_id") Long id) {
+		Optional<UserRole> userRoleRemoved = userRoleService.getUserRoleById(id);
 		if (!userRoleRemoved.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
-		userRoleService.deleteUserRole(user_role_id);
+		userRoleService.deleteUserRole(id);
 		return ResponseEntity.ok().build();
 	}
 

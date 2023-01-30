@@ -1,16 +1,12 @@
-import useAuthUser from "../hook/getUser";
-import { useOktaAuth } from "@okta/okta-react";
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import UserService from "../services/UserService";
 import UserRoleService from "../services/UserRoleService";
 
 
-
 const ViewProducts = () => {
-	var tempPrd = [];
-	const { authState } = useOktaAuth();
+	let tempPrd = [];
 	const [products, setProducts] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const history = useHistory();
@@ -44,7 +40,7 @@ const ViewProducts = () => {
 			try {
 				const response = await ProductService.getProduct();
 
-				for (var i in response.data){
+				for (let i in response.data){
 					tempPrd.push(response.data[i]);
 				
 				}
@@ -56,6 +52,19 @@ const ViewProducts = () => {
 			}
 		
 			setLoading(false);
+
+		};
+		const fetchRole = async () => {
+            const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            let roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 1) {
+                history.push("/");
+            }
+
 		}
 	};
 		fetchRole();
@@ -70,7 +79,7 @@ const ViewProducts = () => {
 			setProducts(
 			products.filter((product) => {
 				if (product.productId === id){
-					var flip = product.showProduct;
+					let flip = product.showProduct;
 					flip = (!flip);
 					product.showProduct = flip;
 					console.log(product);

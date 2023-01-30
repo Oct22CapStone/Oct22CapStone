@@ -19,7 +19,7 @@ public class UserOrdersService {
 	public List<UserOrders> getAllUserOrders() {
 		List<UserOrders> userOrdersList = userOrdersRepo.findAll();
 
-		if (userOrdersList.size() > 0) {
+		if (!userOrdersList.isEmpty()) {
 			return userOrdersList;
 		} else {
 			return new ArrayList<UserOrders>();

@@ -33,7 +33,7 @@ import com.mtumer.services.OrderItemService;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class OrderItemControllerTest {
+class OrderItemControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
