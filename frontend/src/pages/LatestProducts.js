@@ -1,49 +1,56 @@
 
-import useAuthUser from "../hook/getUser";
-import { useOktaAuth } from "@okta/okta-react";
 import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import { Link } from "react-router-dom";
+import UserService from "../services/UserService";
+import { Link, Route, useHistory } from "react-router-dom";
+import UserRoleService from "../services/UserRoleService";
 
-
-
-const LatestProducts = () => {
-
+const LatestProducts = () => { 
     let tempPrd = [];
 	const [products, setProducts] = useState([]);
 	let prdDisplay = [];
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [setItemAdded] = useState(false);
+    const history = useHistory();
 
-	useEffect(() => {
 
-		const fetchData = async () => {
-			setLoading(true);
-			try {
-				const response = await ProductService.getProduct();
-				for (let i in response.data){
+    useEffect(() => {
 
-					if ((response.data[i].showProduct == true)){
-					prdDisplay.push(response.data[i]);
-					}
-				}
+        const fetchRole = async () => {
+            const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 2) {
+                history.push("/");
+            }
+      }
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const response = await ProductService.getProduct();
+                for (var i in response.data){
+                    if ((response.data[i].showProduct == true)){
+                    prdDisplay.push(response.data[i]);
+                    }
+                }
+
                 const latestPrds = prdDisplay.slice(-10);
                 for(let j in latestPrds) {
                     tempPrd.push(latestPrds[j]);
                 }
                 setProducts(tempPrd);
-     
-
-
 			} catch (error) {
 				console.log(error);
 			}
 			setLoading(false);
 		};
-
+    fetchRole();
 		fetchData();
 	}, []);
 

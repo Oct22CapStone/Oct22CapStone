@@ -96,7 +96,7 @@ const ViewProducts = () => {
    const handlesearch=(event)=>{
     const getSearch=event.target.value;
     if(getSearch.length > 0){
-      const searchdata= products.filter( (item)=> item.productName.toLowerCase().includes(getSearch));
+		const searchdata = products.filter((item) => item.productName.toLowerCase().includes(getSearch.toLowerCase()));
       setProducts(searchdata);
     } else {
       setProducts(filterdata);

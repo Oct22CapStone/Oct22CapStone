@@ -2,11 +2,12 @@ import Header from '../components/Navbar/Header';
 import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
-import { Link } from "react-router-dom";
+import UserService from "../services/UserService";
+import { Link, Route, useHistory } from "react-router-dom";
+import UserRoleService from "../services/UserRoleService";
 
 
-const PopularItems = () => {
-
+const PopularItems = () => { 
     let tempPrd = [];
 	let prdDisplay = [];
 	const [products, setProducts] = useState([]);
@@ -14,19 +15,34 @@ const PopularItems = () => {
 	const [filter, setFilter] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [setItemAdded] = useState(false);
-    
-	useEffect(() => {
+    const history = useHistory();
 
-		const fetchData = async () => {
-			setLoading(true);
-			try {
-				const response = await ProductService.getProduct();
-				for (let i in response.data){
 
-					if ((response.data[i].showProduct == true)){
-						prdDisplay.push(response.data[i]);
-					}
-				}
+    useEffect(() => {
+
+        const fetchRole = async () => {
+            const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 2) {
+                history.push("/");
+            }
+      }
+
+        const fetchData = async () => {
+            setLoading(true);
+
+            try { // add all products where showProduct is true
+                const response = await ProductService.getProduct();
+                for (var i in response.data){
+                    if ((response.data[i].showProduct == true)){
+                        prdDisplay.push(response.data[i]);
+                    }
+                }
+                // generate 10 random numbers
                 const randomNumber = e => {
                     const len = prdDisplay.length;
                     for (let i=1;i<=10; i++){
@@ -40,14 +56,12 @@ const PopularItems = () => {
           
                 } // Add these 10 products into "products" via setProducts
                 setProducts(tempPrd);
-
-
 			} catch (error) {
 				console.log(error);
 			}
 			setLoading(false);
 		};
-
+    fetchRole();
 		fetchData();
 	}, []);
 

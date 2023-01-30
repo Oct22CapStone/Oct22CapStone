@@ -48,7 +48,7 @@ const Nav = () => {
         }
 
         //SET A TIMEOUT FOR PROPER LOADING OF USER'S DATA
-        setTimeout(() => fetchData(), 1500);//KENZIE
+        setTimeout(() => fetchData(), 2000);//KENZIE
         const timer = setTimeout(() => console.log('Initial timeout!'), 1000);//KENZIE
         clearTimeout(timer);//KENZIE
 
