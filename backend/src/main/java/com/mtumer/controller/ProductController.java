@@ -47,15 +47,12 @@ import com.mtumer.services.RabbitSender;
 @CrossOrigin(origins = {"https://vehiclevault.azurewebsites.net", "http://localhost:3000"})
 @RequestMapping("/product")
 public class ProductController {
-	
-//	@Autowired
-
 
 	@Autowired
 	ProductService productService;
 	
-//	@Autowired
-//	RabbitSender sender;
+	@Autowired
+	RabbitSender sender;
 
 	@GetMapping
 	public ResponseEntity<List<Product>> getAllProduct() {
@@ -75,10 +72,10 @@ public class ProductController {
 	@PostMapping("/save_product")
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		Product savedProduct = productService.createProduct(product);
-//		if (savedProduct.getProductQty() <= 3) {
-//			sender.send(savedProduct);
-//	
-//		}
+		if (savedProduct.getProductQty() <= 3) {
+			sender.send(savedProduct);
+	
+		}
 		return new ResponseEntity<Product>(savedProduct, HttpStatus.CREATED);
 	}
 
