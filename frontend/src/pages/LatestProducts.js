@@ -1,3 +1,4 @@
+
 import useAuthUser from "../hook/getUser";
 import { useOktaAuth } from "@okta/okta-react";
 import Header from '../components/Navbar/Header';
@@ -5,6 +6,7 @@ import Footer from '../components/Navbar/Footer';
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import { Link } from "react-router-dom";
+
 
 
 const LatestProducts = () => {
@@ -34,6 +36,7 @@ const LatestProducts = () => {
                 }
                 setProducts(tempPrd);
      
+
 			} catch (error) {
 				console.log(error);
 			}
@@ -107,6 +110,5 @@ const LatestProducts = () => {
 	)
 
 };
-
 
 export default LatestProducts;

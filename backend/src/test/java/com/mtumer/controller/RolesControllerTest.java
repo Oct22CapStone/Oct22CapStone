@@ -31,7 +31,7 @@ import com.mtumer.services.RoleService;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class RolesControllerTest {
+class RolesControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	

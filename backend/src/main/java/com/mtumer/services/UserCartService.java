@@ -18,7 +18,7 @@ public class UserCartService {
 	public List<UserCart> getAllUserCarts() {
 		List<UserCart> userCartList = userCartRepo.findAll();
 
-		if (userCartList.size() > 0) {
+		if (!userCartList.isEmpty() ){
 			return userCartList;
 		} else {
 			return new ArrayList<UserCart>();

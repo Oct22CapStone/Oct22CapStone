@@ -25,7 +25,7 @@ import com.mtumer.entity.UserOrders;
 import com.mtumer.repo.UserOrdersRepo;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserOrdersServiceTest {
+class UserOrdersServiceTest {
 	@InjectMocks
 	UserOrdersService service;
 

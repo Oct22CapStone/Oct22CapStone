@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
+
 import { Link, useParams, useHistory } from "react-router-dom";
+
 export default function EditProducts() {
   const { id } = useParams();
   const [product, setProduct] = useState("");
@@ -15,7 +17,24 @@ export default function EditProducts() {
     setProduct(product => ({ ...product, [event.target.name]: event.target.value }));
   }
   useEffect(() => {
+    const fetchRole = async () => {
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      if (roles != 1) {
+          history.push("/");
+      }
+}
+  fetchRole();
     const fetchData = async () => {
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      if (roles != 2) {
       setLoading(true);
       try {
         const response = await ProductService.getProductById(id);
@@ -24,6 +43,7 @@ export default function EditProducts() {
         console.log(error);
       }
       setLoading(false);
+    }
     };
     if (id && id !== "")
       fetchData();

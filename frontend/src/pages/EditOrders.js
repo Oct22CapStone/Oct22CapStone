@@ -12,9 +12,10 @@ const EditOrders = () => {
   const [address, setAddress] = useState([]);
   const history = useHistory();
 
-  const handleSubmit = async () => {
-    console.log(orders);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     await UserOrdersService.update(orders.orderId, orders);
+    history.push("/orders");
   };
 
   const handleChange = (event) => {
@@ -23,7 +24,6 @@ const EditOrders = () => {
     }
     if(event.target.name === "trackingInfo"){
       orders.trackingInfo = event.target.value;
-      console.log(orders);
     }
     if(event.target.name === "addressId"){
       async function check() {
@@ -31,23 +31,11 @@ const EditOrders = () => {
           orders.addressId = response.data;
         }
         check();      
-      console.log(orders);
     }      
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {        
-        const response = await UserOrdersService.getById(id);
-        setOrders(response.data);
-        const result = await AddressService.findAllAddresses();
-        setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId.userId}));
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
+
     const fetchRole = async () => {
       const email = JSON.parse(localStorage.getItem("userEmail"));
       const userRes = await UserService.getUserByEmail(email);
@@ -60,8 +48,26 @@ const EditOrders = () => {
 }
   fetchRole();
 
-
-
+    const fetchData = async () => {
+      const email = JSON.parse(localStorage.getItem("userEmail"));
+      const userRes = await UserService.getUserByEmail(email);
+      const roleRes = await UserRoleService.findAllUserRole();
+      var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+          map(function (r) { return r.role.roleId });
+      if (roles != 2) {
+      setLoading(true);
+      try {        
+        const response = await UserOrdersService.getById(id);
+        setOrders(response.data);
+        const result = await AddressService.findAllAddresses();
+        setAddress(result.data.filter(a=>{return a.userId.userId === response.data.userId.userId}));
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+    };
+    
     if (id && id !== "")
       fetchData();
   }, [id]);
@@ -90,7 +96,7 @@ const EditOrders = () => {
               </select>
             </label>
           </div>
-          <button className="btn btn-primary btn-sm" type="submit" onClick={handleSubmit}>
+          <button className="btn btn-primary btn-sm" type="submit" onClick={(e) => handleSubmit(e)}>
             Update
           </button>
         </form>

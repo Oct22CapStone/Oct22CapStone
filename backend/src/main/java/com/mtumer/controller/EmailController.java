@@ -22,9 +22,9 @@ public class EmailController {
 		@PostMapping("/send")
 		public String
 		sendMail(@RequestBody EmailDetails details) {
-			String status = emailService.sendSimpleMail(details);
+			return emailService.sendSimpleMail(details);
 			
-			return status;
+			
 	}
 	
 }

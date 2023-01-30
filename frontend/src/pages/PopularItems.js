@@ -27,19 +27,18 @@ const PopularItems = () => {
 						prdDisplay.push(response.data[i]);
 					}
 				}
-
                 const randomNumber = e => {
                     const len = prdDisplay.length;
                     for (let i=1;i<=10; i++){
                         randNumber.push(Math.floor(Math.random() * len));}
-
                 }
                 randomNumber();
  
                 for (let j in randNumber){
+
                     tempPrd.push(prdDisplay[randNumber[j]]);
           
-                }
+                } // Add these 10 products into "products" via setProducts
                 setProducts(tempPrd);
 
 			} catch (error) {
@@ -115,6 +114,5 @@ const PopularItems = () => {
 	)
 
 };
-
 
 export default PopularItems;

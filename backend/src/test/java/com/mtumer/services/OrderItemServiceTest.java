@@ -27,7 +27,7 @@ import com.mtumer.repo.OrderItemRepo;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class OrderItemServiceTest {
+class OrderItemServiceTest {
 	@InjectMocks
 	OrderItemService service;
 	

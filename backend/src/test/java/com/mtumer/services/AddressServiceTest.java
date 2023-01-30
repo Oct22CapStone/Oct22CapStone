@@ -25,7 +25,7 @@ import com.mtumer.entity.Address;
 import com.mtumer.repo.AddressRepo;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AddressServiceTest {
+class AddressServiceTest {
 
 	@InjectMocks
 	AddressService service;

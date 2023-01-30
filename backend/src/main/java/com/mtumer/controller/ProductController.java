@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mtumer.entity.Product;
 import com.mtumer.services.ProductService;
-//import com.mtumer.services.RabbitSender;
 import com.mtumer.services.RabbitSender;
 
 @RestController
@@ -48,7 +47,7 @@ import com.mtumer.services.RabbitSender;
 public class ProductController {
 	
 //	@Autowired
-//	RabbitSender sender;
+
 
 	@Autowired
 	ProductService productService;
@@ -104,7 +103,7 @@ public class ProductController {
 			p.setProductName(newProduct.getProductName());
 			p.setProductQty(newProduct.getProductQty());
 			sender.send(p);
-			/*producer(p.getProductName(), p.getProductQty());*/
+		
 		}
 		return new ResponseEntity<>(newProduct, HttpStatus.OK);
 	}

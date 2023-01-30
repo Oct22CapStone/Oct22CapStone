@@ -25,7 +25,7 @@ import com.mtumer.entity.Product;
 import com.mtumer.repo.ProductRepo;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ProductServiceTest {
+class ProductServiceTest {
 	@InjectMocks
 	ProductService service;
 	

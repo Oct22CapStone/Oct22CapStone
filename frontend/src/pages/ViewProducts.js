@@ -15,7 +15,27 @@ const ViewProducts = () => {
 
 
 	useEffect(() =>{
+
+		const fetchRole = async () => {
+            const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 1) {
+                history.push("/");
+            }
+		}
+    
 		const fetchData  = async () => {
+			const email = JSON.parse(localStorage.getItem("userEmail"));
+            const userRes = await UserService.getUserByEmail(email);
+            const roleRes = await UserRoleService.findAllUserRole();
+            var roles = roleRes.data.filter(a => { return a.user.userId === userRes.data.userId }).
+                map(function (r) { return r.role.roleId });
+            console.log(roles);
+            if (roles != 2) {
 			setLoading(true);
 			try {
 				const response = await ProductService.getProduct();
@@ -32,6 +52,7 @@ const ViewProducts = () => {
 			}
 		
 			setLoading(false);
+
 		};
 		const fetchRole = async () => {
             const email = JSON.parse(localStorage.getItem("userEmail"));
@@ -43,9 +64,12 @@ const ViewProducts = () => {
             if (roles != 1) {
                 history.push("/");
             }
+
 		}
-        fetchRole();
+	};
+		fetchRole();
 		fetchData();
+		
 		
 	}, []);
 
@@ -82,23 +106,18 @@ const ViewProducts = () => {
 
 	return (				
 		<>{!loading &&(
-		<div>
-
-			{/* SEARCH BAR */}
-			<span>
-              <div className="container">
-              	<input type="text" name='productName' value={query} placeholder="Search by product name.." onChange={(e)=>handlesearch(e)}></input>
-              </div>
-            </span>
-			{/* END SEARCH BAR */}			
+		<div>		
 			<table className="table">
 
 			<div className = "card">
 				<div className = "card-body text-center">
 					<h2 className = "display-4 text-center fw-bold">Manage Products</h2>
-					<div>
-				<Link to="/addproduct" className="btn btn-primary mb-4">Add New Product</Link>
-				</div>
+					<div className = "mb-2">
+						<Link to="/addproduct" className="btn btn-primary">Add New Product</Link>
+					</div>
+					<div className = "mb-2">
+              			<input type="text" name='productName' value={query} placeholder="Search by product name.." onChange={(e)=>handlesearch(e)}></input>
+					</div>
 				<div className ="row">
 					<div className = "col-lg-12 mb-4 mb-sm-5">
 				
@@ -139,10 +158,10 @@ const ViewProducts = () => {
         </li>
         <li className="list-inline-item">
 			{(showProduct) && 
-            <button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
+            <button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Deactivate"><i className="fa fa-eye"></i></button>
 }
 {!(showProduct) &&
-	<button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
+	<button onClick={(e)=>deleteProduct(productId,e)} className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Activate"><i className="fa fa-eye-slash"></i></button>
 }
         </li>
         </ul>
