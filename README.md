@@ -4,3 +4,4 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Oct22CapStone_Oct22CapStone&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Oct22CapStone_Oct22CapStone)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Oct22CapStone_Oct22CapStone&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Oct22CapStone_Oct22CapStone)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=oct22capstone_Oct22CapStone&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=oct22capstone_Oct22CapStone)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=oct22capstone_Oct22CapStone&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=oct22capstone_Oct22CapStone)
