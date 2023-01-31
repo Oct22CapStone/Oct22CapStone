@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Footer from '../components/Navbar/Footer';
 import Header from '../components/Navbar/Header';
 import {
@@ -8,8 +9,6 @@ import {
   from 'mdb-react-ui-kit';
 import UserRoleService from '../services/UserRoleService';
 import UserService from '../services/UserService';
-import axios from 'axios';
-
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
