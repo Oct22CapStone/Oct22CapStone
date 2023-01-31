@@ -53,7 +53,6 @@ const redirectToCheckout = async () => {
 };
 const Cart = () => {
   const [items, setItems] = useState([]);
-  let chosenItems = []; // to calculate total price. Holds id as key, and total as value
   let cartItem = [];
   const [totalPrice, setTotalPrice] = useState(0);
   const [user, setUser] = useState("");
@@ -61,12 +60,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
   const [setShippingAddress] = useState([]);
   const history = useHistory();
-
-  // Populate 'chosenItems' with prices for each product
-
-  function addToChosenItems(id, price, quantity) {
-    chosenItems.push(price);
-  };
+ 
   function deleteProduct(id, e) {
     e.preventDefault();
     cartItem = JSON.parse(localStorage.getItem('cart')).filter(product => product.productId !== id);
@@ -140,25 +134,6 @@ const Cart = () => {
     componentDidMount();
   }
 
-  //MAIL TEMPLATE
-  const mailTemplate = {//HOW TO GET THE USER'S ADDRESS HERE?
-    recipient: user.email,
-    msgBody: `
-        User ${user.username}, thank you for your purchase. 
-        Your order will be delivered to ${trainData.street} ${trainData.city} ${trainData.state} ${trainData.zip} ${trainData.country}
-        You can track your order here: {tracking goes here}.
-      `,
-    subject: "Thank you for your purchase!"
-  }
-  //EMAILING FUNCTION
-  const sendEmail = async (event) => {
-    axios({ //connect to backend mailer
-      method: "POST",
-
-      url: "https://backendecommerce.azurewebsites.net/email/send",
-      data: mailTemplate
-    })
-  }
   function Msg() {
     if (isError) {
       return (<h4 style={{ color: "red" }}>Please select an address</h4>)
@@ -218,7 +193,6 @@ return (
                           <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
                             <div className="text-start text-md-center">
                               <strong>${pricePerUnit}</strong>
-                              <p>{addToChosenItems(productId, pricePerUnit, "1")}</p>
                             </div>
                             <div className="text-center">
                               <button onClick={(e) => deleteProduct(productId, e)} className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button>
