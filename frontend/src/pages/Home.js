@@ -32,8 +32,6 @@ const Home = () => {
 		const fetchData = async () => {
 			try {
 				setLoading(true);//load page
-
-
 				//assign role if not logged in
 				if (localStorage.getItem("userEmail") == null ) {
 					setIsAdmin(false);
@@ -75,8 +73,8 @@ const Home = () => {
 		//fetchData();
 
 		//SET A TIMEOUT FOR PROPER LOADING OF USER'S DATA
-		setTimeout(() => fetchData(), 2000);//KENZIE
-		const timer = setTimeout(() => console.log('Initial timeout!'), 1000);//KENZIE
+		setTimeout(() => fetchData(), 300);//KENZIE
+		const timer = setTimeout(() => console.log('Initial timeout!'), 300);//KENZIE
 		clearTimeout(timer);//KENZIE
 	}, []);
 

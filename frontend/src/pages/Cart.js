@@ -126,7 +126,6 @@ const Cart = () => {
   }, [items.length]);
 
   function handleChange(event) {
-    event.preventDefault();
     isError = false;
     fetchId = event.target.value;
     localStorage.setItem("orderAddress", fetchId);
