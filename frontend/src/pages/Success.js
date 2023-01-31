@@ -10,7 +10,7 @@ import axios from "axios";
 function Success() {
     const [address, setAddress] = useState(null);
     const history = useHistory();
-    const [setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [items, setItems] = useState([]);
     let newList = [];
     useEffect(() => {

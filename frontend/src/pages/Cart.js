@@ -58,7 +58,7 @@ const Cart = () => {
   const [user, setUser] = useState("");
   const [address, setAddress] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [setShippingAddress] = useState([]);
+  const [shippingAddress, setShippingAddress] = useState([]);
   const history = useHistory();
  
   function deleteProduct(id, e) {

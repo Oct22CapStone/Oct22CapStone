@@ -9,7 +9,7 @@ const UserOrders = () => {
 	const [orders, setOrders] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const history = useHistory();
-    const [setUsers] = useState("");
+    const [users, setUsers] = useState("");
 
 
 	useEffect(() => {
