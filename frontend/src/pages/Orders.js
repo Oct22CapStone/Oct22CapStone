@@ -51,9 +51,9 @@ const Orders = () => {
 	}, []);
 
 	const handlesearch=(event)=>{
-        const getSearch=event.target.value;
+        const getSearch = event.target.value;
         if(getSearch.length > 0){
-          const searchdata= orders.filter( (orders)=> orders.orderId == getSearch);
+          const searchdata= orders.filter( (orders)=> orders.orderId.toString().includes(getSearch));
           setOrders(searchdata);
         } else {
           setOrders(filterdata);

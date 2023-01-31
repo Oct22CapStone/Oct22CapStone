@@ -17,7 +17,6 @@ const Home = () => {
 	const [users, setUsers] = useState("");
 
 	const [isAdmin, setIsAdmin] = useState(false);
-	var roles;
 
 	const [filterdata, setFilterData] = useState([]);//FOR THE SEARCH
 	const [query, setQuery] = useState('');//FOR THE SEARCH
@@ -44,7 +43,7 @@ const Home = () => {
                 const emailRes = await UserService.getUserByEmail(email);
                 setUsers(emailRes.data);
                 const roleRes = await UserRoleService.findAllUserRole();
-                roles = roleRes.data.filter(a => { return a.user.userId === emailRes.data.userId }).
+                let roles = roleRes.data.filter(a => { return a.user.userId === emailRes.data.userId }).
                     map(function (r) { return r.role.roleId });
 					console.log(roles + " roles");
 
