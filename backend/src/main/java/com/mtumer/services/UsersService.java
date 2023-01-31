@@ -34,12 +34,12 @@ public class UsersService {
 		List<Users> userList = usersRepo.findAll();
 		
 		for (Users users : userList) {
-			
-
+			if(users.getEmail() != null) {
+//				System.out.println((users.getEmail().toString()).equals(email));
 				if((users.getEmail().toString()).equals(email)) {
 					return true;					
 				}
-			
+			}
 		}
 		return false;
 	}

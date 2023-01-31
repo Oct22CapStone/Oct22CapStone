@@ -89,6 +89,7 @@ export default class RegistryForm extends React.Component {
       this.setState({ isError: false });
     }
     const doesExist = await UserService.checkUser(this.state.email);
+    console.log(doesExist);
 
     if (this.state.formValid && !this.state.isError) {
       if (!doesExist) {
